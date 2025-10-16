@@ -1,0 +1,23 @@
+.content {
+    padding: 3rem;
+}
+
+
+.head_flights {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--olivine-light);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 2rem;
+}
+
+.add-btn{
+    padding: 1.35rem;
+    background-color: var(--space-cadet-light);
+    border-radius: 10px;
+    
+}
+
