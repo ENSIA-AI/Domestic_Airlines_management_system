@@ -39,7 +39,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tr>
                         <th>Id</th>
                         <th>Passenger</th>
-                        <th>Flight</th>
+                        <th>Flight Number</th>
                         <th>Date</th>
                         <th>Seat</th>
                         <th>Status</th>
@@ -48,17 +48,62 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>#ALG-7777</td>
-                        <td>Test 1</td>
-                        <td>ALG → ORN</td>
-                        <td>16 Oct 2023</td>
+                        <td>XJ9HE4</td>
+                        <td>Test num1</td>
+                        <td>AH1432</td>
+                        <td>16 Oct 2024</td>
                         <td>12A</td>
                         <td><span class="status confirmed">Confirmed</span></td>
                         <td>
-                            <div class="action-buttons-bookings">
-                                <button class="btn-icon"><i class="fa fa-eye"></i></button>
-                                <button class="btn-icon"><i class="fa fa-edit"></i></button>
-                                <button class="btn-icon"><i class="fa fa-trash"></i></button>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XJ9HE4</td>
+                        <td>Test num2</td>
+                        <td>AH0453</td>
+                        <td>16 Oct 2024</td>
+                        <td>12A</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XJ9HE4</td>
+                        <td>Test num3</td>
+                        <td>AH0633</td>
+                        <td>16 Oct 2024</td>
+                        <td>12A</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XJ9HE4</td>
+                        <td>Test num4</td>
+                        <td>AH0443</td>
+                        <td>16 Oct 2024</td>
+                        <td>12A</td>
+                        <td><span class="status cancelled">Cancelled</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
