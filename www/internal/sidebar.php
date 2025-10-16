@@ -20,7 +20,7 @@
     </div>
     <div>
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
-            <a href="/admin/?log-in=no">Log out</a>
+            <a href="/?log-in=no">Log out</a>
         <?php else: ?>
             <a href="/?log-in=yes">Log in</a>
         <?php endif; ?>
