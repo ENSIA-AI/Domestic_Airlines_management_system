@@ -33,7 +33,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         </div>
 
         <div class="reservation">
-            <h2 class="recent">Recent Reservations</h2>
+            <div class="search-part">
+                <h2 class="recent">Recent Reservations</h2>
+                <div class="search-bar"><input type="text" class="search" id="search" placeholder="Search">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+
             <table class="booking-table">
                 <thead>
                     <tr>
@@ -56,7 +62,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td><span class="status confirmed">Confirmed</span></td>
                         <td>
                             <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
                                 <button class="option"><i class="fa fa-edit"></i></button>
                                 <button class="option"><i class="fa fa-trash"></i></button>
                             </div>
@@ -71,7 +76,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td><span class="status pending">Pending</span></td>
                         <td>
                             <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
                                 <button class="option"><i class="fa fa-edit"></i></button>
                                 <button class="option"><i class="fa fa-trash"></i></button>
                             </div>
@@ -86,7 +90,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td><span class="status pending">Pending</span></td>
                         <td>
                             <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
+
                                 <button class="option"><i class="fa fa-edit"></i></button>
                                 <button class="option"><i class="fa fa-trash"></i></button>
                             </div>
@@ -101,7 +105,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td><span class="status cancelled">Cancelled</span></td>
                         <td>
                             <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
                                 <button class="option"><i class="fa fa-edit"></i></button>
                                 <button class="option"><i class="fa fa-trash"></i></button>
                             </div>

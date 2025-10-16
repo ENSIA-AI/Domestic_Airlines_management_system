@@ -20,6 +20,66 @@
     margin: 0;
 }
 
+
+.search-part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+  width: 50%;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar:hover
+{
+  border-color: var(--space-cadet);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px) scale(1.01);
+}
+
+.search {
+  flex: 1;
+  height: 48px;
+  padding: 0 1.25rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #2c3e50;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.search::placeholder {
+  color: var(--text-secondary);
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.search-btn {
+  color: var(--space-cadet);
+  border: none;
+  height: 48px;
+  width: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  position: relative;
+}
+
+
 .add-btn {
     background-color: var(--myrtle-green);
     color: white;
@@ -71,7 +131,6 @@
     color: rgb(255, 255, 255);
 }
 
-
 .status.confirmed {
     background-color: #0b7825;
 }
@@ -107,10 +166,6 @@
 .option:hover {
   transform: scale(1.2);
   background-color: rgba(0,0,0,0.2);
-}
-
-.fa-eye {
-  color: var(--space-cadet-light);
 }
 
 .fa-edit {
