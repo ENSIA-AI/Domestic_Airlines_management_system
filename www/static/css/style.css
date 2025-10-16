@@ -7,7 +7,7 @@
 }
 
 :root {
-  --desert-sand: #e0e9cf;
+  --desert-sand: #eef6df;
   --olivine-light: #B5CA8D;
   --olivine: #8BB174;
   --myrtle-green: #426B69;
@@ -21,6 +21,7 @@ body {
   background-color: var(--desert-sand);
   color: var(--space-cadet);
   margin: 0;
+  padding: 0;
   display: grid;
   grid-template-columns: max-content auto;
   min-height: 100vh;
