@@ -7,7 +7,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     background-color: var(--olivine-light);
     padding: 1rem 2rem;
     border-radius: 12px;
