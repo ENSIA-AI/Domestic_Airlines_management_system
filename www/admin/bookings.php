@@ -16,7 +16,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/bookings.css">
-
+    <script src="/static/js/search.js"></script>
     <title>Booking Management</title>
 </head>
 
@@ -35,12 +35,12 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         <div class="reservation">
             <div class="search-part">
                 <h2 class="recent">Recent Reservations</h2>
-                <div class="search-bar"><input type="text" class="search" id="search" placeholder="Search">
+                <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
 
-            <table class="booking-table">
+            <table class="booking-table" id="search-table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -52,7 +52,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bookingTbBody">
                     <tr>
                         <td>XJ9HE4</td>
                         <td>Test num1</td>
@@ -90,7 +90,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td><span class="status pending">Pending</span></td>
                         <td>
                             <div class="options">
-
                                 <button class="option"><i class="fa fa-edit"></i></button>
                                 <button class="option"><i class="fa fa-trash"></i></button>
                             </div>
@@ -115,5 +114,11 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         </div>
     </main>
 </body>
+
+<script>
+    const table = document.getElementById("search-table");
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("keyup", () => { search(); }, false);
+</script>
 
 </html>

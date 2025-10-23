@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     background: var(--space-cadet);
     color: white;
     padding: 1.2rem 1.8rem;
@@ -19,7 +19,6 @@
     font-weight: 800;
     margin: 0;
 }
-
 
 .search-part {
   display: flex;
@@ -79,6 +78,13 @@
   position: relative;
 }
 
+.search-btn:hover {
+    transform: scale(1.1);
+}
+
+.booking-table tr td:first-of-type{
+  font-weight: 800;
+}
 
 .add-btn {
     background-color: var(--myrtle-green);
@@ -174,5 +180,10 @@
 
 .fa-trash {
   color: #c0392b;
+}
+
+.bookingTbBody tr:hover{
+    background-color: rgb(234, 233, 233);
+    transform: scale(1.01);
 }
 
