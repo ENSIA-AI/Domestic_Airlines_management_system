@@ -32,13 +32,19 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </button>
         </div>
         <div class="flights-preview">
-            <div class="search-strip">
-                    <h2 class="search-strip-title">Flights Table</h2>
-                     <div class="search-bar"><input type="text" class="search" id="search" placeholder="Enter ID">
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-
+          <div class="search-strip">
+                    <h2 class="search-strip-title">Passengers</h2>
+                    <div class="search-bar">
+                        <select class="searchFilter" id="searchFilter">
+                            <option value="id">Search by ID</option>
+                            <option value="destination">Search by Destination</option>
+                            <option value="date">Search by Date</option>
+                            <option value="status">Search by Status</option>
+                        </select>  
+                        <input type="text" class="search" id="search" placeholder="Enter ID">
+                        <button class="search-btn"><i class="fa fa-search"></i></button>
+                      </div>
+             </div>
           <table class="flights-table">
                 <thead>
                     <tr>
