@@ -52,7 +52,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bookingTbBody">
                     <tr>
                         <td>XJ9HE4</td>
                         <td>Test num1</td>
@@ -90,7 +90,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td><span class="status pending">Pending</span></td>
                         <td>
                             <div class="options">
-
                                 <button class="option"><i class="fa fa-edit"></i></button>
                                 <button class="option"><i class="fa fa-trash"></i></button>
                             </div>
