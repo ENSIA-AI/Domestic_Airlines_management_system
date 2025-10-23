@@ -16,7 +16,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/flights.css">
-
+    <script src="/static/js/search.js"></script>
     <title>Flight Management</title>
 </head>
 
@@ -32,76 +32,113 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </button>
         </div>
         <div class="flights-preview">
-            <h2 class>Flights</h2>
-                <table class="flights-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Departure</th>
-                            <th>Destination</th>
-                            <th>Seats</th>
-                            <th>Aircraft</th>
-                            <th>Options</th>
+            <div class="search-strip">
+                    <h2 class="search-strip-title">Flights Table</h2>
+                     <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#ALG-7777</td>
-                            <td>Test 1</td>
-                            <td>ALG → ORN</td>
-                            <td>16 Oct 2023</td>
-                            <td>12A</td>
-                            <td><span class="status confirmed">Confirmed</span></td>
-                            <td>
-                                <div class="action-buttons-bookings">
-                                    <button class="btn-icon"><i class="fa fa-eye"></i></button>
-                                    <button class="btn-icon"><i class="fa fa-edit"></i></button>
-                                    <button class="btn-icon"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <h2 class>Flights</h2>
-                <table class="flights-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Departure</th>
-                            <th>Destination</th>
-                            <th>Seats</th>
-                            <th>Aircraft</th>
-                            <th>Options</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#ALG-7777</td>
-                            <td>Test 1</td>
-                            <td>ALG → ORN</td>
-                            <td>16 Oct 2023</td>
-                            <td>12A</td>
-                            <td><span class="status confirmed">Confirmed</span></td>
-                            <td>
-                                <div class="action-buttons-bookings">
-                                    <button class="btn-icon"><i class="fa fa-eye"></i></button>
-                                    <button class="btn-icon"><i class="fa fa-edit"></i></button>
-                                    <button class="btn-icon"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+          <table class="flights-table" id="search-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Departure</th>
+                        <th>Destination</th>
+                        <th>Date</th>
+                        <th>Aircraft</th>
+                        <th>Status</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AH1432</td>
+                        <td>Houari Boumedien, Algiers</td>
+                        <td>Rabah Bitat Airport, Annaba</td>
+                        <td>16 Oct 2024</td>
+                        <td>AC3894</td>
+                        <td><span class="status confirmed">Confirmed</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>AH1432</td>
+                        <td>Houari Boumedien, Algiers</td>
+                        <td>Rabah Bitat Airport, Annaba</td>
+                        <td>16 Oct 2024</td>
+                        <td>AC3894</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>AH1432</td>
+                        <td>Houari Boumedien, Algiers</td>
+                        <td>Rabah Bitat Airport, Annaba</td>
+                        <td>16 Oct 2024</td>
+                        <td>AC3894</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>AH1432</td>
+                        <td>Houari Boumedien, Algiers</td>
+                        <td>Rabah Bitat Airport, Annaba</td>
+                        <td>16 Oct 2024</td>
+                        <td>AC3894</td>
+                        <td><span class="status cancelled">Cancelled</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>AH1432</td>
+                        <td>Houari Boumedien, Algiers</td>
+                        <td>Rabah Bitat Airport, Annaba</td>
+                        <td>16 Oct 2024</td>
+                        <td>AC3894</td>
+                        <td><span class="status cancelled">Cancelled</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-eye"></i></button>
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             </div>
 
     </main>
 
 </body>
+
+<script>
+    const table = document.getElementById("search-table");
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("keyup", ()=>{search();}, false);
+</script>
 
 </html>
