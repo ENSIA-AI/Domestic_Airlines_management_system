@@ -16,6 +16,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/passengers.css">
+    <script src="/static/js/search.js"></script>
     <title>Passenger Management - Domestic Airlines</title>
 </head>
 
@@ -35,12 +36,12 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 <div class="header-passenger">
                     <h2 class="recent">Passenger List</h2>
                     <div class="search-bar">
-                        <input type="text" class="search" id="searchInput" placeholder="Search passengers">
+                        <input type="text" class="search" id="search-bar" placeholder="Search passengers">
                         <button class="search-btn"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
-            <table class="passenger-table">
+            <table class="passenger-table" id="search-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -154,6 +155,14 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </table>
         </div>
     </main>
+
 </body>
+<script>
+    const table = document.getElementById("search-table");
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("keyup", () => {
+        search();
+    }, false);
+</script>
 
 </html>
