@@ -18,11 +18,17 @@ services:
       # Binds the website to http://localhost:2680
       - 2680:80
     environment:
-      MYSQL_ROOT_PASSWORD: j$diw9@i3js9sks
       MYSQL_DATABASE: domesticdb
       MYSQL_USER: domestic_airlines_website
       MYSQL_PASSWORD: jS8@j%n6nsj#q3
       # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
 
 volumes:
   db_data: {}
