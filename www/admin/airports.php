@@ -5,6 +5,34 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 } else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
     unset($_SESSION["loggedin"]);
 }
+
+include "../internal/db_config.php";
+
+if (isset($_POST["type"])) {
+    if($_POST["type"] == "DEL" and isset($_POST["airport"]) and strlen($_POST["airport"]) == 3) {
+        $stmt = $conn->prepare("DELETE FROM AIRPORTS WHERE IATA_CODE = ?");
+        $stmt->bind_param("s", $_POST["airport"]);
+        $stmt->execute();
+    }
+}
+
+$sql = "SELECT * FROM AIRPORTS";
+$result_airports = $conn->query($sql);
+
+function display_degrees($nb, $s1, $s2)
+{
+    $sign = $nb >= 0 ? $s1 : $s2;
+    $nb = abs($nb);
+    $degs = floor($nb);
+    $nb -= $degs;
+    $nb *= 60;
+    $mins = floor($nb);
+    $nb -= $mins;
+    $secs = floor($nb * 60);
+    return $degs . "° " . sprintf("%02d", $mins) . "′ " . sprintf("%02d", $secs) . "′′ " . $sign;
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,118 +82,25 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>BJA</td>
-                        <td>DAAE</td>
-                        <td>Bejaia</td>
-                        <td>Soummam - Abane Ramdane Airport</td>
-                        <td>36°42′43.1″N </td>
-                        <td>5°4′10.1″E</td>
-                        <td>6 m</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>ALG</td>
-                        <td>DAAG</td>
-                        <td>Algiers</td>
-                        <td>Houari Boumediene Airport</td>
-                        <td>36°41′28″N</td>
-                        <td>3°12′52″E</td>
-                        <td>25 m</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>ORN</td>
-                        <td>DAOO</td>
-                        <td>Oran</td>
-                        <td>Ahmed Ben Bella Airport</td>
-                        <td>35°37′32″N</td>
-                        <td>0°36′19″W</td>
-                        <td>90 m</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>CZL</td>
-                        <td>DABC</td>
-                        <td>Constantine</td>
-                        <td>Mohamed Boudiaf International Airport</td>
-                        <td>36°16′48″N</td>
-                        <td>6°37′34″E</td>
-                        <td>694 m</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>TLM</td>
-                        <td>DAON</td>
-                        <td>Tlemcen</td>
-                        <td>Zenata – Messali El Hadj Airport</td>
-                        <td>35°0′41″N</td>
-                        <td>1°27′48″W</td>
-                        <td>247 m</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>GHA</td>
-                        <td>DAUG</td>
-                        <td>Ghardaïa</td>
-                        <td>Noumérat – Moufdi Zakaria Airport</td>
-                        <td>32°23′57″N</td>
-                        <td>3°47′51″E</td>
-                        <td>463 m</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>TEE</td>
-                        <td>DABS</td>
-                        <td>Tébessa</td>
-                        <td>Cheikh Larbi Tébessa Airport</td>
-                        <td>35°25′18″N</td>
-                        <td>8°7′32″E</td>
-                        <td>813 m</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-
+                    <?php while ($row = $result_airports->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= $row["IATA_CODE"]; ?></td>
+                            <td><?= $row["ICAO_CODE"]; ?></td>
+                            <td><?= $row["WILAYA"]; ?></td>
+                            <td><?= $row["DISPLAY_NAME"]; ?></td>
+                            <td><?= display_degrees($row["LATITUDE"], "N", "S"); ?></td>
+                            <td><?= display_degrees($row["LONGITUDE"], "E", "W"); ?></td>
+                            <td><?= $row["ELEVATION"]; ?> m</td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option" name="<?= $row["IATA_CODE"] ?>"
+                                        onclick="deleteAirport('<?= $row['IATA_CODE'] ?>')"><i
+                                            class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
                 </tbody>
             </table>
         </div>
@@ -173,9 +108,20 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 </body>
 
 <script>
+    // searchBar
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", ()=>{search();}, false);
+    searchBar.addEventListener("keyup", () => { search(); }, false);
+
+    // Delete button
+    function deleteAirport(airport) {
+        if (confirm(`Do you really wanna delete airport ${airport} ?`)) {
+            postRedirect('', {
+                type: 'DEL',
+                airport: airport
+            });
+        }
+    }
 </script>
 
 </html>
