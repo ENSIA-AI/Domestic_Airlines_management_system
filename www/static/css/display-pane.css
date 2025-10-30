@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
-    padding: 30px;
+    padding: 0;
     margin: 0;
-    min-height: calc(100vh - 60px);
     background-color: black;
     color: white;
     font-family: "Space Mono", monospace;
@@ -127,7 +126,6 @@ h1 {
 }
 
 
-
 .centered-form select:hover,
 .centered-form input[type="submit"]:hover {
     color: black;
@@ -152,7 +150,12 @@ h1 {
 }
 
 
-label{
+label {
     text-align: center;
     font-weight: 400;
 }
+
+#container {
+    padding: 30px;
+}
+
