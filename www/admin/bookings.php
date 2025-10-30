@@ -40,77 +40,79 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 </div>
             </div>
 
-            <table class="booking-table" id="search-table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Passenger</th>
-                        <th>Flight Number</th>
-                        <th>Date</th>
-                        <th>Seat</th>
-                        <th>Status</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody class="bookingTbBody" id="bookingTbBody">
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num1</td>
-                        <td>AH1432</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status confirmed">Confirmed</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num2</td>
-                        <td>AH0453</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num3</td>
-                        <td>AH0633</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num4</td>
-                        <td>AH0443</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status cancelled">Cancelled</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                    <table class="booking-table" id="search-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Passenger</th>
+                                <th>Flight Number</th>
+                                <th>Date</th>
+                                <th>Seat</th>
+                                <th>Status</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bookingTbBody" id="bookingTbBody">
+                            <tr>
+                                <td>XJ9HE4</td>
+                                <td>Test num1</td>
+                                <td>AH1432</td>
+                                <td>16 Oct 2024</td>
+                                <td>12A</td>
+                                <td><span class="status confirmed">Confirmed</span></td>
+                                <td>
+                                    <div class="options">
+                                        <button class="option"><i class="fa fa-edit"></i></button>
+                                        <button class="option"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>XJ9HE4</td>
+                                <td>Test num2</td>
+                                <td>AH0453</td>
+                                <td>16 Oct 2024</td>
+                                <td>12A</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>
+                                    <div class="options">
+                                        <button class="option"><i class="fa fa-edit"></i></button>
+                                        <button class="option"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>XJ9HE4</td>
+                                <td>Test num3</td>
+                                <td>AH0633</td>
+                                <td>16 Oct 2024</td>
+                                <td>12A</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>
+                                    <div class="options">
+                                        <button class="option"><i class="fa fa-edit"></i></button>
+                                        <button class="option"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>XJ9HE4</td>
+                                <td>Test num4</td>
+                                <td>AH0443</td>
+                                <td>16 Oct 2024</td>
+                                <td>12A</td>
+                                <td><span class="status cancelled">Cancelled</span></td>
+                                <td>
+                                    <div class="options">
+                                        <button class="option"><i class="fa fa-edit"></i></button>
+                                        <button class="option"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
         </div>
     </main>
     <div class="form-overlay" id="overlay">
