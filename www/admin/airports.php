@@ -9,7 +9,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 include "../internal/db_config.php";
 
 if (isset($_POST["type"])) {
-    if($_POST["type"] == "DEL" and isset($_POST["airport"]) and strlen($_POST["airport"]) == 3) {
+    if ($_POST["type"] == "DEL" and isset($_POST["airport"]) and strlen($_POST["airport"]) == 3) {
         $stmt = $conn->prepare("DELETE FROM AIRPORTS WHERE IATA_CODE = ?");
         $stmt->bind_param("s", $_POST["airport"]);
         $stmt->execute();
@@ -105,6 +105,7 @@ function display_degrees($nb, $s1, $s2)
             </table>
         </div>
     </main>
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>
 
 <script>

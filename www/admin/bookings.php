@@ -149,10 +149,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     </div>
     <script src="/static/js/form.js"></script>
     <script src="/static/js/booking.js"></script>
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>
 
 <script>
-    const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
         search();

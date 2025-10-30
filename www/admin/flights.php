@@ -132,6 +132,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </div>
 
     </main>
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 
 </body>
 
