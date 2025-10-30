@@ -10,16 +10,11 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="illustration-section">
-            <img src="static/images/forgot.png" alt="forgot-password-illustration" class="illustration">
-        </div>
-
-        <div class="form-section">
-            <img src="static/images/logo-inverted.png" alt="company-logo" class="logo">
+    <div class="form-area">
+        <div class="wrapper">
             <h1>Forgot Password?</h1>
             <p class="subtitle">Enter your email address and we'll send you the confirmation code to reset your password.</p>
-            <form id="forgotPasswordForm">
+            <form id="box">
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <div class="input-wrapper">
