@@ -54,7 +54,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody class="passengerTbBody">
+                <tbody class="Ptbody">
                     <tr>
                         <td>P001</td>
                         <td>Ahmed Benali</td>
@@ -106,7 +106,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tr>
                         <td>P004</td>
                         <td>Leila Bouteflika</td>
-                        <td>456789012345678901</td>
+                        <td>345678901234567890</td>
                         <td>+213 555 456 789</td>
                         <td>30/05/1992</td>
                         <td>Female</td>
@@ -122,26 +122,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tr>
                         <td>P011</td>
                         <td>Sofiane Feghouli</td>
-                        <td>112345678901234567</td>
+                        <td>345678901234567890</td>
                         <td>+213 661 112 345</td>
                         <td>20/10/1986</td>
                         <td>Male</td>
-                        <td>Algerian</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>P012</td>
-                        <td>Meriem Ziani</td>
-                        <td>212345678901234567</td>
-                        <td>+213 770 212 345</td>
-                        <td>09/01/1996</td>
-                        <td>Female</td>
                         <td>Algerian</td>
                         <td>
                             <div class="options">
@@ -155,7 +139,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </table>
         </div>
     </main>
-
 </body>
 <script>
     const table = document.getElementById("search-table");

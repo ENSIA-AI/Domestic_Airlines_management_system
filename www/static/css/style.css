@@ -86,3 +86,116 @@ button {
   background-color: var(--space-cadet-light);
   border: none;
 }
+
+/* form ui */
+
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(35, 42, 62, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  visibility: hidden;
+}
+
+.form-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.BokkingForm {
+  background-color: #222e50c9;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 550px;
+  color: white;
+  backdrop-filter: blur(5px);
+}
+
+.BokkingForm h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1.8rem;
+}
+
+.BokkingForm label {
+  display: block;
+  margin: 0.5rem 0 0.1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.BokkingForm input,
+.BokkingForm select {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: inset 0 5px 10px rgba(0,0,0,0.2);
+  background-color: #b0b9d3;
+  box-sizing: border-box;
+}
+
+.BokkingForm input:focus,
+.BokkingForm select:focus {
+  outline: none;
+  border-color: var(--myrtle-green);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.name-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.name-container label {
+  flex: 1 1 45%;
+}
+
+.name-container input {
+  flex: 1 1 45%;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submit-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 0.85rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+}
+
+.submit-btn {
+  background-color: var(--myrtle-green);
+  
+}
+
+.submit-btn:hover {
+  background-color: var(--myrtle-green);
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background-color: var(--space-cadet-light);
+}
+
+.cancel-btn:hover {
+  background-color: var(--space-cadet);
+  transform: translateY(-2px);
+}

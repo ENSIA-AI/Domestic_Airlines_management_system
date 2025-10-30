@@ -113,12 +113,45 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </table>
         </div>
     </main>
+    <div class="form-overlay" id="overlay">
+        <form class="BokkingForm">
+            <h2>Add New Booking</h2>
+            <div class="name-container">
+                <label for="First_Name">First Name: </label>
+                <input type="text" name="First_Name" id="fn" required>
+                <label for="Last">Last Name: </label>
+                <input type="text" name="Last" id="ln" required>
+            </div>
+            <label for="Flight-Num">Flight Number: </label>
+            <input type="text" name="Flight-Num" id="flight_n" required>
+            <label for="date">Departure Date: </label>
+            <input type="date" name="date" id="date" required>
+            <label for="Seat">Seat: </label>
+            <input type="text" name="Seat" id="seat" pattern="[0-9]{2}[A-HJ-K]">
+            <label for="Email">Email: </label>
+            <input type="email" name="Email" id="Email" required>
+            <label for="Phone">Phone Number: </label>
+            <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})">
+            <label for="status">Status: </label>
+            <select id="status" name="status" required>
+                <option value="confirmed">Confirmed</option>
+                <option value="pending">Pending</option>
+            </select>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Add Booking</button>
+                <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script src="/static/js/form.js"></script>
 </body>
 
 <script>
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", () => { search(); }, false);
+    searchBar.addEventListener("keyup", () => {
+        search();
+    }, false);
 </script>
 
 </html>
