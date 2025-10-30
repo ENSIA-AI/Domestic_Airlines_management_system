@@ -13,6 +13,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <meta charset="UTF-8">
     <title>Departures - DAMS</title>
     <link rel="stylesheet" href="static/css/display-pane.css">
+    <script src="static/js/display-pane.js"></script>
 </head>
 
 <body>
@@ -30,8 +31,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     </div>
                     <h1>ARRIVALS</h1>
                 <?php endif; ?>
-                <div>
-
+                <div style="font-size:40px;text-align:center; color:rgb(180, 247, 72)">
+                    <span id="clock">00:00:00</span> <span id="temp"></span>
                 </div>
                 <a href="/">
                     <img class="logo" src="/static/images/logo.png">
@@ -241,7 +242,43 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 </div>
             </div>
         <?php endif; ?>
-        </div>
+    </div>
+
+    <div id="container-2">
+        <a href="/">
+            <img class="logo" src="/static/images/logo.png">
+        </a>
+        <br>
+        Incompatible screen size. Please contact the Air Algérie Domestic Airlines technical support.
+    </div>
+
+    <script>
+        function getCurrentTimeHHMMSS() {
+            const now = new Date(); // Create a new Date object representing the current date and time
+
+            // Get hours, minutes, and seconds
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            // Pad single-digit values with a leading zero to ensure HH:mm:ss format
+            hours = String(hours).padStart(2, '0');
+            minutes = String(minutes).padStart(2, '0');
+            seconds = String(seconds).padStart(2, '0');
+
+            // Concatenate the formatted parts with colons
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        const clockSpan = document.getElementById('clock');
+        setInterval(() => {
+            clockSpan.innerText = getCurrentTimeHHMMSS();
+        }, 100);
+        getWeather("<?= ($airport == "BJA" ? "béjaïa" : "algiers") ?>");
+        setInterval(() => {
+            getWeather("<?= ($airport == "BJA" ? "béjaïa" : "algiers") ?>");
+        }, 2000000);
+    </script>
 </body>
 
 </html>
