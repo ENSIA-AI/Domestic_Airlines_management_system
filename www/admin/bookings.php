@@ -39,85 +39,82 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
-            <div class="table-container">
-                <div style="border-radius:10px">
-                    <table class="booking-table" id="search-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Passenger</th>
-                            <th>Flight Number</th>
-                            <th>Date</th>
-                            <th>Seat</th>
-                            <th>Status</th>
-                            <th>Options</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bookingTbBody">
-                        <tr>
-                            <td>XJ9HE4</td>
-                            <td>Test num1</td>
-                            <td>AH1432</td>
-                            <td>16 Oct 2024</td>
-                            <td>12A</td>
-                            <td><span class="status confirmed">Confirmed</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>XJ9HE4</td>
-                            <td>Test num2</td>
-                            <td>AH0453</td>
-                            <td>16 Oct 2024</td>
-                            <td>12A</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>XJ9HE4</td>
-                            <td>Test num3</td>
-                            <td>AH0633</td>
-                            <td>16 Oct 2024</td>
-                            <td>12A</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>XJ9HE4</td>
-                            <td>Test num4</td>
-                            <td>AH0443</td>
-                            <td>16 Oct 2024</td>
-                            <td>12A</td>
-                            <td><span class="status cancelled">Cancelled</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
+
+            <table class="booking-table" id="search-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Passenger</th>
+                        <th>Flight Number</th>
+                        <th>Date</th>
+                        <th>Seat</th>
+                        <th>Status</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody class="bookingTbBody" id="bookingTbBody">
+                    <tr>
+                        <td>XJ9HE4</td>
+                        <td>Test num1</td>
+                        <td>AH1432</td>
+                        <td>16 Oct 2024</td>
+                        <td>12A</td>
+                        <td><span class="status confirmed">Confirmed</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XJ9HE4</td>
+                        <td>Test num2</td>
+                        <td>AH0453</td>
+                        <td>16 Oct 2024</td>
+                        <td>12A</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XJ9HE4</td>
+                        <td>Test num3</td>
+                        <td>AH0633</td>
+                        <td>16 Oct 2024</td>
+                        <td>12A</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XJ9HE4</td>
+                        <td>Test num4</td>
+                        <td>AH0443</td>
+                        <td>16 Oct 2024</td>
+                        <td>12A</td>
+                        <td><span class="status cancelled">Cancelled</span></td>
+                        <td>
+                            <div class="options">
+                                <button class="option"><i class="fa fa-edit"></i></button>
+                                <button class="option"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
     <div class="form-overlay" id="overlay">
-        <form class="BokkingForm">
+        <form class="BookingForm" id="BookingForm">
             <h2>Add New Booking</h2>
             <div class="name-container">
                 <label for="First_Name">First Name: </label>
@@ -132,7 +129,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             <label for="Seat">Seat: </label>
             <input type="text" name="Seat" id="seat" pattern="[0-9]{2}[A-HJ-K]">
             <label for="Email">Email: </label>
-            <input type="email" name="Email" id="Email" required>
+            <input type="email" name="Email" id="email" required>
             <label for="Phone">Phone Number: </label>
             <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})">
             <label for="status">Status: </label>
@@ -141,12 +138,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 <option value="pending">Pending</option>
             </select>
             <div class="form-actions">
-                <button type="submit" class="submit-btn">Add Booking</button>
+                <button type="submit" class="submit-btn" id="submit-btn">Add Booking</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
     </div>
     <script src="/static/js/form.js"></script>
+    <script src="/static/js/booking.js"></script>
 </body>
 
 <script>

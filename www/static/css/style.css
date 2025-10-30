@@ -109,7 +109,7 @@ button {
   visibility: visible;
 }
 
-.BokkingForm {
+.BookingForm {
   background-color: #222e50c9;
   padding: 2rem;
   border-radius: 10px;
@@ -120,21 +120,21 @@ button {
   backdrop-filter: blur(5px);
 }
 
-.BokkingForm h2 {
+.BookingForm h2 {
   text-align: center;
   margin-bottom: 2.5rem;
   font-size: 1.8rem;
 }
 
-.BokkingForm label {
+.BookingForm label {
   display: block;
   margin: 0.5rem 0 0.1rem;
   font-weight: 600;
   color: white;
 }
 
-.BokkingForm input,
-.BokkingForm select {
+.BookingForm input,
+.BookingForm select {
   width: 100%;
   padding: 0.55rem 0.75rem;
   border: none;
@@ -145,8 +145,8 @@ button {
   box-sizing: border-box;
 }
 
-.BokkingForm input:focus,
-.BokkingForm select:focus {
+.BookingForm input:focus,
+.BookingForm select:focus {
   outline: none;
   border-color: var(--myrtle-green);
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
