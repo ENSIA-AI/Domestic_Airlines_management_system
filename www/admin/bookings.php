@@ -24,23 +24,24 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <?php
     include("../internal/sidebar.php");
     ?>
-    <main class="content">
-        <div class="head_booking">
-            <h1 class="title">Booking Management</h1>
-            <button class="btn add-btn">
-                <i class="fa fa-plus"></i> Add New
-            </button>
-        </div>
-
-        <div class="reservation">
-            <div class="search-part">
-                <h2 class="recent">Recent Reservations</h2>
-                <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                </div>
+    <main>
+        <div class="content">
+            <div class="head_booking">
+                <h1 class="title">Booking Management</h1>
+                <button class="btn add-btn">
+                    <i class="fa fa-plus"></i> Add New
+                </button>
             </div>
 
-            <div class="table-container">
+            <div class="reservation">
+                <div class="search-part">
+                    <h2 class="recent">Recent Reservations</h2>
+                    <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
+                        <button class="search-btn"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+
+                <div class="table-container">
                     <table class="booking-table" id="search-table">
                         <thead>
                             <tr>
@@ -112,6 +113,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </tr>
                         </tbody>
                     </table>
+                </div>
             </div>
         </div>
     </main>
