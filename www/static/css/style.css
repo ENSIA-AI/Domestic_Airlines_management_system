@@ -102,7 +102,7 @@ button {
 
 .content {
   flex: 1;
-  padding: 2rem;
+  padding: 30px;
 }
 
 .nav-title {
@@ -134,6 +134,7 @@ button {
   align-items: center;
   z-index: 1;
   visibility: hidden;
+
 }
 
 .form-overlay.active {
@@ -141,7 +142,7 @@ button {
   visibility: visible;
 }
 
-.BookingForm {
+.dams-add-form {
   background-color: #222e50c9;
   padding: 2rem;
   border-radius: 10px;
@@ -152,21 +153,21 @@ button {
   backdrop-filter: blur(5px);
 }
 
-.BookingForm h2 {
+.dams-add-form h2 {
   text-align: center;
   margin-bottom: 2.5rem;
   font-size: 1.8rem;
 }
 
-.BookingForm label {
+.dams-add-form label {
   display: block;
   margin: 0.5rem 0 0.1rem;
   font-weight: 600;
   color: white;
 }
 
-.BookingForm input,
-.BookingForm select {
+.dams-add-form input,
+.dams-add-form select {
   width: 100%;
   padding: 0.55rem 0.75rem;
   border: none;
@@ -177,8 +178,8 @@ button {
   box-sizing: border-box;
 }
 
-.BookingForm input:focus,
-.BookingForm select:focus {
+.dams-add-form input:focus,
+.dams-add-form select:focus {
   outline: none;
   border-color: var(--myrtle-green);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -245,6 +246,199 @@ button {
   display: none;
 }
 
+.dams-head {
+  display: grid;
+  grid-template-columns: auto max-content;
+  margin-bottom: 1rem;
+  background: var(--space-cadet);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 30px 20px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  width: 50%;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar:hover {
+  border-color: var(--space-cadet);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px) scale(1.01);
+}
+
+.search {
+  flex: 1;
+  height: 48px;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #2c3e50;
+  font-weight: 400;
+}
+
+.search::placeholder {
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.search-btn {
+  color: var(--space-cadet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  background: transparent;
+  position: relative;
+}
+
+.search-btn:hover {
+  transform: scale(1.1);
+}
+
+.dams-table tr td:first-of-type {
+  font-weight: 800;
+}
+
+.add-btn {
+  background-color: var(--myrtle-green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+}
+
+.add-btn:hover {
+  background-color: var(--myrtle-green-light);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dams-table {
+  min-width: min-content;
+  width: calc(100%);
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+thead {
+  border-radius: 10px;
+}
+
+.dams-table th {
+  background-color: var(--space-cadet);
+  color: white;
+  padding: 15px;
+  font-weight: bold;
+}
+
+.dams-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.status {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+.status.confirmed {
+  background-color: #0b7825;
+}
+
+.status.pending {
+  background-color: #ef9517;
+}
+
+.status.cancelled {
+  background-color: #c72533;
+}
+
+
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.option {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.option:hover {
+  transform: scale(1.2);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.fa-edit {
+  color: var(--myrtle-green);
+}
+
+.fa-trash {
+  color: #c0392b;
+}
+
+.dams-table-body tr:hover {
+  background-color: rgb(234, 233, 233);
+}
+
+.dams-table-body tr:hover td * {
+  transform: scale(1.02);
+  overflow: hidden;
+}
+
 
 @media screen and (max-width: 1100px) {
   body {
@@ -276,6 +470,32 @@ button {
 
   .sidebar {
     width: calc(100% - 80px);
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-bar {
+    width: 100%
+  }
+
+  .dams-add-form {
+    border-radius: 0px;
+    backdrop-filter: none;
+    box-shadow: none;
+    background-color: transparent;
+    box-shadow: 0 10px 0px rgba(0, 0, 0, 0);
+
+  }
+
+  .form-overlay {
+    background-color: #192444e6;
+    backdrop-filter: blur(5px);
   }
 
 }
