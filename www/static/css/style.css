@@ -38,7 +38,7 @@
 }
 
 body {
-  background-color: var(--desert-sand);
+  background: linear-gradient(135deg, var(--desert-sand) 0%, var(--olivine-light) 100%);
   color: var(--space-cadet);
   margin: 0;
   padding: 0;
@@ -499,8 +499,8 @@ thead {
     backdrop-filter: blur(5px);
   }
 
-  .add-btn{
-      margin-right: 20px;
+  .add-btn {
+    margin-right: 20px;
   }
 
 }
