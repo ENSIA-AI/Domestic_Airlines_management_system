@@ -15,7 +15,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/bookings.css">
     <script src="/static/js/search.js"></script>
     <title>Booking Management</title>
 </head>
@@ -24,97 +23,99 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <?php
     include("../internal/sidebar.php");
     ?>
-    <main class="content">
-        <div class="head_booking">
-            <h1 class="title">Booking Management</h1>
-            <button class="btn add-btn">
-                <i class="fa fa-plus"></i> Add New
-            </button>
-        </div>
+    <main>
+        <div class="content">
+            <div class="dams-head">
+                <h1>Booking Management</h1>
+                <button class="btn add-btn">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
 
-        <div class="reservation">
-            <div class="search-part">
-                <h2 class="recent">Recent Reservations</h2>
+            <div class="search-container">
+                <h2 class="recent">Recent Bookings</h2>
                 <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
 
-            <table class="booking-table" id="search-table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Passenger</th>
-                        <th>Flight Number</th>
-                        <th>Date</th>
-                        <th>Seat</th>
-                        <th>Status</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody class="bookingTbBody" id="bookingTbBody">
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num1</td>
-                        <td>AH1432</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status confirmed">Confirmed</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num2</td>
-                        <td>AH0453</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num3</td>
-                        <td>AH0633</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XJ9HE4</td>
-                        <td>Test num4</td>
-                        <td>AH0443</td>
-                        <td>16 Oct 2024</td>
-                        <td>12A</td>
-                        <td><span class="status cancelled">Cancelled</span></td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table class="dams-table" id="search-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Passenger</th>
+                            <th>Flight Number</th>
+                            <th>Date</th>
+                            <th>Seat</th>
+                            <th>Status</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingTbBody">
+                        <tr>
+                            <td>XJ9HE4</td>
+                            <td>Test num1</td>
+                            <td>AH1432</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>12A</td>
+                            <td><span class="status confirmed">Confirmed</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>XJ9HE4</td>
+                            <td>Test num2</td>
+                            <td>AH0453</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>12A</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>XJ9HE4</td>
+                            <td>Test num3</td>
+                            <td>AH0633</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>12A</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>XJ9HE4</td>
+                            <td>Test num4</td>
+                            <td>AH0443</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>12A</td>
+                            <td><span class="status cancelled">Cancelled</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
     <div class="form-overlay" id="overlay">
-        <form class="BookingForm" id="BookingForm">
+        <form class="dams-add-form" id="BookingForm">
             <h2>Add New Booking</h2>
             <div class="name-container">
                 <label for="First_Name">First Name: </label>
@@ -145,10 +146,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     </div>
     <script src="/static/js/form.js"></script>
     <script src="/static/js/booking.js"></script>
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>
 
 <script>
-    const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
         search();

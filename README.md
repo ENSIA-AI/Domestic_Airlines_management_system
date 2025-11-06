@@ -12,5 +12,5 @@ The Domestic Airlines Internal Management System is a secure web platform design
 |-------|------|
 | Raouf | Homepage, Display Pane, Airport Management |
 | Zakaria | Booking Management, Passenger Management, Forgot Password |
-| Anis | Login, Aircraft Management, User |
+| Anis | Login, Aircraft Management, User Management |
 | Anes | Boarding, Check-in, Flight Management |

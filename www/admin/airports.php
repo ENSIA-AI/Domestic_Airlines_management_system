@@ -9,7 +9,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 include "../internal/db_config.php";
 
 if (isset($_POST["type"])) {
-    if($_POST["type"] == "DEL" and isset($_POST["airport"]) and strlen($_POST["airport"]) == 3) {
+    if ($_POST["type"] == "DEL" and isset($_POST["airport"]) and strlen($_POST["airport"]) == 3) {
         $stmt = $conn->prepare("DELETE FROM AIRPORTS WHERE IATA_CODE = ?");
         $stmt->bind_param("s", $_POST["airport"]);
         $stmt->execute();
@@ -53,22 +53,22 @@ function display_degrees($nb, $s1, $s2)
     include("../internal/sidebar.php");
     ?>
     <main class="content">
-        <div class="head_booking">
+        <div class="dams-head">
             <h1 class="title">Airport Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i> Add New
+                <i class="fa fa-plus"></i>
             </button>
         </div>
 
-        <div class="reservation">
-            <div class="search-part">
-                <h2 class="recent">Algeria's Airports</h2>
-                <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                </div>
+        <div class="search-container">
+            <h2 class="recent">Algeria's Airports</h2>
+            <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
+                <button class="search-btn"><i class="fa fa-search"></i></button>
             </div>
+        </div>
 
-            <table class="booking-table" id="search-table">
+        <div class="table-container">
+            <table class="dams-table" id="search-table">
                 <thead>
                     <tr>
                         <th>IATA Code</th>
@@ -105,6 +105,8 @@ function display_degrees($nb, $s1, $s2)
             </table>
         </div>
     </main>
+
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>
 
 <script>

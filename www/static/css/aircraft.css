@@ -1,10 +1,12 @@
+.content {
+    padding: 3rem;
+}
 
-
-.head_flights {
+.head_aircrafts {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     background: var(--space-cadet);
     color: white;
     padding: 1.2rem 1.8rem;
@@ -16,6 +18,72 @@
     font-size: 2.5rem;
     font-weight: 800;
     margin: 0;
+}
+
+.search-part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+  width: 50%;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar:hover
+{
+  border-color: var(--space-cadet);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px) scale(1.01);
+}
+
+.search {
+  flex: 1;
+  height: 48px;
+  padding: 0 1.25rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #2c3e50;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.search::placeholder {
+  color: var(--text-secondary);
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.search-btn {
+  color: var(--space-cadet);
+  border: none;
+  height: 48px;
+  width: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  position: relative;
+}
+
+.search-btn:hover {
+    transform: scale(1.1);
+}
+
+.aircrafts-table tr td:first-of-type{
+  font-weight: 800;
 }
 
 .add-btn {
@@ -36,99 +104,29 @@
 }
 
 
-.search-strip {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-}
-
-.search-strip-title {
-   font-weight: 900;
-    margin-right: 180px;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-  width: 50%;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.search-bar:hover {
-  border-color: var(--space-cadet);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px) scale(1.01);
-}
-
-.search {
-  flex: 1;
-  height: 48px;
-  padding: 0 1rem;
-  font-size: 1rem;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #2c3e50;
-  font-weight: 400;
-}
-
-.search::placeholder {
-  color: var(--text-secondary);
-  font-weight: 300;
-}
-
-.search-btn {
-  color: var(--space-cadet);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  height: 50px;
-  width: 50px;
-  cursor: pointer;
-  background: transparent;
-  position: relative;
-}
-
-
-
-.flights-table {
+.booking-table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
     text-align: center;
-    box-shadow: 2px 8px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.flights-table th {
+.booking-table th {
     background-color: var(--space-cadet);
     color: white;
     padding: 12px;
     font-weight: 600;
 }
 
-.flights-table td {
+.booking-table td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
 }
 
-.flights-table tr  {
-  transition: 0.4s;
-}
-
-.flights-table-body tr:hover {
-    background-color: rgb(234, 233, 233);
-    transform: scale(1.01);
-}
-
-.flight-status {
+.status {
     display: inline-block;
     width: 100px; 
     text-align: center;
@@ -139,16 +137,15 @@
     color: rgb(255, 255, 255);
 }
 
-
-.flight-status.confirmed {
+.status.Active {
     background-color: #0b7825;
 }
 
-.flight-status.pending {
+.status.maintenance {
     background-color: #ef9517;
 }
 
-.flight-status.cancelled {
+.status.retired.out {
     background-color: #c72533;
 }
 
@@ -170,7 +167,6 @@
   padding: 5px;
   border-radius: 5px;
   font-size: 1rem;
-  transition: all 0.4s;
 }
 
 .option:hover {
@@ -178,17 +174,16 @@
   background-color: rgba(0,0,0,0.2);
 }
 
-.fa-eye {
-  color: var(--space-cadet-light);
-}
-
 .fa-edit {
-  color: gray;
+  color: var(--myrtle-green);
 }
 
 .fa-trash {
   color: #c0392b;
 }
 
-
+.bookingTbBody tr:hover{
+    background-color: rgb(234, 233, 233);
+    transform: scale(1.01);
+}
 

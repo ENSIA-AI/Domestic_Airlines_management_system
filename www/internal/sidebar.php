@@ -1,6 +1,6 @@
-<div class="sidebar">
+<div class="sidebar mobile-hidden">
     <div class="top">
-        <h2><img style="width:100%" src="/static/images/logo.png"></h2>
+        <h2><img class="logo-sidebar" src="/static/images/logo.png"></h2>
         <a href="/">Home</a>
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
             <span class="nav-title">AIRPORT CREW</span>
@@ -25,4 +25,18 @@
             <a href="/?log-in=yes">Log in</a>
         <?php endif; ?>
     </div>
+    <script>
+        addEventListener('load', () => {
+            const menuBtn = document.getElementById("menu-btn");
+            const sidebar = document.getElementsByClassName('sidebar')[0];
+            const main = document.getElementsByTagName('main')[0];
+            menuBtn.addEventListener('click', () => {
+                main.classList.toggle('mobile-hidden');
+                sidebar.classList.toggle('mobile-hidden');
+                document.querySelectorAll('#menu-btn .fa').forEach(element => {
+                    element.classList.toggle('hidden');
+                });
+            });
+        });
+    </script>
 </div>
