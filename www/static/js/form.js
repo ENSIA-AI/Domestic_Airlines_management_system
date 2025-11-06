@@ -13,3 +13,18 @@ cancelBtn.addEventListener('click', () => {
 overlay.addEventListener('click', (e) => {
     if (e.target === overlay) overlay.classList.remove('active');
 });
+
+
+const delbtn = document.querySelectorAll(".fa-trash");
+
+delbtn.forEach(button => {
+    button.addEventListener("click", () => {
+        const confirmed = confirm("Are you sure you want to delete this booking?");
+        if (!confirmed) return;
+
+        const row = button.closest("tr");
+        if (row) {
+            row.remove();
+        }
+    });
+});
