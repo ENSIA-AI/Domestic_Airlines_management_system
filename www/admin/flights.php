@@ -28,7 +28,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         <div class="head_flights">
             <h1 class="title">Flight Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i> Add New
+                <i class="fa fa-plus"></i> 
             </button>
         </div>
         <div class="flights-preview">
@@ -140,6 +140,41 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </div>
 
     </main>
+         <div class="form-overlay" id="overlay">
+        <form class="dams-add-form" id="BookingForm">
+            <h2>Add New Booking</h2>
+    
+            <label for="FID">Flight ID: </label>
+            <input type="text" name="FID" id="FID" required>
+
+            <label for="DEP">Departure: </label>
+            <input type="text" name="DEP" id="DEP" required>
+
+            <label for="DEST">Destination: </label>
+            <input type="text" name="DEST" id="DEST" required>
+
+            <label for="DATE">Departure Date: </label>
+            <input type="date" name="DATE" id="DATE" required>
+
+            <label for="AC">Aircraft: </label>
+            <input type="text" name="AC" id="AC" pattern="[0-9]{2}[A-HJ-K]">
+
+
+            <label for="STATUS">Status: </label>
+            <select id="STATUS" name="STATUS" required>
+                <option value="confirmed">Confirmed</option>
+                <option value="pending">Pending</option>
+            </select>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" id="submit-btn">Add Flight</button>
+                <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+            </div>
+        </form>
+
+
+<script src="/static/js/form.js"></script>
+<script src="/static/js/flights.js"></script>
+
 
 </body>
 
