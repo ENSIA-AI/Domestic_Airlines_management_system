@@ -39,52 +39,51 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 </div>
             </div>
 
-<<<<<<< HEAD
-                <div class="table-container">
-                    <table class="dams-table" id="search-table">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Passenger</th>
-                                <th>Flight Number</th>
-                                <th>Date</th>
-                                <th>Seat</th>
-                                <th>Status</th>
-                                <th>Options</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bookingTbBody">
-                            <tr>
-                                <td>XJ9HE4</td>
-                                <td>Test num1</td>
-                                <td>AH1432</td>
-                                <td>16&nbsp;Oct&nbsp;2024</td>
-                                <td>12A</td>
-                                <td><span class="status confirmed">Confirmed</span></td>
-                                <td>
-                                    <div class="options">
-                                        <button class="option"><i class="fa fa-eye"></i></button>
-                                        <button class="option"><i class="fa fa-edit"></i></button>
-                                        <button class="option"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EK7BE4</td>
-                                <td>raouf</td>
-                                <td>AH1332</td>
-                                <td>16&nbsp;Oct&nbsp;2024</td>
-                                <td>16C</td>
-                                <td><span class="status pending">Pending</span></td>
-                                <td>
-                                    <div class="options">
-                                        <button class="option"><i class="fa fa-eye"></i></button>
-                                        <button class="option"><i class="fa fa-edit"></i></button>
-                                        <button class="option"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
+            <div class="table-container">
+                <table class="dams-table" id="search-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Passenger</th>
+                            <th>Flight Number</th>
+                            <th>Date</th>
+                            <th>Seat</th>
+                            <th>Status</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingTbBody">
+                        <tr>
+                            <td>XJ9HE4</td>
+                            <td>Test num1</td>
+                            <td>AH1432</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>12A</td>
+                            <td><span class="status confirmed">Confirmed</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-eye"></i></button>
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EK7BE4</td>
+                            <td>raouf</td>
+                            <td>AH1332</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>16C</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-eye"></i></button>
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>KE44JD</td>
                             <td>name last</td>
                             <td>AH0443</td>
@@ -99,10 +98,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                 </div>
                             </td>
                         </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
+        </div>
         </div>
     </main>
     <div class="form-overlay" id="overlay">
