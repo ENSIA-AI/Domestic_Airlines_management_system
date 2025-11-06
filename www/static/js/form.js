@@ -21,10 +21,6 @@ delbtn.forEach(button => {
     button.addEventListener("click", () => {
         const confirmed = confirm("Are you sure you want to delete this booking?");
         if (!confirmed) return;
-
-        const row = button.closest("tr");
-        if (row) {
-            row.remove();
-        }
+        button.closest("tr").remove();
     });
 });
