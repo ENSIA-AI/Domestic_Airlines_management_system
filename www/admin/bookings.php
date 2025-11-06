@@ -26,23 +26,23 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     ?>
     <main>
         <div class="content">
-            <div class="head_booking">
-                <h1 class="title">Booking Management</h1>
+            <div class="dams-head">
+                <h1>Booking Management</h1>
                 <button class="btn add-btn">
-                    <i class="fa fa-plus"></i> Add New
+                    <i class="fa fa-plus"></i>
                 </button>
             </div>
 
             <div class="reservation">
-                <div class="search-part">
-                    <h2 class="recent">Recent Reservations</h2>
+                <div class="search-container">
+                    <h2 class="recent">Recent Bookings</h2>
                     <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
                         <button class="search-btn"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
 
                 <div class="table-container">
-                    <table class="booking-table" id="search-table">
+                    <table class="dams-table" id="search-table">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -54,12 +54,12 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                 <th>Options</th>
                             </tr>
                         </thead>
-                        <tbody class="bookingTbBody" id="bookingTbBody">
+                        <tbody id="bookingTbBody">
                             <tr>
                                 <td>XJ9HE4</td>
                                 <td>Test num1</td>
                                 <td>AH1432</td>
-                                <td>16 Oct 2024</td>
+                                <td>16&nbsp;Oct&nbsp;2024</td>
                                 <td>12A</td>
                                 <td><span class="status confirmed">Confirmed</span></td>
                                 <td>
@@ -73,7 +73,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                 <td>XJ9HE4</td>
                                 <td>Test num2</td>
                                 <td>AH0453</td>
-                                <td>16 Oct 2024</td>
+                                <td>16&nbsp;Oct&nbsp;2024</td>
                                 <td>12A</td>
                                 <td><span class="status pending">Pending</span></td>
                                 <td>
@@ -87,7 +87,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                 <td>XJ9HE4</td>
                                 <td>Test num3</td>
                                 <td>AH0633</td>
-                                <td>16 Oct 2024</td>
+                                <td>16&nbsp;Oct&nbsp;2024</td>
                                 <td>12A</td>
                                 <td><span class="status pending">Pending</span></td>
                                 <td>
@@ -101,7 +101,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                 <td>XJ9HE4</td>
                                 <td>Test num4</td>
                                 <td>AH0443</td>
-                                <td>16 Oct 2024</td>
+                                <td>16&nbsp;Oct&nbsp;2024</td>
                                 <td>12A</td>
                                 <td><span class="status cancelled">Cancelled</span></td>
                                 <td>
@@ -118,7 +118,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         </div>
     </main>
     <div class="form-overlay" id="overlay">
-        <form class="BookingForm" id="BookingForm">
+        <form class="dams-add-form" id="BookingForm">
             <h2>Add New Booking</h2>
             <div class="name-container">
                 <label for="First_Name">First Name: </label>
