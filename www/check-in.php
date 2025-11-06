@@ -48,33 +48,46 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         </div>
         
 
-          <table class="flights-table">
-                <thead>
+          <table class="passengers-table">
+                <thead >
                     <tr>
-                        <th>Id</th>
-                        <th>Departure</th>
-                        <th>Destination</th>
+                        <th>Name</th>
+                        <th>Flight</th>
                         <th>Date</th>
-                        <th>Aircraft</th>
+                        <th>From</th>
+                        <th>To</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="passengers-table-body">
                     <tr>
+                        <td>Ahmed Benbella</td>
                         <td>AH1432</td>
-                        <td>Houari Boumedien, Algiers</td>
-                        <td>Rabah Bitat Airport, Annaba</td>
-                        <td>16 Oct 2024</td>
-                        <td>AC3894</td>
-                        <td><span class="checked-in">Done</span></td>
+                        <td>20/12/20205</td>
+                        <td>ALG-DAAG</td>
+                        <td>ORN-DAOO</td>
+                        <td><span class="check-in-status done">Done</span></td>
                         <td>
-    
-                            </div>
-                        </td>
+                            <button onclick="window.open('passenger-details.php', '_blank', 'width=800,height=700');" class="check-in-button">
+                                <i class="fa fa-check"></i> Check In 
+                            </button></td>
+ 
+                            
+                        
                     </tr>
+                </tbody>
+            </table>
     </main>
 
 </body>
 
 </html>
+
+<!--
+to implement in the future :
+add button interactiveness
+checki-in button interactivness
+when status=Done Check in action appear in grey or disappear or change to UnCheck
+
+-->

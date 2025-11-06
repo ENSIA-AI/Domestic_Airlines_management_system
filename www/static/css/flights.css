@@ -51,66 +51,48 @@
 }
 
 .search-bar {
-  flex: 1;
   display: flex;
   align-items: center;
   background: white;
   border-radius: 24px;
   overflow: hidden;
-  border: 2px solid #e0e0e0;
+  border: 1px solid #e0e0e0;
   width: 50%;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar:hover
-{
+.search-bar:hover {
   border-color: var(--space-cadet);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   transform: translateY(-1px) scale(1.01);
-}
-
-.searchFilter {
-  width: 225px;
-  height: 48px;
-  padding: 0 1.25rem;
-  font-size: 1rem;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #2c3e50;
-  font-weight: 400;
-  transition: all 0.2s ease;
 }
 
 .search {
   flex: 1;
   height: 48px;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
   font-size: 1rem;
   border: none;
   outline: none;
   background: transparent;
   color: #2c3e50;
   font-weight: 400;
-  transition: all 0.2s ease;
 }
 
 .search::placeholder {
   color: var(--text-secondary);
   font-weight: 300;
-  opacity: 0.8;
 }
 
 .search-btn {
   color: var(--space-cadet);
-  border: none;
-  height: 48px;
-  width: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  height: 50px;
+  width: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
   background: transparent;
   position: relative;
 }
@@ -143,14 +125,12 @@
   transition: 0.4s;
 }
 
-.flights-table tr:hover {
-  background-color:var(--myrtle-green);
-  color: white;
-  padding-top: 15px;
-  padding-bottom: 15px;
+.flights-table-body tr:hover {
+    background-color: rgb(234, 233, 233);
+    transform: scale(1.01);
 }
 
-.status {
+.flight-status {
     display: inline-block;
     width: 100px; 
     text-align: center;
@@ -162,15 +142,15 @@
 }
 
 
-.status.confirmed {
+.flight-status.confirmed {
     background-color: #0b7825;
 }
 
-.status.pending {
+.flight-status.pending {
     background-color: #ef9517;
 }
 
-.status.cancelled {
+.flight-status.cancelled {
     background-color: #c72533;
 }
 
