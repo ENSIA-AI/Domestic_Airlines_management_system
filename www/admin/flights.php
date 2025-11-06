@@ -1,10 +1,5 @@
 <?php
 session_start();
-if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
-    $_SESSION["loggedin"] = "yes";
-} else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
-    unset($_SESSION["loggedin"]);
-}
 ?>
 
 <!DOCTYPE html>
@@ -25,29 +20,22 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     include("../internal/sidebar.php");
     ?>
     <main class="content">
-        <div class="head_flights">
+        <div class="dams-head">
             <h1 class="title">Flight Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i> 
+                <i class="fa fa-plus"></i>
             </button>
         </div>
-        <div class="flights-preview">
-            <div class="search-strip">
-                    <h2 class="search-strip-title">Flights Table</h2>
-                     <div class="search-bar">
-                        <!-- <select class="searchFilter" id="searchFilter">
-                            <option value="id">Search by ID</option>
-                            <option value="destination">Search by Destination</option>
-                            <option value="date">Search by Date</option>
-                            <option value="status">Search by Status</option>
-                        </select> -->
-                        <input type="text" class="search" id="search" placeholder="Enter ID">
+        <div class="search-container">
+            <h2>Flights Table</h2>
+            <div class="search-bar">
+                <input type="text" class="search" id="search" placeholder="Enter ID">
 
-                        <button class="search-btn"><i class="fa fa-search"></i></button>
-                     </div>
+                <button class="search-btn"><i class="fa fa-search"></i></button>
             </div>
-
-          <table class="flights-table">
+        </div>
+        <div class="table-container">
+            <table class="dams-table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -66,7 +54,9 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td><div class="flight-status confirmed">Confirmed</span></td>
+                        <td>
+                            <div class="flight-status confirmed">Confirmed</span>
+                        </td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -81,7 +71,9 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td><div class="flight-status pending">Pending</span></td>
+                        <td>
+                            <div class="flight-status pending">Pending</span>
+                        </td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -111,7 +103,9 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td><div class="flight-status cancelled">Cancelled</span></td>
+                        <td>
+                            <div class="flight-status cancelled">Cancelled</span>
+                        </td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -120,13 +114,15 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </div>
                         </td>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td>AH1432</td>
                         <td>Houari Boumedien, Algiers</td>
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td><div class="flight-status cancelled">Cancelled</span></td>
+                        <td>
+                            <div class="flight-status cancelled">Cancelled</span>
+                        </td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -137,13 +133,12 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     </tr>
                 </tbody>
             </table>
-            </div>
-
+        </div>
     </main>
-         <div class="form-overlay" id="overlay">
+    <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="BookingForm">
             <h2>Add New Booking</h2>
-    
+
             <label for="FID">Flight ID: </label>
             <input type="text" name="FID" id="FID" required>
 
@@ -172,8 +167,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         </form>
 
 
-<script src="/static/js/form.js"></script>
-<script src="/static/js/flights.js"></script>
+        <script src="/static/js/form.js"></script>
+        <script src="/static/js/flights.js"></script>
 
 
 </body>
@@ -181,7 +176,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 <script>
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", ()=>{search();}, false);
+    searchBar.addEventListener("keyup", () => { search(); }, false);
 </script>
 
 </html>
