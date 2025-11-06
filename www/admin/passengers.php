@@ -15,7 +15,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/passengers.css">
     <script src="/static/js/search.js"></script>
     <title>Passenger Management - Domestic Airlines</title>
 </head>
@@ -25,23 +24,22 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     include("../internal/sidebar.php");
     ?>
     <main class="content">
-        <div class="head_passenger">
+        <div class="dams-head">
             <h1 class="title">Passenger Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i> Add New
+                <i class="fa fa-plus"></i>
             </button>
         </div>
-        <div class="passenger-section">
-            <div class="search-part">
-                <div class="header-passenger">
-                    <h2 class="recent">Passenger List</h2>
-                    <div class="search-bar">
-                        <input type="text" class="search" id="search-bar" placeholder="Search passengers">
-                        <button class="search-btn"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
+
+        <div class="search-container">
+            <h2 class="recent">Passenger List</h2>
+            <div class="search-bar">
+                <input type="text" class="search" id="search-bar" placeholder="Search passengers">
+                <button class="search-btn"><i class="fa fa-search"></i></button>
             </div>
-            <table class="passenger-table" id="search-table">
+        </div>
+        <div class="table-container">
+            <table class="dams-table" id="search-table">
                 <thead>
                     <tr>
                         <th>ID</th>
