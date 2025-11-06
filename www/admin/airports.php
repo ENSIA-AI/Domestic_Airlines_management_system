@@ -53,58 +53,61 @@ function display_degrees($nb, $s1, $s2)
     include("../internal/sidebar.php");
     ?>
     <main class="content">
-        <div class="head_booking">
+        <div class="dams-head">
             <h1 class="title">Airport Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i> Add New
+                <i class="fa fa-plus"></i>
             </button>
         </div>
 
         <div class="reservation">
-            <div class="search-part">
+            <div class="search-container">
                 <h2 class="recent">Algeria's Airports</h2>
                 <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
 
-            <table class="booking-table" id="search-table">
-                <thead>
-                    <tr>
-                        <th>IATA Code</th>
-                        <th>ICAO Code</th>
-                        <th>Wilaya</th>
-                        <th>Name</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Elevation</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $result_airports->fetch_assoc()): ?>
+            <div class="table-container">
+                <table class="dams-table" id="search-table">
+                    <thead>
                         <tr>
-                            <td><?= $row["IATA_CODE"]; ?></td>
-                            <td><?= $row["ICAO_CODE"]; ?></td>
-                            <td><?= $row["WILAYA"]; ?></td>
-                            <td><?= $row["DISPLAY_NAME"]; ?></td>
-                            <td><?= display_degrees($row["LATITUDE"], "N", "S"); ?></td>
-                            <td><?= display_degrees($row["LONGITUDE"], "E", "W"); ?></td>
-                            <td><?= $row["ELEVATION"]; ?> m</td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option" name="<?= $row["IATA_CODE"] ?>"
-                                        onclick="deleteAirport('<?= $row['IATA_CODE'] ?>')"><i
-                                            class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
+                            <th>IATA Code</th>
+                            <th>ICAO Code</th>
+                            <th>Wilaya</th>
+                            <th>Name</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Elevation</th>
+                            <th>Options</th>
                         </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result_airports->fetch_assoc()): ?>
+                            <tr>
+                                <td><?= $row["IATA_CODE"]; ?></td>
+                                <td><?= $row["ICAO_CODE"]; ?></td>
+                                <td><?= $row["WILAYA"]; ?></td>
+                                <td><?= $row["DISPLAY_NAME"]; ?></td>
+                                <td><?= display_degrees($row["LATITUDE"], "N", "S"); ?></td>
+                                <td><?= display_degrees($row["LONGITUDE"], "E", "W"); ?></td>
+                                <td><?= $row["ELEVATION"]; ?> m</td>
+                                <td>
+                                    <div class="options">
+                                        <button class="option"><i class="fa fa-edit"></i></button>
+                                        <button class="option" name="<?= $row["IATA_CODE"] ?>"
+                                            onclick="deleteAirport('<?= $row['IATA_CODE'] ?>')"><i
+                                                class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
+    
     <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>
 
