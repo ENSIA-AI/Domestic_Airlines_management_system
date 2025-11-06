@@ -32,14 +32,14 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 </button>
             </div>
 
-            <div class="reservation">
-                <div class="search-container">
-                    <h2 class="recent">Recent Bookings</h2>
-                    <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
-                        <button class="search-btn"><i class="fa fa-search"></i></button>
-                    </div>
+            <div class="search-container">
+                <h2 class="recent">Recent Bookings</h2>
+                <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
+            </div>
 
+<<<<<<< HEAD
                 <div class="table-container">
                     <table class="dams-table" id="search-table">
                         <thead>
@@ -84,6 +84,21 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                            <td>KE44JD</td>
+                            <td>name last</td>
+                            <td>AH0443</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>13D</td>
+                            <td><span class="status cancelled">Cancelled</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-eye"></i></button>
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
