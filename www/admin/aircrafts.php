@@ -1,10 +1,5 @@
 <?php
 session_start();
-if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
-    $_SESSION["loggedin"] = "yes";
-} else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
-    unset($_SESSION["loggedin"]);
-}
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +12,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/aircraft.css">
     <script src="/static/js/search.js"></script>
-    <title>Booking Management</title>
+    <title>Aircraft Management</title>
 </head>
 
 <body>
@@ -25,22 +20,22 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     include("../internal/sidebar.php");
     ?>
     <main class="content">
-        <div class="head_aircrafts">
-            <h1 class="title">Aircrafts Management</h1>
+        <div class="dams-head">
+            <h1 class="title">Aircraft Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i> Add New
+                <i class="fa fa-plus"></i>
             </button>
         </div>
 
-        <div class="manage">
-            <div class="search-part">
-                <h2 class="recent">Aircafts Table</h2>
-                <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                </div>
+        <div class="search-container">
+            <h2>Aircafts Table</h2>
+            <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
+                <button class="search-btn"><i class="fa fa-search"></i></button>
             </div>
+        </div>
 
-            <table class="aircafts-table" id="search-table">
+        <div class="table-container">
+            <table class="dams-table" id="search-table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -73,7 +68,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>AH0453</td>
                         <td>16 Oct 2024</td>
                         <td>12A</td>
-                        <td><span class="status maintenance">Pending</span></td>
+                        <td><span class="status pending">Pending</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-edit"></i></button>
@@ -87,7 +82,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>AH0633</td>
                         <td>16 Oct 2024</td>
                         <td>12A</td>
-                        <td><span class="status out">Pending</span></td>
+                        <td><span class="status pending">Pending</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-edit"></i></button>
@@ -101,7 +96,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>AH0443</td>
                         <td>16 Oct 2024</td>
                         <td>12A</td>
-                        <td><span class="status retired">Cancelled</span></td>
+                        <td><span class="status cancelled">Cancelled</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-edit"></i></button>
