@@ -36,12 +36,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <h2 class="search-strip-title">Flights Table</h2>
                      <div class="search-bar">
                         <!-- <select class="searchFilter" id="searchFilter">
+                            old search filter code"
                             <option value="id">Search by ID</option>
                             <option value="destination">Search by Destination</option>
                             <option value="date">Search by Date</option>
                             <option value="status">Search by Status</option>
                         </select> -->
-                        <input type="text" class="search" id="search" placeholder="Enter ID">
+                        <input type="text" class="search" id="search-bar" placeholder="Enter ID">
 
                         <button class="search-btn"><i class="fa fa-search"></i></button>
                      </div>
@@ -59,7 +60,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody class="flights-table-body">
+                <tbody class="flightsTbBody" id="flightsTbBody">
                     <tr>
                         <td>AH1432</td>
                         <td>Houari Boumedien, Algiers</td>
@@ -120,7 +121,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </div>
                         </td>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td>AH1432</td>
                         <td>Houari Boumedien, Algiers</td>
                         <td>Rabah Bitat Airport, Annaba</td>
@@ -142,7 +143,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     </main>
          <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="FlightsForm">
-            <h2>Add New Booking</h2>
+            <h2>Add New Flight</h2>
     
             <label for="FID">Flight ID: </label>
             <input type="text" name="FID" id="FID" required>
@@ -179,7 +180,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 </body>
 
 <script>
-    const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", ()=>{search();}, false);
 </script>
