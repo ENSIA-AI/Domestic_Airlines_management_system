@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </td>`;
 
-        table.appendChild(newr);
+        table.prepend(newr);
+
 
         const overlay = document.getElementById('overlay');
         if (overlay) {
