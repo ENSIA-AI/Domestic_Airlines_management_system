@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
+    $_SESSION["loggedin"] = "yes";
+} else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
+    unset($_SESSION["loggedin"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +17,7 @@ session_start();
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/aircraft.css">
     <script src="/static/js/search.js"></script>
-    <title>Aircraft Management</title>
+    <title>Booking Management</title>
 </head>
 
 <body>
@@ -20,22 +25,22 @@ session_start();
     include("../internal/sidebar.php");
     ?>
     <main class="content">
-        <div class="dams-head">
-            <h1 class="title">Aircraft Management</h1>
+        <div class="head_aircrafts">
+            <h1 class="title">Aircrafts Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-plus"></i> Add New
             </button>
         </div>
 
-        <div class="search-container">
-            <h2>Aircafts Table</h2>
-            <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
-                <button class="search-btn"><i class="fa fa-search"></i></button>
+        <div class="manage">
+            <div class="search-part">
+                <h2 class="recent">Aircafts Table</h2>
+                <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
+                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                </div>
             </div>
-        </div>
 
-        <div class="table-container">
-            <table class="dams-table" id="search-table">
+            <table class="aircafts-table" id="search-table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -68,7 +73,7 @@ session_start();
                         <td>AH0453</td>
                         <td>16 Oct 2024</td>
                         <td>12A</td>
-                        <td><span class="status pending">Pending</span></td>
+                        <td><span class="status maintenance">Pending</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-edit"></i></button>
@@ -82,7 +87,7 @@ session_start();
                         <td>AH0633</td>
                         <td>16 Oct 2024</td>
                         <td>12A</td>
-                        <td><span class="status pending">Pending</span></td>
+                        <td><span class="status out">Pending</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-edit"></i></button>
@@ -96,7 +101,7 @@ session_start();
                         <td>AH0443</td>
                         <td>16 Oct 2024</td>
                         <td>12A</td>
-                        <td><span class="status cancelled">Cancelled</span></td>
+                        <td><span class="status retired">Cancelled</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-edit"></i></button>
