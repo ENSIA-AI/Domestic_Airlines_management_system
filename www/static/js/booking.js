@@ -89,8 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('phone').value = phone;
         document.getElementById('status').value = status;
 
-        const cleanDate = date.replace(/\u00A0/g, ' ').trim();
-        const dateParts = cleanDate.split('\u00A0');
+        const dateParts = date.split('\u00A0');
         const day = dateParts[0];
         const month = months[dateParts[1]];
         const year = dateParts[2];
