@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
+    $_SESSION["loggedin"] = "yes";
+} else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
+    unset($_SESSION["loggedin"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,22 +25,29 @@ session_start();
     include("../internal/sidebar.php");
     ?>
     <main class="content">
-        <div class="dams-head">
+        <div class="head_flights">
             <h1 class="title">Flight Management</h1>
             <button class="btn add-btn">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-plus"></i> 
             </button>
         </div>
-        <div class="search-container">
-            <h2>Flights Table</h2>
-            <div class="search-bar">
-                <input type="text" class="search" id="search" placeholder="Enter ID">
+        <div class="flights-preview">
+            <div class="search-strip">
+                    <h2 class="search-strip-title">Flights Table</h2>
+                     <div class="search-bar">
+                        <!-- <select class="searchFilter" id="searchFilter">
+                            <option value="id">Search by ID</option>
+                            <option value="destination">Search by Destination</option>
+                            <option value="date">Search by Date</option>
+                            <option value="status">Search by Status</option>
+                        </select> -->
+                        <input type="text" class="search" id="search" placeholder="Enter ID">
 
-                <button class="search-btn"><i class="fa fa-search"></i></button>
+                        <button class="search-btn"><i class="fa fa-search"></i></button>
+                     </div>
             </div>
-        </div>
-        <div class="table-container">
-            <table class="dams-table">
+
+          <table class="flights-table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -54,9 +66,7 @@ session_start();
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td>
-                            <div class="flight-status confirmed">Confirmed</span>
-                        </td>
+                        <td><div class="flight-status confirmed">Confirmed</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -71,9 +81,7 @@ session_start();
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td>
-                            <div class="flight-status pending">Pending</span>
-                        </td>
+                        <td><div class="flight-status pending">Pending</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -103,9 +111,7 @@ session_start();
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td>
-                            <div class="flight-status cancelled">Cancelled</span>
-                        </td>
+                        <td><div class="flight-status cancelled">Cancelled</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -114,15 +120,13 @@ session_start();
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                                        <tr>
                         <td>AH1432</td>
                         <td>Houari Boumedien, Algiers</td>
                         <td>Rabah Bitat Airport, Annaba</td>
                         <td>16 Oct 2024</td>
                         <td>AC3894</td>
-                        <td>
-                            <div class="flight-status cancelled">Cancelled</span>
-                        </td>
+                        <td><div class="flight-status cancelled">Cancelled</span></td>
                         <td>
                             <div class="options">
                                 <button class="option"><i class="fa fa-eye"></i></button>
@@ -133,12 +137,13 @@ session_start();
                     </tr>
                 </tbody>
             </table>
-        </div>
+            </div>
+
     </main>
          <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="FlightsForm">
             <h2>Add New Booking</h2>
-
+    
             <label for="FID">Flight ID: </label>
             <input type="text" name="FID" id="FID" required>
 
@@ -167,8 +172,8 @@ session_start();
         </form>
 
 
-        <script src="/static/js/form.js"></script>
-        <script src="/static/js/flights.js"></script>
+<script src="/static/js/form.js"></script>
+<script src="/static/js/flights.js"></script>
 
 
 </body>
@@ -176,7 +181,7 @@ session_start();
 <script>
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", () => { search(); }, false);
+    searchBar.addEventListener("keyup", ()=>{search();}, false);
 </script>
 
 </html>

@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
+    $_SESSION["loggedin"] = "yes";
+} else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
+    unset($_SESSION["loggedin"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,37 +62,48 @@ session_start();
                             <td><span class="status confirmed">Confirmed</span></td>
                             <td>
                                 <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
                                     <button class="option"><i class="fa fa-edit"></i></button>
                                     <button class="option"><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>EK7BE4</td>
-                            <td>raouf</td>
-                            <td>AH1332</td>
+                            <td>XJ9HE4</td>
+                            <td>Test num2</td>
+                            <td>AH0453</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>16C</td>
+                            <td>12A</td>
                             <td><span class="status pending">Pending</span></td>
                             <td>
                                 <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
                                     <button class="option"><i class="fa fa-edit"></i></button>
                                     <button class="option"><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>KE44JD</td>
-                            <td>name last</td>
+                            <td>XJ9HE4</td>
+                            <td>Test num3</td>
+                            <td>AH0633</td>
+                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>12A</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <div class="options">
+                                    <button class="option"><i class="fa fa-edit"></i></button>
+                                    <button class="option"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>XJ9HE4</td>
+                            <td>Test num4</td>
                             <td>AH0443</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>13D</td>
+                            <td>12A</td>
                             <td><span class="status cancelled">Cancelled</span></td>
                             <td>
                                 <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
                                     <button class="option"><i class="fa fa-edit"></i></button>
                                     <button class="option"><i class="fa fa-trash"></i></button>
                                 </div>
@@ -96,7 +112,6 @@ session_start();
                     </tbody>
                 </table>
             </div>
-        </div>
         </div>
     </main>
     <div class="form-overlay" id="overlay">
