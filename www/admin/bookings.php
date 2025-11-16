@@ -70,20 +70,12 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </td>
                         </tr>
                         <tr>
-<<<<<<< HEAD
                             <td>EK7BE4</td>
                             <td>raouf Ould Ali</td>
                             <td>AH1332</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>16C</td>
                             <td>0555123456</td>
-=======
-                            <td>XJ9HE4</td>
-                            <td>Test num2</td>
-                            <td>AH0453</td>
-                            <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>12A</td>
->>>>>>> 1be8bbcd24669be79a042d8846d2a0407e89521a
                             <td><span class="status pending">Pending</span></td>
                             <td>
                                 <div class="options">
@@ -111,12 +103,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             <td>Test num4</td>
                             <td>AH0443</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
-<<<<<<< HEAD
                             <td>13D</td>
                             <td>0555123456</td>
-=======
-                            <td>12A</td>
->>>>>>> 1be8bbcd24669be79a042d8846d2a0407e89521a
                             <td><span class="status cancelled">Cancelled</span></td>
                             <td>
                                 <div class="options">
