@@ -52,7 +52,7 @@ session_start();
                         <td>P001</td>
                         <td>Ahmed Benali</td>
                         <td>123456789012345678</td>
-                        <td>+213 555 123 456</td>
+                        <td>0555 12 34 56</td>
                         <td>15/03/1985</td>
                         <td>Male</td>
                         <td>Algerian</td>
@@ -68,7 +68,7 @@ session_start();
                         <td>P002</td>
                         <td>Fatima Khelifi</td>
                         <td>234567890123456789</td>
-                        <td>+213 661 234 567</td>
+                        <td>0661 23 45 67</td>
                         <td>22/07/1990</td>
                         <td>Female</td>
                         <td>Algerian</td>
@@ -84,40 +84,8 @@ session_start();
                         <td>P003</td>
                         <td>Karim Meziani</td>
                         <td>345678901234567890</td>
-                        <td>+213 770 345 678</td>
+                        <td>0770 34 56 78</td>
                         <td>08/11/1988</td>
-                        <td>Male</td>
-                        <td>Algerian</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>P004</td>
-                        <td>Leila Bouteflika</td>
-                        <td>345678901234567890</td>
-                        <td>+213 555 456 789</td>
-                        <td>30/05/1992</td>
-                        <td>Female</td>
-                        <td>Algerian</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>P011</td>
-                        <td>Sofiane Feghouli</td>
-                        <td>345678901234567890</td>
-                        <td>+213 661 112 345</td>
-                        <td>20/10/1986</td>
                         <td>Male</td>
                         <td>Algerian</td>
                         <td>

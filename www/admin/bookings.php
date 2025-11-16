@@ -43,6 +43,7 @@ session_start();
                             <th>Flight Number</th>
                             <th>Date</th>
                             <th>Seat</th>
+                            <th>Phone</th>
                             <th>Status</th>
                             <th>Options</th>
                         </tr>
@@ -54,6 +55,7 @@ session_start();
                             <td>AH1432</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>12A</td>
+                            <td>0555123456</td>
                             <td><span class="status confirmed">Confirmed</span></td>
                             <td>
                                 <div class="options">
@@ -65,10 +67,11 @@ session_start();
                         </tr>
                         <tr>
                             <td>EK7BE4</td>
-                            <td>raouf</td>
+                            <td>raouf Ould Ali</td>
                             <td>AH1332</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>16C</td>
+                            <td>0555123456</td>
                             <td><span class="status pending">Pending</span></td>
                             <td>
                                 <div class="options">
@@ -84,6 +87,7 @@ session_start();
                             <td>AH0443</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>13D</td>
+                            <td>0555123456</td>
                             <td><span class="status cancelled">Cancelled</span></td>
                             <td>
                                 <div class="options">
@@ -101,7 +105,7 @@ session_start();
     </main>
     <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="BookingForm">
-            <h2>Add New Booking</h2>
+            <h2 id="title">Add New Booking</h2>
             <div class="name-container">
                 <label for="First_Name">First Name: </label>
                 <input type="text" name="First_Name" id="fn" required>
@@ -122,6 +126,7 @@ session_start();
             <select id="status" name="status" required>
                 <option value="confirmed">Confirmed</option>
                 <option value="pending">Pending</option>
+                <option value="cancelled">Cancelled</option>
             </select>
             <div class="form-actions">
                 <button type="submit" class="submit-btn" id="submit-btn">Add Booking</button>
