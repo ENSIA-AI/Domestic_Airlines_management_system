@@ -143,7 +143,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     </main>
          <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="FlightsForm">
-            <h2>Add New Flight</h2>
+            <h2 id="title">Add New Flight</h2>
     
             <label for="FID">Flight ID: </label>
             <input type="text" name="FID" id="FID" required>
