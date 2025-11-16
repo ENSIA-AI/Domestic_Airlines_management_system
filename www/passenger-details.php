@@ -1,1 +1,0 @@
-<!-- this page pops up when a crewmate clicks check-in in the check-in page>>

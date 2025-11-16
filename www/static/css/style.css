@@ -430,6 +430,10 @@ thead {
   color: #c0392b;
 }
 
+.fa-user-check {
+  color: #222E50;
+  font-size: larger;
+}
 .dams-table-body tr:hover {
   background-color: rgb(234, 233, 233);
 }
