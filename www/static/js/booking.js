@@ -48,14 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const fullName = infos[1].textContent.trim().split(/\s+/);
         const flightnum = infos[2].textContent.trim();
         const date = infos[3].textContent.trim();
-        const seat = infos[4].textContent.trim();
+        const classType = infos[4].textContent.trim();
         const phone = infos[5].textContent.trim();
         const status = infos[6].querySelector('.status').textContent.trim().toLowerCase();
 
         document.getElementById('fn').value = fullName[0];
         document.getElementById('ln').value = fullName[1];
         document.getElementById('flight_n').value = flightnum;
-        document.getElementById('seat').value = seat;
+        document.getElementById('class').value = classType;
         document.getElementById('phone').value = phone;
         document.getElementById('status').value = status;
 
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastName = document.getElementById('ln').value.trim();
         const flight_num = document.getElementById('flight_n').value.trim();
         const dep_data = document.getElementById('date').value.trim();
-        const seat = document.getElementById('seat').value.trim();
+        const classType = document.getElementById('class').value.trim();
         const phone_num = document.getElementById('phone').value.trim();
         const status = document.getElementById('status').value.trim();
 
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infos[1].textContent = `${firstName} ${lastName}`;
             infos[2].textContent = flight_num;
             infos[3].textContent = simplify(dep_data);
-            infos[4].textContent = seat;
+            infos[4].textContent = classType;
             infos[5].textContent = phone_num;
             infos[6].innerHTML = `<span class="status ${status}">${capitalize(status)}</span>`;
             restore();
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${firstName} ${lastName}</td>
             <td>${flight_num}</td>
             <td>${simplify(dep_data)}</td>
-            <td>${seat}</td>
+            <td>${classType}</td>
             <td>${phone_num}</td>
             <td><span class="status ${status}">${capitalize(status)}</span></td>
             <td>

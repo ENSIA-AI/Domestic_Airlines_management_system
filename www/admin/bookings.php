@@ -42,7 +42,7 @@ session_start();
                             <th>Passenger</th>
                             <th>Flight Number</th>
                             <th>Date</th>
-                            <th>Seat</th>
+                            <th>Class</th>
                             <th>Phone</th>
                             <th>Status</th>
                             <th>Options</th>
@@ -54,7 +54,7 @@ session_start();
                             <td>Test num1</td>
                             <td>AH1432</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>12A</td>
+                            <td>Business</td>
                             <td>0555123456</td>
                             <td><span class="status confirmed">Confirmed</span></td>
                             <td>
@@ -70,7 +70,7 @@ session_start();
                             <td>raouf Ould Ali</td>
                             <td>AH1332</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>16C</td>
+                            <td>Business</td>
                             <td>0555123456</td>
                             <td><span class="status pending">Pending</span></td>
                             <td>
@@ -86,7 +86,7 @@ session_start();
                             <td>name last</td>
                             <td>AH0443</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>13D</td>
+                            <td>Business</td>
                             <td>0555123456</td>
                             <td><span class="status cancelled">Cancelled</span></td>
                             <td>
@@ -116,8 +116,12 @@ session_start();
             <input type="text" name="Flight-Num" id="flight_n" required>
             <label for="date">Departure Date: </label>
             <input type="date" name="date" id="date" required>
-            <label for="Seat">Seat: </label>
-            <input type="text" name="Seat" id="seat" pattern="[0-9]{2}[A-HJ-K]">
+            <label for="class">Class: </label>
+            <select name="class" id="class" required>
+                <option value="Economy">Economy</option>
+                <option value="Business">Business</option>
+                <option value="Premium">Premium</option>
+            </select>
             <label for="Email">Email: </label>
             <input type="email" name="Email" id="email" required>
             <label for="Phone">Phone Number: </label>
