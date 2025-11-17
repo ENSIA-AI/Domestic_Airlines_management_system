@@ -54,7 +54,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody class="dams-table-body">
+                <tbody class="dams-table-body" id="dams-table-body">
                     <tr>
                         <td>Ahmed Benbella</td>
                         <td>AH1432</td>
@@ -71,7 +71,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             
                         
                     </tr>
-                                        <tr>
+                    <tr>
                         <td>Ahmed Benbella</td>
                         <td>AH1432</td>
                         <td>20/12/20205</td>
@@ -79,9 +79,11 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>ORN-DAOO</td>
                         <td><span class="status confirmed">Done</span></td>
                         <td>
+                            <div class="options">
                             <button class="option">
-                               <i class="fa-solid fa-user-check"></i>
+                            <i class="fa-solid fa-user-check"></i>
                             </button>
+                            </div>
                         </td>
  
                             
@@ -91,6 +93,38 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </table>
         </div>
     </main>
+
+     <div class="form-overlay" id="overlay">
+        <form class="dams-add-form" id="BookingForm">
+            <h2 id="title">Add A New Passenger For Check-In</h2>
+            <div class="name-container">
+                <label for="First_Name">First Name: </label>
+                <input type="text" name="First_Name" id="fn" required>
+                <label for="Last">Last Name: </label>
+                <input type="text" name="Last" id="ln" required>
+            </div>
+            <label for="Flight-Num">Flight Number: </label>
+            <input type="text" name="Flight-Num" id="flight_n" required>
+            <label for="date">Departure Date: </label>
+            <input type="date" name="date" id="date" required>
+            <label for="deparature">Departure: </label>
+            <input type="text" name="departure" id="departure" >
+            <label for="destination">Destination: </label>
+            <input type="text" name="destination" id="destination" required>
+            <label for="status">Status: </label>
+            <select id="status" name="status" value="Waiting" disabled>
+                <option value="waiting">Waiting</option>
+                <option value="done">Done</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" id="submit-btn">Add Passenger</button>
+                <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script src="/static/js/form.js"></script>
+    <script src="/static/js/check-in.js"></script>
 
 </body>
 
