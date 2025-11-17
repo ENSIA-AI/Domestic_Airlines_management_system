@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // the add new part
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXTZ0123456789'; 
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; 
         let id = ''; 
         for (let i = 0; i < 6; i++) { 
             const r = Math.floor(Math.random() * chars.length);
