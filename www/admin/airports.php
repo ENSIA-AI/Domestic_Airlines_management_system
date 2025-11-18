@@ -93,7 +93,6 @@ function display_degrees($nb, $s1, $s2)
                             <td><?= $row["ELEVATION"]; ?> m</td>
                             <td>
                                 <div class="options">
-                                    <button class="option"><i class="fa fa-edit"></i></button>
                                     <button class="option" name="<?= $row["IATA_CODE"] ?>"
                                         onclick="deleteAirport('<?= $row['IATA_CODE'] ?>')"><i
                                             class="fa fa-trash"></i></button>
@@ -105,6 +104,43 @@ function display_degrees($nb, $s1, $s2)
             </table>
         </div>
     </main>
+
+    <div class="form-overlay" id="overlay">
+        <form class="dams-add-form" id="AddForm">
+            <h2 id="title">Add New Booking</h2>
+            <div class="name-container">
+                <label for="First_Name">First Name: </label>
+                <input type="text" name="First_Name" id="fn" required>
+                <label for="Last">Last Name: </label>
+                <input type="text" name="Last" id="ln" required>
+            </div>
+            <label for="Flight-Num">Flight Number: </label>
+            <input type="text" name="Flight-Num" id="flight_n" required>
+            <label for="date">Departure Date: </label>
+            <input type="date" name="date" id="date" required>
+            <label for="class">Class: </label>
+            <select name="class" id="class" required>
+                <option value="Economy">Economy</option>
+                <option value="Business">Business</option>
+                <option value="Premium">Premium</option>
+            </select>
+            <label for="Email">Email: </label>
+            <input type="email" name="Email" id="email">
+            <label for="Phone">Phone Number: </label>
+            <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})">
+            <label for="status">Status: </label>
+            <select id="status" name="status" required>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" id="submit-btn">Add Booking</button>
+                <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script src="/static/js/form.js"></script>
 
     <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>

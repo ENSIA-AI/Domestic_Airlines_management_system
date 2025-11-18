@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let editRow = null;
 
     const table = document.getElementById('bookingTbBody');
-    const form = document.getElementById('BookingForm');
+    const form = document.getElementById('AddForm');
     const overlay = document.getElementById('overlay');
     const title = document.getElementById('title');
     const submitBtn = document.getElementById('submit-btn');
