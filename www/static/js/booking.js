@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isEdit = false;
     let editRow = null;
 
-    const table = document.getElementById('bookingTbBody');
+    const table = document.getElementById('tablebody');
     const form = document.getElementById('BookingForm');
     const overlay = document.getElementById('overlay');
     const title = document.getElementById('title');

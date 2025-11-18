@@ -60,7 +60,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody class="flightsTbBody" id="flightsTbBody">
+                <tbody class="flightsTbBody" id="tablebody">
                     <tr>
                         <td>AH1432</td>
                         <td>Houari Boumedien, Algiers</td>
@@ -142,7 +142,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
     </main>
          <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="FlightsForm">
+        <form class="dams-add-form" id="bookingForm">
             <h2 id="title">Add New Flight</h2>
     
             <label for="FID">Flight ID: </label>

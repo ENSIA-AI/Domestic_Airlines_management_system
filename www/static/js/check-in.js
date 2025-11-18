@@ -153,7 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
          cancelCheckInBtn.addEventListener('click', () => {
-             checkInOverlay.classList.remove('active');
+            checkInOverlay.classList.remove('active');
+            if (step1.classList.contains('active')) {
+                step1.classList.remove('active');
+            }
+            if (step2.classList.contains('active')) {
+                step2.classList.remove('active');
+            }
+            if (step3.classList.contains('active')) {
+                step3.classList.remove('active');
+            }
          });
 
          document.addEventListener('click', (e) => {
@@ -161,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.classList.toggle('taken');
                 if (e.target.classList.contains('taken')) {
                     let chosenSeat = e.target;
-                    // send it to backend
+                    // work here later
                 }
 
             }
