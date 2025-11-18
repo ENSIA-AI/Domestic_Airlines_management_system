@@ -13,6 +13,19 @@ if (isset($_POST["type"])) {
         $stmt = $conn->prepare("DELETE FROM AIRPORTS WHERE IATA_CODE = ?");
         $stmt->bind_param("s", $_POST["airport"]);
         $stmt->execute();
+    } else if ($_POST["type"] == "ADD") {
+        $stmt = $conn->prepare("INSERT INTO AIRPORTS VALUES (?,?,?,?,?,?,?)");
+        $stmt->bind_param(
+            "ssssddi",
+            $_POST["IATA_CODE"],
+            $_POST["ICAO_CODE"],
+            $_POST["WILAYA"],
+            $_POST["DISPLAY_NAME"],
+            $_POST["LATITUDE"],
+            $_POST["LONGITUDE"],
+            $_POST["ELEVATION"]
+        );
+        $stmt->execute();
     }
 }
 
@@ -106,36 +119,33 @@ function display_degrees($nb, $s1, $s2)
     </main>
 
     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="AddForm">
-            <h2 id="title">Add New Booking</h2>
-            <div class="name-container">
-                <label for="First_Name">First Name: </label>
-                <input type="text" name="First_Name" id="fn" required>
-                <label for="Last">Last Name: </label>
-                <input type="text" name="Last" id="ln" required>
-            </div>
-            <label for="Flight-Num">Flight Number: </label>
-            <input type="text" name="Flight-Num" id="flight_n" required>
-            <label for="date">Departure Date: </label>
-            <input type="date" name="date" id="date" required>
-            <label for="class">Class: </label>
-            <select name="class" id="class" required>
-                <option value="Economy">Economy</option>
-                <option value="Business">Business</option>
-                <option value="Premium">Premium</option>
-            </select>
-            <label for="Email">Email: </label>
-            <input type="email" name="Email" id="email">
-            <label for="Phone">Phone Number: </label>
-            <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})">
-            <label for="status">Status: </label>
-            <select id="status" name="status" required>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Pending">Pending</option>
-                <option value="Cancelled">Cancelled</option>
-            </select>
+        <form class="dams-add-form" id="AddForm" method="POST">
+            <h2 id="title">Add New Airport</h2>
+            <input type="hidden" name="type" value="ADD">
+
+            <label for="IATA_CODE">IATA Code</label>
+            <input type="text" name="IATA_CODE" id="iataField" pattern="[A-Z]{3}" placeholder="(ex: ALG)" required>
+
+            <label for="ICAO_CODE">ICAO Code</label>
+            <input type="text" name="ICAO_CODE" id="icaoField" pattern="[A-Z]{4}" placeholder="(ex: DAAG)" required>
+
+            <label for="WILAYA">Wilaya</label>
+            <input type="text" name="WILAYA" id="wilayaField" required placeholder="(ex: Algiers)">
+
+            <label for="DISPLAY_NAME">Airport Name</label>
+            <input type="text" name="DISPLAY_NAME" id="nameField" required>
+
+            <label for="LATITUDE">Latitude (North is positive)</label>
+            <input type="text" name="LATITUDE" id="latitudeField" pattern="(-)?[0-9]+(.[0-9]+)?" required>
+
+            <label for="LONGITUDE">Longitude (East is positive)</label>
+            <input type="text" name="LONGITUDE" id="longitudeField" pattern="(-)?[0-9]+(.[0-9]+)?" required>
+
+            <label for="ELEVATION">Elevation (In meters)</label>
+            <input type="number" name="ELEVATION" id="elevationField" required>
+
             <div class="form-actions">
-                <button type="submit" class="submit-btn" id="submit-btn">Add Booking</button>
+                <button type="submit" class="submit-btn" id="submit-btn">Add Airport</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
