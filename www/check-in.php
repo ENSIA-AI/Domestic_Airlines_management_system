@@ -16,6 +16,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/d2ccabbb5f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/check-in.css">
     
 
     <title>Flight Management</title>
@@ -58,10 +59,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tr>
                         <td>Ahmed Benbella</td>
                         <td>AH1432</td>
-                        <td>20/12/20205</td>
+                        <td>20 December 2025</td>
                         <td>ALG-DAAG</td>
                         <td>ORN-DAOO</td>
-                        <td><span class="status confirmed">Done</span></td>
+                        <td><span class="status waiting">Waiting</span></td>
                         <td>
                             <button class="option">
                             <i class="fa-solid fa-user-check"></i>
@@ -74,10 +75,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tr>
                         <td>Ahmed Benbella</td>
                         <td>AH1432</td>
-                        <td>20/12/20205</td>
+                        <td>21 December 2025</td>
                         <td>ALG-DAAG</td>
                         <td>ORN-DAOO</td>
-                        <td><span class="status confirmed">Done</span></td>
+                        <td><span class="status waiting">Waiting</span></td>
                         <td>
                             <div class="options">
                             <button class="option">
@@ -98,16 +99,16 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         <form class="dams-add-form" id="BookingForm">
             <h2 id="title">Add A New Passenger For Check-In</h2>
             <div class="name-container">
-                <label for="First_Name">First Name: </label>
+                <label for="fn">First Name: </label>
                 <input type="text" name="First_Name" id="fn" required>
-                <label for="Last">Last Name: </label>
+                <label for="ln">Last Name: </label>
                 <input type="text" name="Last" id="ln" required>
             </div>
-            <label for="Flight-Num">Flight Number: </label>
+            <label for="flight_n">Flight Number: </label>
             <input type="text" name="Flight-Num" id="flight_n" required>
             <label for="date">Departure Date: </label>
-            <input type="date" name="date" id="date" required>
-            <label for="deparature">Departure: </label>
+            <input type="date" name="date" id="dep-date" required>
+            <label for="departure">Departure: </label>
             <input type="text" name="departure" id="departure" >
             <label for="destination">Destination: </label>
             <input type="text" name="destination" id="destination" required>
@@ -123,6 +124,73 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             </div>
         </form>
     </div>
+    
+    <div class="check-in-overlay" id="check-in-overlay">
+            <div id="step1" class="step">
+                <h1 class="step-title">Personal Information & Luggage</h2>
+                    <form class="dams-add-form" id="check-in-form">
+                        <div class="name-container">
+                            <label for="check-in-fn">First Name: </label>
+                            <input type="text" name="First_Name" id="check-in-fn" required disabled>
+                            <label for="check-in-ln" >Last Name: </label>
+                            <input type="text" name="Last" id="check-in-ln" required disabled>
+                        </div>
+                        <label for="passport_n">Passport Number: </label>
+                        <input type="text" name="Passport" id="passport_n" required>
+                        <label for="luggage">Luggage Cap: </label>
+                        <select id="luggage" name="luggage" value="23kg">
+                            <option value="23kg">23Kg Or Less</option>
+                            <option value="40kg">40Kg Or Less</option>
+                            <option value="80kg">80Kg Or Less</option>
+                        </select>
+                        <label for="check-in-flight_n">Flight Number: </label>
+                        <input type="text" name="Flight-Num" id="check-in-flight_n" required disabled>
+                        <label for="check-in-date">Departure Date: </label>
+                        <input type="date" name="date" id="check-in-date" required disabled>
+                        <label for="check-in-departure">Departure: </label>
+                        <input type="text" name="departure" id="check-in-departure" disabled>
+                        <label for="check-in-destination">Destination: </label>
+                        <input type="text" name="destination" id="check-in-destination" required disabled>
+                        <label for="class">Class: </label>
+                        <select id="class" name="class" value="Economy" >
+                            <option value="economy">Economy</option>
+                            <option value="bussiness">Bussiness</option>
+                            <option value="first-class">First Class</option>
+                        </select>
+                        <div class="form-actions">
+                             <button type="button" class="cancel-btn" id="cancel-btn1">Cancel</button>
+                             <button type="button" class="submit-btn" id="next-btn1">Next</button>     
+                        </div>
+                     </form>
+
+
+
+          
+            </div>
+
+
+            <div id="step2" class="step">
+                <h2 class="step-title">Seat Assignment</h2>
+                
+                <div class="form-actions">
+                <button class="cancel-btn" id="prev-btn1">Previous</button>
+                <button class="submit-btn" id="next-btn2">Next</button>
+                </div>
+            </div>
+            <div id="step3" class="step">
+                <h2 class="step-title">Boarding Pass Printing</h2>
+
+                <div class="form-actions">
+                <button class="cancel-btn" id="prev-btn2">Previous</button>
+                <button type="submit" class="submit-btn" id="confirm-btn">Confirm</button>
+                </div>
+            </div>
+        
+    </div>
+
+
+
+
     <script src="/static/js/form.js"></script>
     <script src="/static/js/check-in.js"></script>
 

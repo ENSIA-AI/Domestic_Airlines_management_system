@@ -149,8 +149,11 @@ button {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 550px;
+  max-height: 90vh;
+  overflow-y: scroll;
   color: white;
   backdrop-filter: blur(5px);
+
 }
 
 .dams-add-form h2 {

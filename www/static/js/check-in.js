@@ -13,17 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstName = document.getElementById('fn').value.trim();
         const lastName = document.getElementById('ln').value.trim();
         const flight_num = document.getElementById('flight_n').value.trim();
-        const dep_data = document.getElementById('date').value.trim();
+        const dep_date = document.getElementById('dep-date').value.trim();
         const departure = document.getElementById('departure').value.trim();
         const destination = document.getElementById('destination').value.trim();
         const status = document.getElementById('status').value.trim();
-
 
         const newr = document.createElement('tr');
         newr.innerHTML = `
         <td>${firstName} ${lastName}</td>
         <td>${flight_num}</td>
-        <td>${simplify(dep_data)}</td>
+        <td>${simplify(dep_date)}</td>
         <td>${departure}</td>
         <td>${destination}</td>
         <td><span class="status ${status}">${capitalize(status)}</span></td>
@@ -59,70 +58,116 @@ document.addEventListener('DOMContentLoaded', () => {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
 
-    // function view(r) {
-    //     const overlay = document.getElementById('overlay');
-    //     const title = document.getElementById('title');
-    //     const submitBtn = document.getElementById('submit-btn');
-    //     const cancelBtn = document.getElementById('cancel-btn');
 
-    //     const infos = r.querySelectorAll('td');
-    //     const id = infos[0].textContent.trim();
-    //     const fullName = infos[1].textContent.trim().split(/\s+/);
-    //     const flightnum = infos[2].textContent.trim();
-    //     const date = infos[3].textContent.trim();
-    //     const seat = infos[4].textContent.trim();
-    //     const phone = infos[5].textContent.trim();
-    //     const status = infos[6].querySelector('.status').textContent.trim().toLowerCase();
 
-    //     title.textContent = `Booking Details ${id}`;
+ 
 
-    //     document.getElementById('fn').value = fullName[0];
-    //     document.getElementById('ln').value = fullName[1];
-    //     document.getElementById('flight_n').value = flightnum;
-    //     document.getElementById('seat').value = seat;
-    //     document.getElementById('phone').value = phone;
-    //     document.getElementById('status').value = status;
+    function checkIn(r) {
+        // collecting info of that row
+        const checkInOverlay = document.getElementById('check-in-overlay');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const nextBtn1 = document.getElementById('next-btn1');
+        const nextBtn2 = document.getElementById('next-btn2');
+        const prevBtn1 = document.getElementById('prev-btn1');
+        const prevBtn2 = document.getElementById('prev-btn2');
+        const confirmBtn = document.getElementById('confirm-btn');
+        const cancelCheckInBtn = document.getElementById('cancel-btn1');
 
-    //     const dateParts = date.split('\u00A0');
-    //     const day = dateParts[0];
-    //     const month = months[dateParts[1]];
-    //     const year = dateParts[2];
-    //     document.getElementById('date').value = `${year}-${month}-${day}`;
+        const infos = r.querySelectorAll('td');
+        const fullName = infos[0].textContent.trim().split(/\s+/);
+        const flightnum = infos[1].textContent.trim();
+        const date = infos[2].textContent.trim();
+        const from = infos[3].textContent.trim();
+        const to = infos[4].textContent.trim();
+        let status = infos[5];
+
+
+
+         document.getElementById('check-in-fn').value = fullName[0];
+         document.getElementById('check-in-ln').value = fullName[1];
+         document.getElementById('check-in-flight_n').value = flightnum;
+         document.getElementById('check-in-departure').value = from;
+         document.getElementById('check-in-destination').value = to;
+
+        const dateParts = date.split('\u00A0');
+        const day = dateParts[0];
+        const month = months[dateParts[1]];
+        const year = dateParts[2];
+        document.getElementById('check-in-date').value = `${year}-${month}-${day}`;
+    
+        checkInOverlay.classList.add('active');
+
+        step1.classList.add('active');
+
+        nextBtn1.addEventListener('click', () => {
+            step1.classList.remove('active');
+            step2.classList.add('active');
+        })
+
+
+        nextBtn2.addEventListener('click', () => {
+            step2.classList.remove('active');
+            step3.classList.add('active');
+        })
+
+        prevBtn1.addEventListener('click', ()=> {
+            step2.classList.remove('active');
+            step1.classList.add('active');
+        } )
+
+        prevBtn2.addEventListener('click', ()=> {
+            step3.classList.remove('active');
+            step2.classList.add('active');
+        })
+
+        confirmBtn.addEventListener('click', ()=> {
+            // send data to boarding
+            // status = done
+            // button of check in transform to done
+            // print boarding-pass
+            step3.classList.remove('active');
+            checkInOverlay.classList.remove('active');
+        }) 
+
         
-    //     const inputs = form.querySelectorAll('input, select');
-    //     inputs.forEach(input => input.setAttribute('disabled', 'disabled'));
 
-    //     submitBtn.style.display = 'none';
-    //     cancelBtn.textContent = 'Close';
-    //     overlay.classList.add('active');
+        document.addEventListener('click', (e) => {
+        if (e.target === checkInOverlay) {
+            checkInOverlay.classList.remove('active');
+            if (step1.classList.contains('active')) {
+                step1.classList.remove('active');
+            }
+            if (step2.classList.contains('active')) {
+                step2.classList.remove('active');
+            }
+            if (step3.classList.contains('active')) {
+                step3.classList.remove('active');
+            }
+        }
+            });
 
-    //     overlay.addEventListener('click', (e) => {
-    //         if (e.target === overlay) {
-    //             overlay.classList.remove('active');
-    //             restore();
-    //         }
-    //     }, { once: true });
+         cancelCheckInBtn.addEventListener('click', () => {
+             checkInOverlay.classList.remove('active');
+         });
 
-    //     function restore() {
-    //     title.textContent = 'Add New Booking';
-    //     inputs.forEach(input => input.removeAttribute('disabled'));
-    //     submitBtn.style.display = 'block';
-    //     cancelBtn.textContent = 'Cancel';
-    //     form.reset();
-    //     overlay.dataset.mode = '';
-    //     }
+    }
+        
+    
 
-    //     cancelBtn.addEventListener('click', () => {
-    //         overlay.classList.remove('active');
-    //         restore();
-    //     }, { once: true });
 
-    // }
 
-    // document.addEventListener('click', (e) => {
-    //     if (e.target.classList.contains('fa-eye')) {
-    //     const r = e.target.closest('tr');
-    //     view(r);
-    //     }
-    // });
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('fa-user-check')) {
+            const r = e.target.closest('tr');
+            checkIn(r);
+        }
+        
+    })
+
+    
+
+
+
 });
