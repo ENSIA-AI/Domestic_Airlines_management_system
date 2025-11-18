@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('overlay');
     const cancelBtn = document.getElementById('cancel-btn');
     const bookingForm = document.getElementById('BookingForm');
-    const table = document.getElementById('bookingTbBody');
+    const table = document.getElementById('tablebody');
 
     addBtn.addEventListener('click', () => {
         overlay.classList.add('active');

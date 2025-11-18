@@ -42,9 +42,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             <table class="dams-table" id="search-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Passenger Name</th>
                         <th>National ID</th>
+                        <th>Passenger Name</th>
                         <th>Phone</th>
                         <th>Date of Birth</th>
                         <th>Gender</th>
@@ -52,11 +51,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody class="Ptbody">
+                <tbody class="Ptbody" id="tablebody">
                     <tr>
-                        <td>P001</td>
-                        <td>Ahmed Benali</td>
                         <td>123456789012345678</td>
+                        <td>Ahmed Benali</td>
                         <td>0555123456</td>
                         <td>15/03/1985</td>
                         <td>Male</td>
@@ -70,9 +68,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         </td>
                     </tr>
                     <tr>
-                        <td>P002</td>
-                        <td>Fatima Khelifi</td>
                         <td>234567890123456789</td>
+                        <td>Fatima Khelifi</td>
                         <td>0661234567</td>
                         <td>22/07/1990</td>
                         <td>Female</td>
@@ -86,9 +83,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         </td>
                     </tr>
                     <tr>
-                        <td>P003</td>
-                        <td>Karim Meziani</td>
                         <td>345678901234567890</td>
+                        <td>Karim Meziani</td>
                         <td>0770345678</td>
                         <td>08/11/1988</td>
                         <td>Male</td>

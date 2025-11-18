@@ -48,7 +48,7 @@ session_start();
                             <th>Options</th>
                         </tr>
                     </thead>
-                    <tbody id="bookingTbBody">
+                    <tbody id="tablebody">
                         <tr>
                             <td>XJ9HE4</td>
                             <td>Test num1</td>
