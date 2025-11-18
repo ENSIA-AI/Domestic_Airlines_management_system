@@ -56,7 +56,7 @@ session_start();
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>Business</td>
                             <td>0555123456</td>
-                            <td><span class="status confirmed">Confirmed</span></td>
+                            <td><span class="status Confirmed">Confirmed</span></td>
                             <td>
                                 <div class="options">
                                     <button class="option"><i class="fa fa-eye"></i></button>
@@ -72,7 +72,7 @@ session_start();
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>Business</td>
                             <td>0555123456</td>
-                            <td><span class="status pending">Pending</span></td>
+                            <td><span class="status Pending">Pending</span></td>
                             <td>
                                 <div class="options">
                                     <button class="option"><i class="fa fa-eye"></i></button>
@@ -88,7 +88,7 @@ session_start();
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>Business</td>
                             <td>0555123456</td>
-                            <td><span class="status cancelled">Cancelled</span></td>
+                            <td><span class="status Cancelled">Cancelled</span></td>
                             <td>
                                 <div class="options">
                                     <button class="option"><i class="fa fa-eye"></i></button>
@@ -123,14 +123,14 @@ session_start();
                 <option value="Premium">Premium</option>
             </select>
             <label for="Email">Email: </label>
-            <input type="email" name="Email" id="email" required>
+            <input type="email" name="Email" id="email">
             <label for="Phone">Phone Number: </label>
             <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})">
             <label for="status">Status: </label>
             <select id="status" name="status" required>
-                <option value="confirmed">Confirmed</option>
-                <option value="pending">Pending</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
             </select>
             <div class="form-actions">
                 <button type="submit" class="submit-btn" id="submit-btn">Add Booking</button>

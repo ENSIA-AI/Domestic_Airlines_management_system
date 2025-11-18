@@ -388,15 +388,15 @@ thead {
   color: rgb(255, 255, 255);
 }
 
-.status.confirmed {
+.status.Confirmed {
   background-color: #0b7825;
 }
 
-.status.pending {
+.status.Pending {
   background-color: #ef9517;
 }
 
-.status.cancelled {
+.status.Cancelled {
   background-color: #c72533;
 }
 

@@ -19,12 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'
     };
 
-    const stats = {
-        'confirmed': 'Confirmed',
-        'pending': 'Pending',
-        'cancelled': 'Cancelled'
-    };
-
     function simplify(date) {
         const [year, month, day] = date.split('-');
         return `${String(Number(day))}\u00A0${numToMonth[month]}\u00A0${year}`;
@@ -51,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const date = infos[3].textContent.trim();
         const classType = infos[4].textContent.trim();
         const phone = infos[5].textContent.trim();
-        const status = infos[6].querySelector('.status').textContent.trim().toLowerCase();
+        const status = infos[6].querySelector('.status').textContent.trim();
 
         document.getElementById('fn').value = fullName[0];
         document.getElementById('ln').value = fullName[1];
@@ -113,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infos[3].textContent = simplify(dep_data);
             infos[4].textContent = classType;
             infos[5].textContent = phone_num;
-            infos[6].innerHTML = `<span class="status ${status}">${stats[status]}</span>`;
+            infos[6].innerHTML = `<span class="status ${status}">${status}</span>`;
             restore();
             return;
         }
@@ -134,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${simplify(dep_data)}</td>
             <td>${classType}</td>
             <td>${phone_num}</td>
-            <td><span class="status ${status}">${stats[status]}</span></td>
+            <td><span class="status ${status}">${status}</span></td>
             <td>
                 <div class="options">
                     <button class="option"><i class="fa fa-eye"></i></button>
