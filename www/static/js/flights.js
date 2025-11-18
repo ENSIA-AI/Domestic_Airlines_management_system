@@ -3,12 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
 const form = document.getElementById('FlightsForm');
 const tableBody = document.getElementById('flightsTbBody');
 
- // used for date manipulation in function view()
-const months = {
-        'Jan': '01','Feb': '02','Mar': '03','Apr': '04',
-        'May': '05','Jun': '06','Jul': '07','Aug': '08',
-        'Sep': '09','Oct': '10','Nov': '11','Dec': '12'
-    };
+
+const numToMonth = {
+    '01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun',
+    '07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'
+};
+
+const monthToNum = {
+    'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
+    'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'
+};
+
+function simplify(date) {
+    const [year, month, day] = date.split('-');
+    return `${String(Number(day))}\u00A0${numToMonth[month]}\u00A0${year}`;
+}
+
 // adding a new flight
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
@@ -23,16 +33,17 @@ form.addEventListener('submit', (e)=>{
     // random id generation??
 
     // transform STATUS to Title Case
-   let statusString;
-   STATUS == 'confirmed' ? statusString = 'Confirmed' : statusString = 'Cancelled';
-   
-   // creating a new flight row
+    let statusString;
+    STATUS == 'confirmed' ? statusString = 'Confirmed' : statusString = 'Cancelled';
+    let dateParts = DATE.split('-');
+    let fixedDate = `${dateParts[2]}\u00A0${numToMonth[dateParts[1]]}\u00A0${dateParts[0]}`;
+    // creating a new flight row
     const newr = document.createElement('tr');
     newr.innerHTML=`
                     <td>${FID}</td>
                     <td>${DEP}</td>
                     <td>${ARR}</td>
-                    <td>${DATE}</td>
+                    <td>${fixedDate}</td>
                     <td>${AC}</td>
                     <td><div class="flight-status ${STATUS}">${statusString}</span></td>
                     <td>
@@ -47,7 +58,7 @@ form.addEventListener('submit', (e)=>{
 
     tableBody.prepend(newr);
     form.reset();
-})
+    })
 
 
 // inspect a flight row (fa-eye) event listner
@@ -82,7 +93,7 @@ form.addEventListener('submit', (e)=>{
 
         const dateParts = date.split('\u00A0');
         const day = dateParts[0];
-        const month = months[dateParts[1]];
+        const month = monthToNum[dateParts[1]];
         const year = dateParts[2];
         document.getElementById('DATE').value = `${year}-${month}-${day}`;
         

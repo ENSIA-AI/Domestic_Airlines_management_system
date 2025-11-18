@@ -43,10 +43,15 @@
   box-shadow: none;
 }
 
+.seatmap {
+  background: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
 .step.active {
   display: block;
 }
-
 
 
 .step-header {
@@ -63,6 +68,9 @@
 .step-title {
   text-align: center;
   font-weight: bold;
+ 
+  border-bottom-style: solid;
+  border-bottom-color: #eef6df;  
 }
 
 .cabin {
@@ -74,7 +82,7 @@
 .cabin h2 {
   color: var(white);
   text-align: center;
-  border-bottom: 2px solid var(--olivine);
+  border-bottom: 2px solid #eef6df;
   width: 220px;
   margin: 0 auto 15px auto;
 }
@@ -124,44 +132,9 @@
 }
 
 /* Taken seat */
-.seat.taken-seat {
+.seat.taken {
   background-color: grey !important;
 }
 
-.seatmap-actions {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 25px;
-}
 
-.btn {
-  padding: 5px 15px;
-  font-size: 0.8em;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  color: var(--logo-white);
-  box-shadow: 3px 3px 3px #222E50;
-}
 
-.btn.confirm {
-  background-color: var(--myrtle-green);
-}
-
-.btn.cancel {
-  background-color: var(--space-cadet-light);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn.confirm:hover {
-  background-color: var(--myrtle-green);
-}
-
-.btn.cancel:hover {
-  background-color: var(--space-cadet-light);
-}

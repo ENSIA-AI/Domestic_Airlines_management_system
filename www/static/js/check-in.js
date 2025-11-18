@@ -1,11 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     const table = document.getElementById('dams-table-body');
     const form = document.getElementById('BookingForm'); 
-    const months = {
-        'Jan': '01','Feb': '02','Mar': '03','Apr': '04',
-        'May': '05','Jun': '06','Jul': '07','Aug': '08',
-        'Sep': '09','Oct': '10','Nov': '11','Dec': '12'
+    const numToMonth = {
+        '01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun',
+        '07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'
     };
+
+    const monthToNum = {
+        'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
+        'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'
+    };
+
+    function simplify(date) {
+        const [year, month, day] = date.split('-');
+        return `${String(Number(day))}\u00A0${numToMonth[month]}\u00A0${year}`;
+    }
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -17,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const departure = document.getElementById('departure').value.trim();
         const destination = document.getElementById('destination').value.trim();
         const status = document.getElementById('status').value.trim();
+
+        let dateparts = dep_date.split('-');
 
         const newr = document.createElement('tr');
         newr.innerHTML = `
@@ -44,14 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function simplify(d) {
-        const [year, month, day] = d.split('-');
-        const monthNames = {
-        '01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun',
-        '07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'
-        };
-        return `${String(Number(day))}\u00A0${monthNames[month]}\u00A0${year}`;
-    }
+
 
     function capitalize(s) {
         if (!s) return '';
@@ -93,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dateParts = date.split('\u00A0');
         const day = dateParts[0];
-        const month = months[dateParts[1]];
+        const month = monthToNum[dateParts[1]];
         const year = dateParts[2];
         document.getElementById('check-in-date').value = `${year}-${month}-${day}`;
     
@@ -151,6 +155,17 @@ document.addEventListener('DOMContentLoaded', () => {
          cancelCheckInBtn.addEventListener('click', () => {
              checkInOverlay.classList.remove('active');
          });
+
+         document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('seat')) {
+                e.target.classList.toggle('taken');
+                if (e.target.classList.contains('taken')) {
+                    let chosenSeat = e.target;
+                    // send it to backend
+                }
+
+            }
+         })
 
     }
         
