@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${simplify(dep_date)}</td>
         <td>${departure}</td>
         <td>${destination}</td>
-        <td><span class="status ${status}">${capitalize(status)}</span></td>
+        <td><span class="status ${capitalize(status)}">${capitalize(status)}</span></td>
         <td>
             <div class="options">
                 <button class="option">

@@ -395,7 +395,7 @@ thead {
   background-color: #0b7825;
 }
 
-.status.pending, .status.waiting {
+.status.Pending, .status.Waiting {
   background-color: #ef9517;
 }
 

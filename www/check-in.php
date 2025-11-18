@@ -62,7 +62,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>20 December 2025</td>
                         <td>ALG-DAAG</td>
                         <td>ORN-DAOO</td>
-                        <td><span class="status waiting">Waiting</span></td>
+                        <td><span class="status Waiting">Waiting</span></td>
                         <td>
                             <button class="option">
                             <i class="fa-solid fa-user-check"></i>
@@ -78,7 +78,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>21 December 2025</td>
                         <td>ALG-DAAG</td>
                         <td>ORN-DAOO</td>
-                        <td><span class="status waiting">Waiting</span></td>
+                        <td><span class="status Waiting">Waiting</span></td>
                         <td>
                             <div class="options">
                             <button class="option">
