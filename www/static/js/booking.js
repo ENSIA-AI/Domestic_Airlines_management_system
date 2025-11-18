@@ -19,13 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'
     };
 
+    const stats = {
+        'confirmed': 'Confirmed',
+        'pending': 'Pending',
+        'cancelled': 'Cancelled'
+    };
+
     function simplify(date) {
         const [year, month, day] = date.split('-');
         return `${String(Number(day))}\u00A0${numToMonth[month]}\u00A0${year}`;
-    }
-
-    function capitalize(s) {
-        return s[0].toUpperCase() + s.slice(1);
     }
 
     // restore the form to it's initial state
@@ -42,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         editRow = null;
     }
 
-    // to take all the infos from a row
     function getInfos(r) {
         const infos = r.querySelectorAll('td');
         const fullName = infos[1].textContent.trim().split(/\s+/);
@@ -112,11 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
             infos[3].textContent = simplify(dep_data);
             infos[4].textContent = classType;
             infos[5].textContent = phone_num;
-            infos[6].innerHTML = `<span class="status ${status}">${capitalize(status)}</span>`;
+            infos[6].innerHTML = `<span class="status ${status}">${stats[status]}</span>`;
             restore();
             return;
         }
-
 
         // the add new part
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; 
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${simplify(dep_data)}</td>
             <td>${classType}</td>
             <td>${phone_num}</td>
-            <td><span class="status ${status}">${capitalize(status)}</span></td>
+            <td><span class="status ${status}">${stats[status]}</span></td>
             <td>
                 <div class="options">
                     <button class="option"><i class="fa fa-eye"></i></button>
@@ -147,14 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
         restore();
     });
 
-    document.addEventListener('click', (e) => {
+    table.addEventListener('click', (e) => {
         const row = e.target.closest('tr');
-        if (!row) return;
-
         if (e.target.classList.contains('fa-eye')) view(row);
         else if (e.target.classList.contains('fa-edit')) edit(row);
-        else if (e.target.classList.contains('fa-trash')) {
-            row.remove();
-        }
     });
 });
