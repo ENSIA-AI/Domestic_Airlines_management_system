@@ -19,7 +19,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <link rel="stylesheet" href="/static/css/check-in.css">
     
 
-    <title>Flight Management</title>
+    <title>Check In</title>
 </head>
 
 <body>
