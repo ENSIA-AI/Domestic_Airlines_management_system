@@ -105,8 +105,10 @@ button {
   padding: 30px;
   background-image: url("/static/images/dz.svg");
   background-repeat: no-repeat;
-  background-position: calc(100% - 20px) calc(100% - 20px - 600%);
-  /* 20px from bottom and right */
+  background-position: calc(100% - 20px) calc(100px + 20vh);
+  background-attachment: fixed;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
 .nav-title {
