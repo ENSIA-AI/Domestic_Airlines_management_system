@@ -40,6 +40,10 @@ body {
     animation: marquee 20s linear infinite;
 }
 
+.marquee2 span {
+    animation-delay: 2.5s;
+}
+
 @keyframes marquee {
     0% {
         transform: translate(0, 0);

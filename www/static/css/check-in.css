@@ -44,8 +44,26 @@
   height: 50%;
 }
 
+.seatmap {
+  background: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
 .step.active {
   display: block;
+}
+
+
+.step-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--logo-white);
+  border-radius: 10px;
+  padding: 10px 10px;
+  
 }
 
 .step-title {
