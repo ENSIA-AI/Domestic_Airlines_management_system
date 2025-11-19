@@ -58,9 +58,9 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tr class="parent-row">
                         <td>AH0001</td>
                         <td>A1</td>
-                        <td>20 December 2025</td>
+                        <td>20 Dec 2025</td>
                         <td>18:00</td>
-                        <td>Countdown</td>
+                        <td class="countdown">Countdown</td>
                         <td>66</td>
                         <td>
                             <button class="option">
@@ -112,9 +112,9 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tr class="parent-row">
                         <td>AH0001</td>
                         <td>A1</td>
-                        <td>20 December 2025</td>
+                        <td>20 Dec 2025</td>
                         <td>18:00</td>
-                        <td>Countdown</td>
+                        <td class="countdown">Countdown</td>
                         <td>66</td>
                         <td>
                             <button class="option">
