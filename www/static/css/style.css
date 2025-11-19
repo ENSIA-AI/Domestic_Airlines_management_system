@@ -103,6 +103,10 @@ button {
 .content {
   flex: 1;
   padding: 30px;
+  background-image: url("/static/images/dz.svg");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 20px) calc(100% - 20px - 600%);
+  /* 20px from bottom and right */
 }
 
 .nav-title {
@@ -352,7 +356,9 @@ h1 {
   min-width: min-content;
   width: calc(100%);
   border-collapse: collapse;
-  background-color: white;
+  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.439);
+  backdrop-filter: blur(5px);
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -395,7 +401,8 @@ thead {
   background-color: #0b7825;
 }
 
-.status.Pending, .status.Waiting {
+.status.Pending,
+.status.Waiting {
   background-color: #ef9517;
 }
 
@@ -437,6 +444,7 @@ thead {
   color: #222E50;
   font-size: larger;
 }
+
 .dams-table-body tr:hover {
   background-color: rgb(234, 233, 233);
 }
@@ -515,5 +523,6 @@ input::-webkit-inner-spin-button {
 
 /* Firefox */
 input[type=number] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
