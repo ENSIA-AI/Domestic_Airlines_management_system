@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getInfos(r) {
         const infos = r.querySelectorAll('td');
-        const fullName = infos[1].textContent.trim().split(/\s+/);
+        const fullName = infos[1].textContent.trim().split(' ');
         const flightnum = infos[2].textContent.trim();
         const date = infos[3].textContent.trim();
         const classType = infos[4].textContent.trim();
@@ -145,10 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const row = e.target.closest('tr');
         if (e.target.classList.contains('fa-eye')) view(row);
         else if (e.target.classList.contains('fa-edit')) edit(row);
-    });
-
-    table.addEventListener("click", (e) => {
-        if (e.target.classList.contains("fa-trash")) {
+        else if (e.target.classList.contains("fa-trash")) {
             const confirmed = confirm("Are you sure you want to delete this booking?");
             if (!confirmed) return;
             const row = e.target.closest("tr");

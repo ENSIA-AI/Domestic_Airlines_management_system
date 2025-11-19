@@ -56,7 +56,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>123456789012345678</td>
                         <td>Ahmed Benali</td>
                         <td>0555123456</td>
-                        <td>15/03/1985</td>
+                        <td>1985-03-15</td>
                         <td>Male</td>
                         <td>Algerian</td>
                         <td>
@@ -71,7 +71,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>234567890123456789</td>
                         <td>Fatima Khelifi</td>
                         <td>0661234567</td>
-                        <td>22/07/1990</td>
+                        <td>1990-07-22</td>
                         <td>Female</td>
                         <td>Algerian</td>
                         <td>
@@ -86,7 +86,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <td>345678901234567890</td>
                         <td>Karim Meziani</td>
                         <td>0770345678</td>
-                        <td>08/11/1988</td>
+                        <td>1988-11-08</td>
                         <td>Male</td>
                         <td>Algerian</td>
                         <td>
