@@ -75,6 +75,15 @@ th {
     color: rgb(180, 247, 72);
 }
 
+tr:nth-child(odd) {
+    color: rgb(189, 230, 93);
+}
+
+tr:nth-child(even) {
+    color: rgb(119, 244, 171);
+}
+
+
 td {
     text-align: left;
     padding: 3px;
