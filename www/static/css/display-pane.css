@@ -60,6 +60,11 @@ body {
     margin-top: 45px;
     height: calc(100vh - 180px);
     overflow: hidden;
+    background-image: url("/static/images/dz_gray.svg");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) calc(100px + 20vh);
+    background-attachment: fixed;
+
 }
 
 table {
