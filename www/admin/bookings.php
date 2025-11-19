@@ -104,7 +104,7 @@ session_start();
         </div>
     </main>
     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="BookingForm">
+        <form class="dams-add-form" id="AddForm">
             <h2 id="title">Add New Booking</h2>
             <div class="name-container">
                 <label for="First_Name">First Name: </label>
