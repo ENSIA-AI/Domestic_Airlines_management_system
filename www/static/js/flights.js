@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const form = document.getElementById('bookingForm');
+    const form = document.getElementById('AddForm');
     const tableBody = document.getElementById('tablebody');
-
+   
+    
 
     const numToMonth = {
         '01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr', '05': 'May', '06': 'Jun',
@@ -23,18 +24,35 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         // fetching user inputs
-        const FID = document.getElementById('FID').value;
+        
         const DEP = document.getElementById('DEP').value;
         const ARR = document.getElementById('DEST').value;
         const DATE = document.getElementById('DATE').value;
         const AC = document.getElementById('AC').value;
         const STATUS = document.getElementById('STATUS').value;
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYTZ0123456789';
-        // random id generation??
-
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        // random id generation
+        function getRandomInt(max) {
+            // returns random number range (0, max-1)
+            return Math.floor(Math.random() * max);
+        }
+        function generateRandomId() {
+            let str = '';
+            for (let i = 0 ; i < 3 ; ++i) {
+                str = str + chars[getRandomInt(26)]
+            }
+            for (let j = 0 ; j < 3 ; ++j) {
+                str = str + nums[getRandomInt(10)];
+            }
+            return str;
+        }
+        let FID = generateRandomId();
+   
         // transform STATUS to Title Case
         let statusString;
-        STATUS == 'confirmed' ? statusString = 'Confirmed' : statusString = 'Cancelled';
+        STATUS == 'confirmed' ? statusString = 'Confirmed' : statusString = 'Pending';
+        
         let dateParts = DATE.split('-');
         let fixedDate = `${dateParts[2]}\u00A0${numToMonth[dateParts[1]]}\u00A0${dateParts[0]}`;
         // creating a new flight row
@@ -45,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${ARR}</td>
                         <td>${fixedDate}</td>
                         <td>${AC}</td>
-                        <td><div class="flight-status ${STATUS}">${statusString}</span></td>
+                        <td><span class="status ${statusString}">${statusString}</span></td>
                         <td>
                             <div class="options">
                             <button class="option"><i class="fa fa-eye"></i></button>
@@ -77,11 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const destination = infos[2].textContent.trim();
         const date = infos[3].textContent.trim();
         const aircraft = infos[4].textContent.trim();
-        const status = infos[5].querySelector('.flight-status').textContent.trim().toLowerCase();
+        const status = infos[5].querySelector('.status').textContent.trim().toLowerCase();
 
         title.textContent = `Flight Details ${fid}`;
 
-        document.getElementById('FID').value = fid;
         document.getElementById('DEP').value = departure;
         document.getElementById('DEST').value = destination;
         document.getElementById('AC').value = aircraft;
@@ -160,12 +177,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
     }
 
+    function remove(r) {
+        const confirmed = confirm('Are You Sure About Doing This Action?');
+        if (confirmed) {
+            if(r) {
+                r.remove();
+            }
+        }
+    }
 
-    table.addEventListener('click', (e) => {
+
+    document.addEventListener('click', (e) => {
         const row = e.target.closest('tr');
         if (e.target.classList.contains('fa-eye')) view(row);
         else if (e.target.classList.contains('fa-edit')) edit(row);
+        else if (e.target.classList.contains('fa-trash')) remove(row);
+
     });
+
+  
 
 
     // end of file

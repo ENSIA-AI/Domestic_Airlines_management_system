@@ -15,7 +15,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/flights.css">
+    
     <script src="/static/js/search.js"></script>
     <title>Flight Management</title>
 </head>
@@ -60,15 +60,15 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             <th>Options</th>
                         </tr>
                     </thead>
-                    <tbody class="flightsTbBody" id="flightsTbBody">
+                    <tbody  id="tablebody">
                         <tr>
                             <td>AH1432</td>
                             <td>Houari Boumedien, Algiers</td>
                             <td>Rabah Bitat Airport, Annaba</td>
-                            <td>16 Oct 2024</td>
+                            <td>16 Sep 2025</td>
                             <td>AC3894</td>
                             <td>
-                                <div class="flight-status confirmed">Confirmed</span>
+                                <span class="status Confirmed">Confirmed</span>
                             </td>
                             <td>
                                 <div class="options">
@@ -79,13 +79,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </td>
                         </tr>
                         <tr>
-                            <td>AH1432</td>
-                            <td>Houari Boumedien, Algiers</td>
+                            <td>AH1445</td>
+                            <td>Mostefa Ben Boulaid, Batna</td>
                             <td>Rabah Bitat Airport, Annaba</td>
                             <td>16 Oct 2024</td>
-                            <td>AC3894</td>
+                            <td>AC1233</td>
                             <td>
-                                <div class="flight-status pending">Pending</span>
+                                <span class="status Pending">Pending</span>
                             </td>
                             <td>
                                 <div class="options">
@@ -96,12 +96,12 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </td>
                         </tr>
                         <tr>
-                            <td>AH1432</td>
+                            <td>AH1082</td>
                             <td>Houari Boumedien, Algiers</td>
                             <td>Rabah Bitat Airport, Annaba</td>
                             <td>16 Oct 2024</td>
                             <td>AC3894</td>
-                            <td><span class="flight-status pending">Pending</span></td>
+                            <td><span class="status Pending">Pending</span></td>
                             <td>
                                 <div class="options">
                                     <button class="option"><i class="fa fa-eye"></i></button>
@@ -111,13 +111,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </td>
                         </tr>
                         <tr>
-                            <td>AH1432</td>
+                            <td>AH14632</td>
+                            <td>Ahmed Ben Bella Airport, Oran</td>
                             <td>Houari Boumedien, Algiers</td>
-                            <td>Rabah Bitat Airport, Annaba</td>
                             <td>16 Oct 2024</td>
                             <td>AC3894</td>
                             <td>
-                                <div class="flight-status cancelled">Cancelled</span>
+                                <span class="status Cancelled">Cancelled</span>
                             </td>
                             <td>
                                 <div class="options">
@@ -128,13 +128,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </td>
                         </tr>
                         <tr>
-                            <td>AH1432</td>
+                            <td>AH8962</td>
                             <td>Houari Boumedien, Algiers</td>
-                            <td>Rabah Bitat Airport, Annaba</td>
+                            <td>Ahmed Ben Bella Airport,Oran</td>
                             <td>16 Oct 2024</td>
                             <td>AC3894</td>
                             <td>
-                                <div class="flight-status cancelled">Cancelled</span>
+                                <span class="status Cancelled">Cancelled</span>
                             </td>
                             <td>
                                 <div class="options">
@@ -151,11 +151,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
     </main>
     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="FlightsForm">
+        <form class="dams-add-form" id="AddForm">
             <h2 id="title">Add New Flight</h2>
 
-            <label for="FID">Flight ID: </label>
-            <input type="text" name="FID" id="FID" required>
+
 
             <label for="DEP">Departure: </label>
             <input type="text" name="DEP" id="DEP" required>
@@ -163,22 +162,27 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
             <label for="DEST">Destination: </label>
             <input type="text" name="DEST" id="DEST" required>
 
+            <label for="AC">Aircraft: </label>
+            <input type="text" name="AC" id="AC" pattern="AC[0-9]{4}">
+
             <label for="DATE">Departure Date: </label>
             <input type="date" name="DATE" id="DATE" required>
 
-            <label for="AC">Aircraft: </label>
-            <input type="text" name="AC" id="AC" pattern="[0-9]{2}[A-HJ-K]">
+
 
 
             <label for="STATUS">Status: </label>
             <select id="STATUS" name="STATUS" required>
                 <option value="confirmed">Confirmed</option>
                 <option value="pending">Pending</option>
+                <option value="cancelled" disabled>Cancelled</option>
             </select>
+
             <div class="form-actions">
                 <button type="submit" class="submit-btn" id="submit-btn">Add Flight</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
+
         </form>
         </div>
 
