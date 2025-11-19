@@ -1,0 +1,65 @@
+:root {
+  --desert-sand: #eef6df;
+  --olivine-light: #B5CA8D;
+  --olivine: #8BB174;
+  --myrtle-green: #426B69;
+  --myrtle-green-light: #519390;
+  --space-cadet: #222E50;
+  --space-cadet-light: #465784;
+  --dark-slate-gray: #2A4849;
+}
+
+.childrow.headchildrow {
+  font-weight: 900;
+}
+
+.fa-circle-chevron-down {
+  color: #222E50;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.parent-row {
+  font-weight: bolder;
+  text-decoration: underline;
+  background-color: rgb(234, 233, 233);
+}
+
+.dams-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dams-table .dummy-td {
+  border: none;
+}
+
+.dams-table .tr {
+  border-top: 1px solid #ddd;
+}
+
+
+.arrival-state {
+ display: inline-block;
+  width: 100px;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+.arrival-state.on-plane {
+  background-color: #0b7825;
+}
+
+.arrival-state.checked-in {
+  background-color: #ef9517;
+}
+
+.arrival-state.waiting {
+  background-color: #c72533;
+}
+
+

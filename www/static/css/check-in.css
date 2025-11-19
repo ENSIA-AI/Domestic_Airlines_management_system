@@ -41,6 +41,7 @@
   background: none;
   backdrop-filter: none;
   box-shadow: none;
+  height: 50%;
 }
 
 .seatmap {
@@ -99,19 +100,19 @@
 }
 
 .seat {
-  width: 7%;
-  height: 3%;
+  width: 55px;
+  height: 30px;
   line-height: 20px;
   margin: 1%;
-  padding: 0% 1%;
   border-radius: 6px;
   color: var(--logo-white);
-  font-weight: bold;
-  font-size: small;
+  font-weight: bolder;
+  font-size: medium;
   cursor: pointer;
   text-align: center;
   transition: transform 0.15s, background-color 0.3s;
   box-shadow: 3px 3px 3px #222E50;
+  backdrop-filter: blur(5px);
 }
 
 .seat:hover {

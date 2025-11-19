@@ -162,10 +162,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                              <button type="button" class="submit-btn" id="next-btn1">Next</button>     
                         </div>
                      </form>
-
-
-
-          
             </div>
 
 
