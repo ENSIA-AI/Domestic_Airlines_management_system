@@ -404,7 +404,7 @@ thead {
   background-color: #0b7825;
 }
 
-.status.Waiting,.status.Maintenance,.status.Waiting  {
+.status.Pending,.status.Maintenance,.status.Waiting  {
   background-color: #ef9517;
 }
 
