@@ -54,7 +54,7 @@ session_start();
                             <td>AH1432</td>
                             <td>16&nbsp;Oct&nbsp;2024</td>
                             <td>Business</td>
-                            <td><span class="status Active">active</span></td>
+                            <td><span class="status Active">Active</span></td>
                             <td>
                                 <div class="options">
                                     <button class="option"><i class="fa fa-eye"></i></button>

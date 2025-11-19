@@ -400,7 +400,7 @@ thead {
   color: rgb(255, 255, 255);
 }
 
-.status.Confirmed,.status.active {
+.status.Confirmed,.status.Active {
   background-color: #0b7825;
 }
 
