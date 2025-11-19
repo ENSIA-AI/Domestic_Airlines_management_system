@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   let moreBtns = document.querySelectorAll('.fa-circle-chevron-down');
+  let parentRows = document.querySelectorAll('.parent-row');
+
   moreBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const parentRow = btn.closest('.parent-row');
@@ -11,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
     })
   })
+
+
 
 
   function showChilds(parentRow) {
