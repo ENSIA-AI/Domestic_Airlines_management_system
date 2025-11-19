@@ -337,11 +337,11 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             </div>
             </div>
             <div id="step3" class="step">
-                <h2 class="step-title">Boarding Pass Printing</h2>
-
+                <h2 class="step-title">Boarding Pass QR Code</h2>
+                <img src="static/images/boarding-pass.png">
                 <div class="form-actions">
                 <button class="cancel-btn" id="prev-btn2">Previous</button>
-                <button type="submit" class="submit-btn" id="confirm-btn">Confirm</button>
+                <button type="submit" class="submit-btn" id="confirm-btn">Confirm & Print</button>
                 </div>
             </div>
         
