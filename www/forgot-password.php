@@ -32,7 +32,7 @@
                 <p>Check your spam folder if you don't receive the email within a few minutes.</p>
             </div>
             <div class="back-to-login">
-                <a href="#login">← Back to Login</a>
+                <a href="login.php#login">← Back to Login</a>
             </div>
         </div>
     </div>
