@@ -2,6 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const form = document.getElementById('AddForm');
     const tableBody = document.getElementById('tablebody');
+    const overlay = document.getElementById('overlay');
+    const title = document.getElementById('title');
+    const submitBtn = document.getElementById('submit-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    let isEdit = false;
+    let editRow = null;
    
     
 
@@ -84,10 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function view(r) {
-        const overlay = document.getElementById('overlay');
-        const title = document.getElementById('title');
-        const submitBtn = document.getElementById('submit-btn');
-        const cancelBtn = document.getElementById('cancel-btn');
+
 
         const infos = r.querySelectorAll('td');
         const fid = infos[0].textContent.trim();
@@ -140,41 +143,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function edit(r) {
-        const overlay = document.getElementById('overlay');
-        const title = document.getElementById('title');
-        const submitBtn = document.getElementById('submit-btn');
-        const cancelBtn = document.getElementById('cancel-btn');
+        const infos = r.querySelectorAll('td');
+        const fid = infos[0].textContent.trim();
+        const departure = infos[1].textContent.trim();
+        const destination = infos[2].textContent.trim();
+        const date = infos[3].textContent.trim();
+        const aircraft = infos[4].textContent.trim();
+        const status = infos[5].querySelector('.status').textContent.trim().toLowerCase();
+
+        title.textContent = `Flight Details ${fid}`;
+
+        document.getElementById('DEP').value = departure;
+        document.getElementById('DEST').value = destination;
+        document.getElementById('AC').value = aircraft;
+        document.getElementById('STATUS').value = status;
+
+        const dateParts = date.split('\u00A0');
+        const day = dateParts[0];
+        const month = monthToNum[dateParts[1]];
+        const year = dateParts[2];
+        document.getElementById('DATE').value = `${year}-${month}-${day}`;
 
 
-        submitBtn.addEventListener('click', ()=> {
-        const newFlightId = document.getElementById('FID').value; 
-        const newDep = document.getElementById('DEP').value ;
-        const newDest = document.getElementById('DEST').value ;
-        const newAc = document.getElementById('AC').value ;
-        const newStatus = document.getElementById('STATUS').value; 
-        const newDate = document.getElementById('DATE').value;
-        })
-        title.textContent = `Edit Flight ${fid}`;
-
+        const inputs = form.querySelectorAll('input, select');
+        inputs.forEach(input => input.removeAttribute('disabled'));
+        title.textContent = 'Edit Booking';
+        submitBtn.style.display = 'block';
+        submitBtn.textContent = 'Save Changes';
+        cancelBtn.textContent = 'Cancel';
         overlay.classList.add('active');
-
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.classList.remove('active');
-                restore();
-            }
-        }, { once: true });
-
-        function restore() {
-            title.textContent = 'Add New Flight';
-            form.reset();
-            overlay.dataset.mode = '';
-        }
-
-        cancelBtn.addEventListener('click', () => {
-            overlay.classList.remove('active');
-            restore();
-        }, { once: true });
+        isEdit = true;
+        editRow = r;
     }
 
     function remove(r) {

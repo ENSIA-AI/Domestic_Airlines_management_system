@@ -129,10 +129,13 @@
   font-weight: bolder;
   font-size: medium;
   cursor: pointer;
-  text-align: center;
   transition: transform 0.15s, background-color 0.3s;
   box-shadow: 3px 3px 3px #222E50;
   backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 .seat:hover {

@@ -17,6 +17,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <script src="https://kit.fontawesome.com/d2ccabbb5f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/boarding.css">
+    <script src="/static/js/search.js"></script>
     
 
     <title>Boarding Management</title>
@@ -35,13 +36,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
           <div class="search-container">
                     <h2 class="search-strip-title">Flights</h2>
                     <div class="search-bar">
-                        <input type="text" class="search" id="search" placeholder="Search">
+                        <input type="text" class="search" id="search-bar" placeholder="Search">
                         <button class="search-btn"><i class="fa fa-search"></i></button>
                       </div>
                    
         </div>
         <div class="table-container">
-          <table class="dams-table">
+          <table class="dams-table" id="search-table">
                 <thead class="dams-table-head">
                     <tr>
                         <th>ID</th>
@@ -171,6 +172,14 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <script src="/static/js/boarding.js"></script>
 
 </body>
+
+<script>
+    const table = document.getElementById("search-table");
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("keyup", () => {
+        search();
+    }, false);
+</script>
 
 </html>
 

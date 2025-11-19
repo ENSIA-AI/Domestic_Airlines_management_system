@@ -15,6 +15,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/d2ccabbb5f.js" crossorigin="anonymous"></script>
+    <script src="/static/js/search.js"></script>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/check-in.css">
     
@@ -37,13 +38,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
           <div class="search-container">
                     <h2 class="search-strip-title">Passengers</h2>
                     <div class="search-bar">
-                        <input type="text" class="search" id="search" placeholder="Enter ID">
+                        <input type="text" class="search" id="search-bar" placeholder="Enter ID">
                         <button class="search-btn"><i class="fa fa-search"></i></button>
-                      </div>
+                    </div>
                    
         </div>
         <div class="table-container">
-          <table class="dams-table">
+          <table class="dams-table" id="search-table">
                 <thead class="dams-table-head">
                     <tr>
                         <th>Name</th>
@@ -55,7 +56,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody class="dams-table-body" id="dams-table-body">
+                <tbody id="tablebody">
                     <tr>
                         <td>Ahmed Benbella</td>
                         <td>AH1432</td>
@@ -353,6 +354,14 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <script src="/static/js/check-in.js"></script>
 
 </body>
+
+<script>
+    const table = document.getElementById("search-table");
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("keyup", () => {
+        search();
+    }, false);
+</script>
 
 </html>
 

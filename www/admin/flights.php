@@ -42,13 +42,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             <option value="date">Search by Date</option>
                             <option value="status">Search by Status</option>
                         </select> -->
-                    <input type="text" class="search" id="search-bar" placeholder="Enter ID">
+                    <input type="text" class="search" id="search-bar" placeholder="Search">
 
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
             <div class="table-container">
-                <table class="dams-table">
+                <table class="dams-table" id="search-table">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -195,8 +195,11 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 </body>
 
 <script>
+    const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", () => { search(); }, false);
+    searchBar.addEventListener("keyup", () => {
+        search();
+    }, false);
 </script>
 
 </html>
