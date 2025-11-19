@@ -50,12 +50,12 @@ session_start();
                     </thead>
                     <tbody id="tablebody">
                         <tr>
-                            <td>XJ9HE4</td>
-                            <td>Test num1</td>
-                            <td>AH1432</td>
-                            <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>Business</td>
-                            <td>0555123456</td>
+                            <td>AB92LK</td>
+                            <td>Samir Benkhelifa</td>
+                            <td>AH2210</td>
+                            <td>22&nbsp;Nov&nbsp;2024</td>
+                            <td>Economy</td>
+                            <td>0660123456</td>
                             <td><span class="status Confirmed">Confirmed</span></td>
                             <td>
                                 <div class="options">
@@ -66,12 +66,12 @@ session_start();
                             </td>
                         </tr>
                         <tr>
-                            <td>EK7BE4</td>
-                            <td>raouf Ould Ali</td>
-                            <td>AH1332</td>
-                            <td>16&nbsp;Oct&nbsp;2024</td>
-                            <td>Business</td>
-                            <td>0555123456</td>
+                            <td>ZL55QW</td>
+                            <td>Linda Mokrane</td>
+                            <td>AH0987</td>
+                            <td>03&nbsp;Dec&nbsp;2024</td>
+                            <td>Premium</td>
+                            <td>0778456123</td>
                             <td><span class="status Pending">Pending</span></td>
                             <td>
                                 <div class="options">
@@ -82,12 +82,12 @@ session_start();
                             </td>
                         </tr>
                         <tr>
-                            <td>KE44JD</td>
-                            <td>name last</td>
-                            <td>AH0443</td>
-                            <td>16&nbsp;Oct&nbsp;2024</td>
+                            <td>TR8P21</td>
+                            <td>Yacine Haddad</td>
+                            <td>AH5561</td>
+                            <td>11&nbsp;Jan&nbsp;2025</td>
                             <td>Business</td>
-                            <td>0555123456</td>
+                            <td>0799023344</td>
                             <td><span class="status Cancelled">Cancelled</span></td>
                             <td>
                                 <div class="options">
@@ -144,6 +144,7 @@ session_start();
 </body>
 
 <script>
+    const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
         search();
