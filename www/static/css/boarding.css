@@ -54,10 +54,6 @@
   background-color: #0b7825;
 }
 
-.arrival-state.checked-in {
-  background-color: #ef9517;
-}
-
 .arrival-state.waiting {
   background-color: #c72533;
 }
