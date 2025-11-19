@@ -143,25 +143,33 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             <option value="40kg">40Kg Or Less</option>
                             <option value="80kg">80Kg Or Less</option>
                         </select>
-                        <label for="check-in-flight_n">Flight Number: </label>
+                        <div class="dep-dest">
+                            <label for="check-in-flight_n">Flight Number: </label>
+                            <label for="check-in-date">Date: </label>
+                        </div>
+                        <div class="dep-dest">
                         <input type="text" name="Flight-Num" id="check-in-flight_n" required disabled>
-                        <label for="check-in-date">Departure Date: </label>
                         <input type="date" name="date" id="check-in-date" required disabled>
-                        <label for="check-in-departure">Departure: </label>
-                        <input type="text" name="departure" id="check-in-departure" disabled>
-                        <label for="check-in-destination">Destination: </label>
-                        <input type="text" name="destination" id="check-in-destination" required disabled>
+                        </div>
+                        <div class="dep-dest">
+                            <label for="check-in-destination">Destination: </label>
+                            <label for="check-in-departure">Departure: </label>
+                        </div>
+                        <div class="dep-dest">
+                            <input type="text" name="departure" id="check-in-departure" disabled>
+                            <input type="text" name="destination" id="check-in-destination" required disabled>
+                        </div>
                         <label for="class">Class: </label>
                         <select id="class" name="class" value="Economy" >
                             <option value="economy">Economy</option>
                             <option value="bussiness">Bussiness</option>
                             <option value="first-class">First Class</option>
                         </select>
-                        <div class="form-actions">
-                             <button type="button" class="cancel-btn" id="cancel-btn1">Cancel</button>
-                             <button type="button" class="submit-btn" id="next-btn1">Next</button>     
-                        </div>
                      </form>
+                    <div class="form-actions">
+                            <button type="button" class="cancel-btn" id="cancel-btn1">Cancel</button>
+                            <button type="button" class="submit-btn" id="next-btn1">Next</button>     
+                    </div>
             </div>
 
 

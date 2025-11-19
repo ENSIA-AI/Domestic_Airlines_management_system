@@ -9,6 +9,12 @@
   --dark-slate-gray: #2A4849;
 }
 
+.childrow {
+  display: none;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+
 .childrow.headchildrow {
   font-weight: 900;
 }
@@ -22,7 +28,15 @@
 .parent-row {
   font-weight: bolder;
   text-decoration: underline;
+  
+}
+
+.parent-row.active-parent {
   background-color: rgb(234, 233, 233);
+}
+
+.parent-row.active-parent .fa-circle-chevron-down {
+  rotate:(180deg);
 }
 
 .dams-table td {
