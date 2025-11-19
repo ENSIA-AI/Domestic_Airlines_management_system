@@ -27,8 +27,13 @@
   text-decoration: underline;
 }
 
-.dams-table .parent-row:hover {
+.dams-table .parent-row:hover, .dams-table .childrow:hover {
   background-color: white;
+}
+
+.dams-table-body tr:hover td * {
+  transform: scale(1);
+  overflow:visible;
 }
 
 .parent-row .fa-circle-chevron-down, .parent-row:hover .fa-circle-chevron-down {
