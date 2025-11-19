@@ -180,11 +180,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
+        </div>
 
+        <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i
+                class="fa fa-close hidden"></i></button>
 
         <script src="/static/js/form.js"></script>
         <script src="/static/js/flights.js"></script>
-
 
 </body>
 
