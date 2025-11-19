@@ -11,7 +11,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/static/js/search.js"></script>
-    <title>Booking Management</title>
+    <title>Aircafts Management</title>
 </head>
 
 <body>
@@ -113,41 +113,47 @@ session_start();
         </div>
         </div>
     </main>
-    <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="AddForm">
-            <h2 id="title">Add New Booking</h2>
-            <div class="name-container">
-                <label for="First_Name">First Name: </label>
-                <input type="text" name="First_Name" id="fn" required>
-                <label for="Last">Last Name: </label>
-                <input type="text" name="Last" id="ln" required>
-            </div>
-            <label for="Flight-Num">Flight Number: </label>
-            <input type="text" name="Flight-Num" id="flight_n" required>
-            <label for="date">Departure Date: </label>
-            <input type="date" name="date" id="date" required>
-            <label for="class">Class: </label>
-            <select name="class" id="class" required>
-                <option value="Economy">Economy</option>
-                <option value="Business">Business</option>
-                <option value="Premium">Premium</option>
-            </select>
-            <label for="Email">Email: </label>
-            <input type="email" name="Email" id="email">
-            <label for="Phone">Phone Number: </label>
-            <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})">
-            <label for="status">Status: </label>
-            <select id="status" name="status" required>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Pending">Pending</option>
-                <option value="Cancelled">Cancelled</option>
-            </select>
-            <div class="form-actions">
-                <button type="submit" class="submit-btn" id="submit-btn">Add Booking</button>
-                <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
-            </div>
-        </form>
-    </div>
+    <!--just from here-->
+<!--just from here-->
+<div class="form-overlay" id="overlay">
+    <form class="dams-add-form" id="AddForm">
+        <h2 id="title">Add New Aircraft</h2>
+
+        <label for="Aircraft_Id">Aircraft ID: </label>
+        <input type="text" name="Aircraft_Id" id="aircraft_id" required>
+
+        <label for="Model">Model: </label>
+        <input type="text" name="Model" id="model" required>
+
+        <label for="Registration_Number">Registration Number: </label>
+        <input type="text" name="Registration_Number" id="reg_num" required>
+
+        <label for="Service_Entry_Date">Service Entry Date: </label>
+        <input type="date" name="Service_Entry_Date" id="service_date" required>
+
+        <label for="Capacity">Capacity: </label>
+        <select name="Capacity" id="capacity" required>
+            <option value="Economy">Economy</option>
+            <option value="Business">Business</option>
+            <option value="Premium">Premium</option>
+        </select>
+
+        <label for="Status">Status: </label>
+        <select id="status" name="Status" required>
+            <option value="Active">Active</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Out">Out of Service</option>
+        </select>
+
+        <div class="form-actions">
+            <button type="submit" class="submit-btn" id="submit-btn">Add Aircraft</button>
+            <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+        </div>
+    </form>
+</div>
+<!--to here-->
+    <!--to here-->
     <script src="/static/js/form.js"></script>
     <script src="/static/js/booking.js"></script>
     <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
