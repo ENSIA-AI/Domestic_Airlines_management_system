@@ -34,7 +34,7 @@
                 <p>Didn’t receive the code? <a href="#" class="resend-link">Resend code</a></p>
             </div>
             <div class="back-to-login">
-                <a href="#login">← Back to Login</a>
+                <a href="login.php#login">← Back to Login</a>
             </div>
         </div>
     </div>
