@@ -400,16 +400,15 @@ thead {
   color: rgb(255, 255, 255);
 }
 
-.status.Confirmed {
+.status.Confirmed,.status.active {
   background-color: #0b7825;
 }
 
-.status.Pending,
-.status.Waiting {
+.status.Waiting,.status.Maintenance,.status.Waiting  {
   background-color: #ef9517;
 }
 
-.status.Cancelled {
+.status.Cancelled,.status.Out,.status.Retired {
   background-color: #c72533;
 }
 
