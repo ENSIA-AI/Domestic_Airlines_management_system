@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--********* Copyright (c) 2024 Pareto Softare, LLC DBA Simplemaps.com ***************************************
+************* Free for Commercial Use, full terms at  https://simplemaps.com/resources/svg-license ************
+************* Attribution is appreciated! https://simplemaps.com *******************************************-->
+
+<svg
+   baseprofile="tiny"
+   fill="#6f9c76"
+   height="1000"
+   stroke="#ffffff"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   stroke-width=".5"
+   version="1.2"
+   viewbox="0 0 1000 1000"
+   width="1000"
+   id="svg1"
+   sodipodi:docname="plane.svg"
+   xml:space="preserve"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1" /><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.79211297"
+     inkscape:cx="451.32451"
+     inkscape:cy="435.54394"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" /><path
+     id="DZ"
+     style="fill:#d6e9b3;fill-opacity:1;stroke:none;stroke-width:3.12249"
+     d="m 274.43799,586.05816 c -0.25266,3.87634 -0.27487,7.9858 -0.21079,12.52946 0.30208,21.46575 1.81722,40.65072 3.36695,42.62453 1.54984,1.97359 35.53804,-18.67885 75.53237,-45.89792 39.99455,-27.219 76.99404,-49.31346 82.2253,-49.08556 5.4872,0.23896 11.23168,43.56861 13.57045,102.40336 l 4.05051,101.97404 -45.68875,53.76355 c -28.00084,32.95473 -43.95979,59.87471 -41.23829,69.53833 2.44201,8.67117 4.15565,22.26238 3.80832,30.21143 -0.78213,17.89958 20.89082,11.03816 59.07124,-18.7107 43.468,-33.86882 72.0729,-36.7369 106.66028,-10.66747 18.46529,13.9178 32.47348,18.77697 36.14883,12.52435 9.10538,-15.4906 -14.53001,-82.19339 -34.86563,-98.39271 -16.70712,-13.3089 -17.53717,-23.95002 -11.92074,-152.48591 4.54117,-103.92887 8.79948,-137.90193 17.1888,-137.06816 6.13482,0.60946 46.80387,15.95101 90.37366,34.10016 43.56981,18.14917 81.43293,31.6185 84.13654,29.9359 2.7035,-1.68254 4.17454,-22.44359 3.27326,-46.14647 -1.5919,-41.86499 -4.13958,-45.18016 -89.33023,-116.02089 -48.23252,-40.10795 -89.94799,-77.32322 -92.70532,-82.69645 -2.75716,-5.37322 -5.51787,-51.41529 -6.12282,-102.31697 -1.26376,-106.33641 -10.5975,-138.799943 -38.93087,-135.309705 -32.78317,4.03837 -43.81809,43.504565 -49.8536,178.357285 l -5.58984,124.8503 -81.86071,87.74027 c -66.70964,71.50876 -79.32078,87.11161 -81.08869,114.24596 z" /><g
+     id="points"
+     transform="translate(2.5248924,-103.52059)"><circle
+       class="19.881480055145836|-7.649822919386468"
+       cx="91.099998"
+       cy="912.29999"
+       id="0"
+       r="0" /><circle
+       class="27.128831407873598|2.6758000487322517"
+       cx="545.40002"
+       cy="564.20001"
+       id="1"
+       r="0" /><circle
+       class="36.18802059878331|10.936298423227228"
+       cx="908.90002"
+       cy="95.099998"
+       id="2"
+       r="0" /></g><g
+     id="label_points"
+     transform="translate(2.5248924,-103.52059)"><circle
+       class="Algeria"
+       cx="551.29999"
+       cy="551"
+       id="circle1"
+       r="0" /></g></svg>
