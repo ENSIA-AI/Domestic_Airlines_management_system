@@ -43,6 +43,26 @@
   box-shadow: none;
   height: 50%;
 }
+.dep-dest {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.dep-dest label {
+  display: inline-block;
+}
+
+.dep-dest input {
+  margin-right: 5px;
+  
+}
+
+.dep-dest label:nth-child(2) {
+  position: absolute;
+  left: 50%;;
+}
+
 
 .seatmap {
   background: none;

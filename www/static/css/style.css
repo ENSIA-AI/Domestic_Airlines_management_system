@@ -57,6 +57,7 @@ body {
 
 main {
   overflow-y: auto;
+  min-height: 100vh;
 }
 
 button {
@@ -108,7 +109,7 @@ button {
   background-repeat: no-repeat;
   background-position: calc(100% - 20px) calc(100px + 20vh);
   background-attachment: fixed;
-  min-height: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
 }
 
@@ -404,7 +405,7 @@ thead {
   background-color: #0b7825;
 }
 
-.status.Waiting,.status.Maintenance,.status.Waiting  {
+.status.Pending,.status.Maintenance,.status.Waiting  {
   background-color: #ef9517;
 }
 

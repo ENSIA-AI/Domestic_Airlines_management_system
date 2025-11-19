@@ -21,7 +21,7 @@ session_start();
     <main>
         <div class="content">
             <div class="dams-head">
-                <h1>Aircafts Management</h1>
+                <h1>Aircaft Management</h1>
                 <button class="btn add-btn">
                     <i class="fa fa-plus"></i>
                 </button>
