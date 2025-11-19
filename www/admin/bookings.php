@@ -70,7 +70,7 @@ session_start();
                             <td>Linda Mokrane</td>
                             <td>AH0987</td>
                             <td>03&nbsp;Dec&nbsp;2024</td>
-                            <td>Premium</td>
+                            <td>First Class</td>
                             <td>0778456123</td>
                             <td><span class="status Pending">Pending</span></td>
                             <td>
@@ -120,7 +120,7 @@ session_start();
             <select name="class" id="class" required>
                 <option value="Economy">Economy</option>
                 <option value="Business">Business</option>
-                <option value="Premium">Premium</option>
+                <option value="First Class">First Class</option>
             </select>
             <label for="Email">Email: </label>
             <input type="email" name="Email" id="email">
