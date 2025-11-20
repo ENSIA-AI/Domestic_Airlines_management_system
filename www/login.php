@@ -47,7 +47,7 @@
         <img src="/static/images/logo-inverted.png" alt="company-logo" class="logo">
         <h1>Login</h1>
         <p class="subtitle">Enter your email and password to access our services.</p>
-        <form id="LoginForm" action="login.php" method="POST">
+        <form id="LoginForm" action="/?log-in=yes" method="POST">
           <div class="form-group">
             <label for="email">Email Address</label>
             <div class="input-wrapper">

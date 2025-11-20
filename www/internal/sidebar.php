@@ -22,7 +22,7 @@
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
             <a href="/?log-in=no">Log out</a>
         <?php else: ?>
-            <a href="/?log-in=yes">Log in</a>
+            <a href="/login.php">Log in</a>
         <?php endif; ?>
     </div>
     <script>
