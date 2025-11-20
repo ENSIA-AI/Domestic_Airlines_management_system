@@ -104,22 +104,23 @@ session_start();
             <h2 id="title">Add New Aircraft</h2>
             
             <label for="model">Aircraft Model: </label>
-            <input type="text" name="model" id="model" placeholder="e.g. Boeing 737-800" required>
+            <input type="text" name="model" id="model" required>
             
             <label for="registration">Registration Number: </label>
-            <input type="text" name="registration" id="registration" placeholder="e.g. 7T-VKA" required>
+            <input type="text" name="registration" id="registration" required>
             
             <label for="service-date">Service Entry Date: </label>
             <input type="date" name="service-date" id="service-date" required>
             
             <label for="capacity">Capacity (Passengers): </label>
-            <input type="number" name="capacity" id="capacity" min="1" placeholder="e.g. 189" required>
+            <input type="number" name="capacity" id="capacity" min="1" required>
             
             <label for="status">Status: </label>
             <select id="status" name="status" required>
                 <option value="Active">Active</option>
                 <option value="Maintenance">Maintenance</option>
                 <option value="Retired">Retired</option>
+                <option value="Out of Service">Out of Service
             </select>
             
             <div class="form-actions">
@@ -129,7 +130,7 @@ session_start();
         </form>
     </div>
     <script src="/static/js/form.js"></script>
-    <script src="/static/js/aircraft.js"></script>
+    <script src="/static/js/aircrafts.js"></script>
     <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>
 
