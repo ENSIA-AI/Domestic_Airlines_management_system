@@ -31,11 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         // fetching user inputs
         
-        const MOD= document.getElementById('model').value;
-        const REG = document.getElementById('registration').value;
-        const DATE = document.getElementById('service-date').value;
-        const CAP = document.getElementById('capacity').value;
+        const FN= document.getElementById('fullname').value;
+        const USR = document.getElementById('username').value;
+        const EMAIL = document.getElementById('email').value;
         const STATUS = document.getElementById('status').value;
+        const ROLE =document.getElementById('role').value;
+        const DATE = document.getElementById('date-created').value;
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const nums = '0123456789';
         // random id generation
@@ -44,40 +45,44 @@ document.addEventListener('DOMContentLoaded', () => {
             return Math.floor(Math.random() * max);
         }
         function generateRandomId() {
-            let str = '';
-            for (let i = 0 ; i < 2 ; ++i) {
-                str = str + chars[getRandomInt(26)]
+            let str = 'U';
+            if(ROLE=='Admin'){
+                str = str+'A';
+            }
+            else if(ROLE=='Manager'){
+                str=str+M;
+            }
+            else if(ROLE=='Employee'){
+                str= str + 'E';
+            }
+            else{
+                str = str + 'V';
             }
             for (let j = 0 ; j < 4 ; ++j) {
                 str = str + nums[getRandomInt(10)];
             }
             return str;
         }
-        let AID = generateRandomId();
+        let UID = generateRandomId();
    
         // transform STATUS to Title Case
         let statusString;
         if(STATUS == 'Active'){ statusString = 'Active';} 
-        else if(STATUS =='Maintenance'){
-            statusString = 'Maintenance';}
-        else if(STATUS=='Retired'){
-            statusString='Retired';
-        }
-        else if(STATUS == 'Out of Service'){
-            statusString='Out of Service';
-        }
-        
+        else if(STATUS =='Inactive'){
+            statusString = 'Inactive';}
+
         let dateParts = DATE.split('-');//split date into array 
         let fixedDate = `${dateParts[2]}\u00A0${numToMonth[dateParts[1]]}\u00A0${dateParts[0]}`;
         // creating a new flight row
         const newr = document.createElement('tr');
         newr.innerHTML = `
-                        <td>${AID}</td>
-                        <td>${MOD}</td>
-                        <td>${REG}</td>
-                        <td>${fixedDate}</td>
-                        <td>${CAP}</td>
+                        <td>${UID}</td>
+                        <td>${FN}</td>
+                        <td>${USR}</td>
+                        <td>${EMAIL}</td>
+                        <td>${ROLE}</td>
                         <td><span class="status ${statusString}">${statusString}</span></td>
+                        <td>${fixedDate}</td>
                         <td>
                             <div class="options">
                             <button class="option"><i class="fa fa-eye"></i></button>
@@ -101,25 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         const infos = r.querySelectorAll('td');//pass the row as an array
-        const aid = infos[0].textContent.trim();//select what insde <td>:textContent trim():remove extra spaces
-        const mod = infos[1].textContent.trim();
-        const reg = infos[2].textContent.trim();
-        const date = infos[3].textContent.trim();
-        const cap = infos[4].textContent.trim();
+        const uid = infos[0].textContent.trim();//select what insde <td>:textContent trim():remove extra spaces
+        const fn = infos[1].textContent.trim();
+        const usr = infos[2].textContent.trim();
+        const email = infos[3].textContent.trim();
+        const role = infos[4].textContent.trim();
         const status = infos[5].querySelector('.status').textContent;
+        const date = infos[6].textContent.trim();
+        title.textContent = `USER ${uid} Details`;
 
-        title.textContent = `Aircraft Details ${aid}`;
-
-        document.getElementById('model').value = mod;
-        document.getElementById('registration').value = reg;
-        document.getElementById('capacity').value = cap;
+        document.getElementById('fullname').value = fn;
+        document.getElementById('username').value = usr;
+        document.getElementById('email').value = email;
+        document.getElementById('role').value = role;
         document.getElementById('status').value = status;
 
         const dateParts = date.split('\u00A0');
         const day = dateParts[0];
         const month = monthToNum[dateParts[1]];
         const year = dateParts[2];
-        document.getElementById('service-date').value = `${year}-${month}-${day}`;
+        document.getElementById('date-created').value = `${year}-${month}-${day}`;
 
         const inputs = form.querySelectorAll('input, select');
         inputs.forEach(input => input.setAttribute('disabled', 'disabled'));
@@ -151,27 +157,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function edit(r) {
+
         const infos = r.querySelectorAll('td');//pass the row as an array
-        const aid = infos[0].textContent.trim();//select what insde <td>:textContent trim():remove extra spaces
-        const mod = infos[1].textContent.trim();
-        const reg = infos[2].textContent.trim();
-        const date = infos[3].textContent.trim();
-        const cap = infos[4].textContent.trim();
+        const uid = infos[0].textContent.trim();//select what insde <td>:textContent trim():remove extra spaces
+        const fn = infos[1].textContent.trim();
+        const usr = infos[2].textContent.trim();
+        const email = infos[3].textContent.trim();
+        const role = infos[4].textContent.trim();
         const status = infos[5].querySelector('.status').textContent;
+        const date = infos[6].textContent.trim();
+        title.textContent = `USER ${uid} Details`;
 
-        title.textContent = `Aircraft Details ${aid}`;
-
-        document.getElementById('model').value = mod;
-        document.getElementById('registration').value = reg;
-        document.getElementById('capacity').value = cap;
+        document.getElementById('fullname').value = fn;
+        document.getElementById('username').value = usr;
+        document.getElementById('email').value = email;
+        document.getElementById('role').value = role;
         document.getElementById('status').value = status;
 
         const dateParts = date.split('\u00A0');
         const day = dateParts[0];
         const month = monthToNum[dateParts[1]];
         const year = dateParts[2];
-        document.getElementById('service-date').value = `${year}-${month}-${day}`;
-
+        document.getElementById('date-created').value = `${year}-${month}-${day}`;
 
         const inputs = form.querySelectorAll('input, select');
         inputs.forEach(input => input.removeAttribute('disabled'));
