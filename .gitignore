@@ -1,1 +1,2 @@
 *.rdb
+www/internal/db_config.php
