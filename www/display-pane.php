@@ -22,8 +22,10 @@ include "./internal/db_config.php";
         <?php if (isset($_GET["type"])): ?>
             <div class="logo-grid">
                 <?php
-                $sql = "SELECT * FROM AIRPORTS WHERE IATA_CODE='" . $_GET["airport"] . "'";
-                $result_airports = $conn->query($sql);
+                $stmt = $conn->prepare("SELECT * FROM AIRPORTS WHERE IATA_CODE=?");
+                $stmt->bind_param("s", $_GET["airport"]);
+                $stmt->execute();
+                $result_airports = $stmt->get_result();
                 $airport = $result_airports->fetch_assoc();
                 ?>
 
@@ -63,19 +65,19 @@ include "./internal/db_config.php";
                     <?php if ($_GET["type"] == 'Departures'): ?>
 
                         <?php
-                    $sql = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME, AIRPORTS.WILAYA AS ARR_WILAYA, ARR_AIRPORT, DEP_GATE, STATUS FROM FLIGHTS LEFT JOIN AIRPORTS ON FLIGHTS.ARR_AIRPORT = AIRPORTS.IATA_CODE WHERE DEP_AIRPORT = '" . $_GET["airport"] . "' AND (DEPARTURE_TIME >= NOW() OR REAL_DEPARTURE_TIME >= NOW()) ORDER BY DEPARTURE_TIME LIMIT 30";
-                    $result_flights = $conn->query($sql);
-                    while ($row = $result_flights->fetch_assoc()):
-                        ?>
-                        <tr>
-                            <td><?= (new DateTime($row["DEPARTURE_TIME"]))->format('H:i') ?></td>
-                            <td><?= $row["ARR_WILAYA"] ?></td>
-                            <td><?= $row["ARR_AIRPORT"] ?></td>
-                            <td><?= $row["FLIGHT_NUMBER"] ?></td>
-                            <td><?= $row["DEP_GATE"] ?></td>
-                            <td><?= str_replace('_', ' ', $row["STATUS"]) ?></td>
-                        </tr>
-                    <?php endwhile; ?>
+                        $sql = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME, AIRPORTS.WILAYA AS ARR_WILAYA, ARR_AIRPORT, DEP_GATE, STATUS FROM FLIGHTS LEFT JOIN AIRPORTS ON FLIGHTS.ARR_AIRPORT = AIRPORTS.IATA_CODE WHERE DEP_AIRPORT = '" . $_GET["airport"] . "' AND (DEPARTURE_TIME >= NOW() OR REAL_DEPARTURE_TIME >= NOW()) ORDER BY DEPARTURE_TIME LIMIT 30";
+                        $result_flights = $conn->query($sql);
+                        while ($row = $result_flights->fetch_assoc()):
+                            ?>
+                            <tr>
+                                <td><?= (new DateTime($row["DEPARTURE_TIME"]))->format('H:i') ?></td>
+                                <td><?= $row["ARR_WILAYA"] ?></td>
+                                <td><?= $row["ARR_AIRPORT"] ?></td>
+                                <td><?= $row["FLIGHT_NUMBER"] ?></td>
+                                <td><?= $row["DEP_GATE"] ?></td>
+                                <td><?= str_replace('_', ' ', $row["STATUS"]) ?></td>
+                            </tr>
+                        <?php endwhile; ?>
 
                     <?php else: ?>
 
