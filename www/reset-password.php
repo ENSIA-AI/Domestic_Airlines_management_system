@@ -18,7 +18,7 @@
             <img src="static/images/logo-inverted.png" alt="company-logo" class="logo">
             <h1>Enter Verification Code</h1>
             <p class="subtitle">
-                We’ve sent a 6-digit verification code to your email.
+                We've sent a 6-digit verification code to your email.
                 Enter it below to continue resetting your password.
             </p>
             <form id="verifyCodeForm" method="POST" action="verify-code.php">

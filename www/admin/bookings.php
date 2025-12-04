@@ -1,5 +1,46 @@
 <?php
 session_start();
+
+include "../internal/db_config.php";
+
+function display($str)
+{
+    if (empty($str)) return '';
+    return ucwords(strtolower(str_replace('_', ' ', $str)));
+}
+
+if (isset($_POST["type"])) {
+    if ($_POST["type"] == "DEL" && isset($_POST["id"]) && is_numeric($_POST["id"])) {
+        $stmt = $conn->prepare("DELETE FROM BOOKINGS WHERE BOOKING_ID = ?");
+        $stmt->bind_param("i", $_POST["id"]);
+        $stmt->execute();
+    } else if ($_POST["type"] == "ADD") {
+        $passenger_num = $_POST["PASSENGER_NUM"];
+        list($flight_number, $departure_date_time) = explode('|', $_POST["flight"]);
+        $class = strtoupper($_POST["class"]);
+        $status = strtoupper($_POST["status"]);
+        $stmt_booking = $conn->prepare("INSERT INTO BOOKINGS (PASSENGER_NUM, FLIGHT_NUMBER, DEPARTURE_DATE, CLASS, STATUS) VALUES (?, ?, ?, ?, ?)");
+        $stmt_booking->bind_param(
+            "issss",
+            $passenger_num,
+            $flight_number,
+            $departure_date_time,
+            $class,
+            $status
+        );
+        $stmt_booking->execute();
+    }
+}
+
+$sql_p = "SELECT PASSENGER_NUM, FIRST_NAME, LAST_NAME FROM PASSENGERS ORDER BY LAST_NAME, FIRST_NAME";
+$result_passengers = $conn->query($sql_p);
+
+$sql_ft = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME FROM FLIGHTS WHERE DEPARTURE_TIME > NOW() ORDER BY DEPARTURE_TIME ASC";
+$result_ft = $conn->query($sql_ft);
+
+$sql = "SELECT b.BOOKING_ID,p.FIRST_NAME, p.LAST_NAME, p.PHONE, b.FLIGHT_NUMBER, b.DEPARTURE_DATE, b.CLASS, b.STATUS FROM BOOKINGS b JOIN PASSENGERS p ON b.PASSENGER_NUM = p.PASSENGER_NUM ORDER BY b.BOOKING_ID DESC";
+$result_bookings = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -49,106 +90,104 @@ session_start();
                         </tr>
                     </thead>
                     <tbody id="tablebody">
-                        <tr>
-                            <td>AB92LK</td>
-                            <td>Samir Benkhelifa</td>
-                            <td>AH2210</td>
-                            <td>22&nbsp;Nov&nbsp;2024</td>
-                            <td>Economy</td>
-                            <td>0660123456</td>
-                            <td><span class="status Confirmed">Confirmed</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ZL55QW</td>
-                            <td>Linda Mokrane</td>
-                            <td>AH0987</td>
-                            <td>03&nbsp;Dec&nbsp;2024</td>
-                            <td>First Class</td>
-                            <td>0778456123</td>
-                            <td><span class="status Pending">Pending</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TR8P21</td>
-                            <td>Yacine Haddad</td>
-                            <td>AH5561</td>
-                            <td>11&nbsp;Jan&nbsp;2025</td>
-                            <td>Business</td>
-                            <td>0799023344</td>
-                            <td><span class="status Cancelled">Cancelled</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php while ($row = $result_bookings->fetch_assoc()): ?>
+                            <tr>
+                                <td><?= $row["BOOKING_ID"]; ?></td>
+                                <td><?= $row["FIRST_NAME"] . " " . $row["LAST_NAME"]; ?></td>
+                                <td><?= $row["FLIGHT_NUMBER"]; ?></td>
+                                <?php
+                                $departure_datetime = new DateTime($row['DEPARTURE_DATE']);
+                                $display_datetime = $departure_datetime->format('d M Y H:i');
+                                ?>
+                                <td><?= $display_datetime; ?></td>
+                                <td><?= display($row["CLASS"]); ?></td>
+                                <td><?= $row["PHONE"]; ?></td>
+                                <?php $status_display = display($row["STATUS"]); ?>
+                                <td><span class="status <?= $status_display; ?>"><?= $status_display; ?></span></td>
+                                <td>
+                                    <div class="options">
+                                        <button class="option"><i class="fa fa-eye"></i></button>
+                                        <button class="option"><i class="fa fa-edit"></i></button>
+                                        <button class="option" onclick="deletebooking('<?= $row['BOOKING_ID'] ?>')"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-        </div>
     </main>
+
     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="AddForm">
+        <form class="dams-add-form" id="AddForm" method="POST">
             <h2 id="title">Add New Booking</h2>
-            <div class="name-container">
-                <label for="First_Name">First Name: </label>
-                <input type="text" name="First_Name" id="fn" required>
-                <label for="Last">Last Name: </label>
-                <input type="text" name="Last" id="ln" required>
-            </div>
-            <label for="Flight-Num">Flight Number: </label>
-            <input type="text" name="Flight-Num" id="flight_n" required>
-            <label for="date">Departure Date: </label>
-            <input type="date" name="date" id="date" required>
+
+            <input type="hidden" name="type" value="ADD">
+
+            <label for="passenger">Passenger: </label>
+            <select name="PASSENGER_NUM" id="passenger" required>
+                <?php while ($p = $result_passengers->fetch_assoc()): ?>
+                    <option value="<?= $p['PASSENGER_NUM'] ?>">
+                        <?= "{$p['FIRST_NAME']} {$p['LAST_NAME']} (ID: {$p['PASSENGER_NUM']})" ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
+
+            <label for="flight">Flight and Departure Date: </label>
+            <select name="flight" id="flight" required>
+                <?php while ($f = $result_ft->fetch_assoc()):
+                    $dt = new DateTime($f['DEPARTURE_TIME']);
+                    $display_dt = $dt->format('d M Y H:i');
+                    $value = "{$f['FLIGHT_NUMBER']}|{$f['DEPARTURE_TIME']}";
+                    $display = "{$f['FLIGHT_NUMBER']} - {$display_dt}";
+                ?>
+                    <option value="<?= $value ?>"><?= $display ?></option>
+                <?php endwhile; ?>
+            </select>
+
             <label for="class">Class: </label>
             <select name="class" id="class" required>
-                <option value="Economy">Economy</option>
-                <option value="Business">Business</option>
-                <option value="First Class">First Class</option>
+                <option value="ECO_PROMO">Economy Promo</option>
+                <option value="ECO_SMART">Economy Smart</option>
+                <option value="ECO_FLEX">Economy Flex</option>
+                <option value="ECO_PLUS">Economy Plus</option>
+                <option value="BUSINESS_PLUS">Business Plus</option>
+                <option value="PREMIERE_PLUS">Premiere Plus</option>
             </select>
-            <label for="Email">Email: </label>
-            <input type="email" name="Email" id="email">
-            <label for="Phone">Phone Number: </label>
-            <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})">
+
             <label for="status">Status: </label>
-            <select id="status" name="status" required>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Pending">Pending</option>
-                <option value="Cancelled">Cancelled</option>
+            <select name="status" id="status" required>
+                <option value="CONFIRMED">Confirmed</option>
+                <option value="CANCELLED">Cancelled</option>
             </select>
+
             <div class="form-actions">
                 <button type="submit" class="submit-btn" id="submit-btn">Add Booking</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
     </div>
-    <script src="/static/js/form.js"></script>
-    <script src="/static/js/booking.js"></script>
-    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
-</body>
 
-<script>
-    const table = document.getElementById("search-table");
-    const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", () => {
-        search();
-    }, false);
-</script>
+    <script src="/static/js/form.js"></script>
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
+
+    <script>
+        const table = document.getElementById("search-table");
+        const searchBar = document.getElementById("search-bar");
+        searchBar.addEventListener("keyup", () => {
+            search();
+        }, false);
+
+        function deletebooking(id) {
+            if (confirm(`Do you really wanna delete booking ${id}?`)) {
+                postRedirect('', {
+                    type: 'DEL',
+                    id: id
+                });
+            }
+        }
+    </script>
+</body>
 
 </html>
