@@ -57,7 +57,7 @@
           <div class="form-group">
             <label for="password">Password</label>
             <div class="input-wrapper">
-              <input type="password" id="password" name="password" placeholder="Enter your password" required>
+              <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Enter your password" required>
             </div>
           </div>
           <button type="submit" class="submit-btn">Login</button>

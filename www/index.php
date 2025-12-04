@@ -27,10 +27,19 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     <main class="content">
         <h1 style="text-align: center">Domestic Airlines Management System</h1>
 
+        <?php
+        include("internal/db_config.php");
+        $sql = "SELECT (SELECT COUNT(*) AS AIRPORT_COUNT FROM AIRPORTS) AS AIRPORTS_COUNT, "
+            . "(SELECT COUNT(*) AS AIRCRAFT_COUNT FROM AIRCRAFTS) AS AIRCRAFTS_COUNT, "
+            . "(SELECT COUNT(*) FROM FLIGHTS WHERE CAST(FLIGHTS.DEPARTURE_TIME AS DATE) = CAST(CURRENT_TIMESTAMP AS DATE)) AS FLIGHTS_TODAY, "
+            . "(SELECT COUNT(*) FROM BOOKINGS NATURAL JOIN FLIGHTS WHERE CAST(FLIGHTS.DEPARTURE_TIME AS DATE) = CAST(CURRENT_TIMESTAMP AS DATE)) AS PASSENGERS_TODAY";
+
+        $result = $conn->query(query: $sql)->fetch_assoc();
+        ?>
         <div class="dashboard-grid">
             <div class="stat-card card-flights">
                 <div class="stat-content">
-                    <h3>12</h3>
+                    <h3><?=$result["FLIGHTS_TODAY"]?></h3>
                     <p>Flights Today</p>
                 </div>
                 <div class="stat-icon">
@@ -40,7 +49,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
             <div class="stat-card card-pax">
                 <div class="stat-content">
-                    <h3>243</h3>
+                    <h3><?=$result["PASSENGERS_TODAY"]?></h3>
                     <p>Passengers Today</p>
                 </div>
                 <div class="stat-icon">
@@ -50,7 +59,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
             <div class="stat-card card-fleet">
                 <div class="stat-content">
-                    <h3>16</h3>
+                    <h3><?=$result["AIRCRAFTS_COUNT"]?></h3>
                     <p>Active Aircraft</p>
                 </div>
                 <div class="stat-icon">
@@ -60,7 +69,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
             <div class="stat-card card-airports">
                 <div class="stat-content">
-                    <h3>16</h3>
+                    <h3><?=$result["AIRPORTS_COUNT"]?></h3>
                     <p>Airports</p>
                 </div>
                 <div class="stat-icon">
