@@ -1,0 +1,15 @@
+{
+  "name": "data_scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file=.env index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "mysql2": "^3.15.3"
+  }
+}

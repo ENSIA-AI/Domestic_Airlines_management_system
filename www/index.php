@@ -80,44 +80,18 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
         <h2>Announcements</h2>
         <div>
-            <div class="announcement danger-card">
-                <h3>Diversion: Flight AH6180 to Hassi Messaoud</h3>
-                <p>Flight AH6180 has been diverted back to Algiers due to a sudden sandstorm reducing visibility at Oued
-                    Irara–Krim Belkacem Airport. Passengers will be updated on a new departure time shortly.</p>
-                <span class="author">- Operations Control Center on 11/19/2025 07:30</span>
+            <?php 
+                $sql = "SELECT TITLE, CONTENT, TIMESTAMP, TYPE, FULL_NAME FROM ANNOUNCEMENTS LEFT OUTER JOIN USERS ON ANNOUNCEMENTS.AUTHOR = USERS.UID";
+                $result = $conn->query(query: $sql);
+                while($row = $result->fetch_assoc()):
+                    $date = (new DateTime($row["TIMESTAMP"]))->format('d M Y H:i');
+            ?>
+            <div class="announcement <?=$row["TYPE"]?>-card">
+                <h3><?=$row["TITLE"]?></h3>
+                <p><?=$row["CONTENT"]?></p>
+                <span class="author">- <?=$row["FULL_NAME"]?> on <?=$date?></span>
             </div>
-
-            <div class="announcement warning-card">
-                <h3>Morning Fog Alert: Constantine & Setif</h3>
-                <p>Dense fog is currently affecting flight operations in the eastern highlands. Departures to
-                    Constantine
-                    (CZL) and Setif (QSF) may experience ground holds of up to 45 minutes this morning.</p>
-                <span class="author">- Meteorological Watch on 11/19/2025 06:15</span>
-            </div>
-
-            <div class="announcement success-card">
-                <h3>Additional Flights to Djanet</h3>
-                <p>To support the desert tourism season, we are adding two weekly rotation flights to Djanet (DJG)
-                    departing
-                    every Friday and Sunday. Booking opens today at noon.</p>
-                <span class="author">- Network Planning on 11/18/2025 16:45</span>
-            </div>
-
-            <div class="announcement info-card">
-                <h3>Domestic Terminal Shuttle Bus</h3>
-                <p>The inter-terminal shuttle bus (Blue Line) connecting the International arrivals to the Domestic
-                    terminal
-                    is undergoing maintenance. A replacement bus service is running every 20 minutes from Gate 2.</p>
-                <span class="author">- Ground Transport on 11/18/2025 13:20</span>
-            </div>
-
-            <div class="announcement info-card">
-                <h3>Carry-on Luggage on ATR Aircraft</h3>
-                <p>Passengers travelling on our ATR-72 fleet to Tiaret and El Bayadh are reminded that carry-on luggage
-                    must
-                    not exceed 5kg due to overhead bin limitations. Larger bags must be checked in.</p>
-                <span class="author">- Customer Service on 11/18/2025 09:00</span>
-            </div>
+            <?php endwhile; ?>
         </div>
     </main>
     <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
