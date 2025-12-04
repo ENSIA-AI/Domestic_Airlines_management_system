@@ -46,18 +46,20 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 <thead class="dams-table-head">
                     <tr>
                         <th>ID</th>
-                        <th>Gate</th>
+                        <th>Dep Gate</th>
+                        <th>Arr Gate</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Countdown</th>
                         <th>Total</th>
-                        <th>More</th>
+                        <th>Show</th>
                     </tr>
                 </thead>
                 <tbody class="dams-table-body" id="dams-table-body">
                     <tr class="parent-row">
                         <td>AH0001</td>
                         <td>A1</td>
+                        <td>B1</td>
                         <td>20 Dec 2025</td>
                         <td>18:00</td>
                         <td class="countdown">Countdown</td>
@@ -111,6 +113,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
                     <tr class="parent-row">
                         <td>AH0001</td>
+                        <td>A1</td>
                         <td>A1</td>
                         <td>20 Dec 2025</td>
                         <td>18:00</td>

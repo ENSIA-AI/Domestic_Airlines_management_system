@@ -146,10 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('fa-eye')) view(row);
         else if (e.target.classList.contains('fa-edit')) edit(row);
         else if (e.target.classList.contains("fa-trash")) {
-            const confirmed = confirm("Are you sure you want to delete this booking?");
-            if (!confirmed) return;
-            const row = e.target.closest("tr");
-            if (row) row.remove();
+            deletebooking();
         }
     });
 });
