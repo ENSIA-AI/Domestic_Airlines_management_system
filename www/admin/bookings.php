@@ -19,7 +19,7 @@ if (isset($_POST["type"])) {
         list($flight_number, $departure_date_time) = explode('|', $_POST["flight"]);
         $class = strtoupper($_POST["class"]);
         $status = strtoupper($_POST["status"]);
-        $stmt_booking = $conn->prepare("INSERT INTO BOOKINGS (PASSENGER_NUM, FLIGHT_NUMBER, DEPARTURE_DATE, CLASS, STATUS) VALUES (?, ?, ?, ?, ?)");
+        $stmt_booking = $conn->prepare("INSERT INTO BOOKINGS (PASSENGER_NUM, FLIGHT_NUMBER, DEPARTURE_TIME, CLASS, STATUS) VALUES (?, ?, ?, ?, ?)");
         $stmt_booking->bind_param(
             "issss",
             $passenger_num,
@@ -38,7 +38,7 @@ $result_passengers = $conn->query($sql_p);
 $sql_ft = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME FROM FLIGHTS WHERE DEPARTURE_TIME > NOW() ORDER BY DEPARTURE_TIME ASC";
 $result_ft = $conn->query($sql_ft);
 
-$sql = "SELECT b.BOOKING_ID,p.FIRST_NAME, p.LAST_NAME, p.PHONE, b.FLIGHT_NUMBER, b.DEPARTURE_DATE, b.CLASS, b.STATUS FROM BOOKINGS b JOIN PASSENGERS p ON b.PASSENGER_NUM = p.PASSENGER_NUM ORDER BY b.BOOKING_ID DESC";
+$sql = "SELECT b.BOOKING_ID,p.FIRST_NAME, p.LAST_NAME, p.PHONE, b.FLIGHT_NUMBER, b.DEPARTURE_TIME, b.CLASS, b.STATUS FROM BOOKINGS b JOIN PASSENGERS p ON b.PASSENGER_NUM = p.PASSENGER_NUM ORDER BY b.BOOKING_ID DESC";
 $result_bookings = $conn->query($sql);
 
 ?>
@@ -96,7 +96,7 @@ $result_bookings = $conn->query($sql);
                                 <td><?= $row["FIRST_NAME"] . " " . $row["LAST_NAME"]; ?></td>
                                 <td><?= $row["FLIGHT_NUMBER"]; ?></td>
                                 <?php
-                                $departure_datetime = new DateTime($row['DEPARTURE_DATE']);
+                                $departure_datetime = new DateTime($row['DEPARTURE_TIME']);
                                 $display_datetime = $departure_datetime->format('d M Y H:i');
                                 ?>
                                 <td><?= $display_datetime; ?></td>
