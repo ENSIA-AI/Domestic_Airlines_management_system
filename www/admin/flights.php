@@ -63,8 +63,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                     <tbody  id="tablebody">
                         <tr>
                             <td>AH1432</td>
-                            <td>Houari Boumedien, Algiers</td>
-                            <td>Rabah Bitat Airport, Annaba</td>
+                            <td>ALG</td>
+                            <td>ORN</td>
                             <td>16 Sep 2025</td>
                             <td>AC3894</td>
                             <td>
@@ -78,72 +78,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>AH1445</td>
-                            <td>Mostefa Ben Boulaid, Batna</td>
-                            <td>Rabah Bitat Airport, Annaba</td>
-                            <td>16 Oct 2024</td>
-                            <td>AC1233</td>
-                            <td>
-                                <span class="status Pending">Pending</span>
-                            </td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>AH1082</td>
-                            <td>Houari Boumedien, Algiers</td>
-                            <td>Rabah Bitat Airport, Annaba</td>
-                            <td>16 Oct 2024</td>
-                            <td>AC3894</td>
-                            <td><span class="status Pending">Pending</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>AH14632</td>
-                            <td>Ahmed Ben Bella Airport, Oran</td>
-                            <td>Houari Boumedien, Algiers</td>
-                            <td>16 Oct 2024</td>
-                            <td>AC3894</td>
-                            <td>
-                                <span class="status Cancelled">Cancelled</span>
-                            </td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>AH8962</td>
-                            <td>Houari Boumedien, Algiers</td>
-                            <td>Ahmed Ben Bella Airport,Oran</td>
-                            <td>16 Oct 2024</td>
-                            <td>AC3894</td>
-                            <td>
-                                <span class="status Cancelled">Cancelled</span>
-                            </td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+    
+
                     </tbody>
                 </table>
             </div>

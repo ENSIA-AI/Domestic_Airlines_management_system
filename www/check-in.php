@@ -47,7 +47,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
           <table class="dams-table" id="search-table">
                 <thead class="dams-table-head">
                     <tr>
-                        <th>Name</th>
+                        <th>Check-In Id</th>
+                        <th>Passenger</th>
                         <th>Flight</th>
                         <th>Date</th>
                         <th>From</th>
@@ -58,7 +59,8 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 </thead>
                 <tbody id="tablebody">
                     <tr>
-                        <td>Ahmed Benbella</td>
+                        <td>CHK0989</td>
+                        <td>123456789012345678</td>
                         <td>AH1432</td>
                         <td>20 December 2025</td>
                         <td>ALG-DAAG</td>
@@ -73,20 +75,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             
                         
                     </tr>
-                    <tr>
-                        <td>Ahmed Benbella</td>
-                        <td>AH1432</td>
-                        <td>21 December 2025</td>
-                        <td>ALG-DAAG</td>
-                        <td>ORN-DAOO</td>
-                        <td><span class="status Waiting">Waiting</span></td>
-                        <td>
-                            <div class="options">
-                            <button class="option">
-                            <i class="fa-solid fa-user-check"></i>
-                            </button>
-                            </div>
-                        </td>
+
  
                             
                         
