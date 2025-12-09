@@ -77,7 +77,9 @@ $flights = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             <td><?php echo $flight['DEPARTURE_TIME'] ?></td>
                             <td><?php echo $flight['AIRCRAFT'] ?></td>
                             <td>
-                                <span class="status Confirmed">Confirmed</span>
+                                <span class="status <?php echo ucwords(strtolower($flight['STATUS'])) ?> ">
+                                    <?php echo ucwords(strtolower($flight['STATUS']))  ?>
+                                </span>
                             </td>
                             <td>
                                 <div class="options">
@@ -119,9 +121,10 @@ $flights = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
             <label for="STATUS">Status: </label>
             <select id="STATUS" name="STATUS" required>
-                <option value="confirmed">Confirmed</option>
-                <option value="pending">Pending</option>
-                <option value="cancelled" disabled>Cancelled</option>
+                <option value="scheduled">Scheduled</option>
+                <option value="delayed">Delayed</option>
+                <option value="canceled" disabled>Canceled</option>
+                <option value="arrived" disabled>Arrived</option>
             </select>
 
             <div class="form-actions">

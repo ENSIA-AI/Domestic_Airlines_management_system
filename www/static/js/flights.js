@@ -107,11 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('AC').value = aircraft;
         document.getElementById('STATUS').value = status;
 
-        const dateParts = date.split('\u00A0');
-        const day = dateParts[0];
-        const month = monthToNum[dateParts[1]];
-        const year = dateParts[2];
-        document.getElementById('DATE').value = `${year}-${month}-${day}`;
+        const yyyymmdd = date.split(' ')[0];
+        
+        
+        document.getElementById('DATE').value = yyyymmdd;
 
         const inputs = form.querySelectorAll('input, select');
         inputs.forEach(input => input.setAttribute('disabled', 'disabled'));

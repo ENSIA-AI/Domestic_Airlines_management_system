@@ -401,16 +401,24 @@ thead {
   color: rgb(255, 255, 255);
 }
 
-.status.Confirmed,.status.Active {
+.status.Confirmed,.status.Active, .status.Scheduled {
   background-color: #0b7825;
 }
 
-.status.Pending,.status.Maintenance,.status.Waiting  {
+.status.Pending,.status.Maintenance,.status.Waiting, .status.Delayed  {
   background-color: #ef9517;
 }
 
-.status.Cancelled,.status.Out,.status.Retired {
+.status.Cancelled,.status.Out,.status.Retired, .status.Canceled{
   background-color: #c72533;
+}
+
+.status.Hijacked {
+  background-color: #8c127a;
+}
+
+.status.Arrived {
+  background-color: blue;
 }
 
 
