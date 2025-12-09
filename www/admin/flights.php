@@ -1,10 +1,18 @@
 <?php
+
 session_start();
+include "../internal/db_config.php";
+
 if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     $_SESSION["loggedin"] = "yes";
 } else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
     unset($_SESSION["loggedin"]);
 }
+
+$query = 'SELECT * FROM FLIGHTS';
+$result = mysqli_query($conn, $query);
+$flights = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -61,12 +69,13 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                         </tr>
                     </thead>
                     <tbody  id="tablebody">
+                        <?php foreach ($flights as $flight): ?>
                         <tr>
-                            <td>AH1432</td>
-                            <td>ALG</td>
-                            <td>ORN</td>
-                            <td>16 Sep 2025</td>
-                            <td>AC3894</td>
+                            <td><?php echo $flight['FLIGHT_NUMBER']  ?></td>
+                            <td><?php echo $flight['DEP_AIRPORT'] ?></td>
+                            <td><?php echo $flight['ARR_AIRPORT'] ?></td>
+                            <td><?php echo $flight['DEPARTURE_TIME'] ?></td>
+                            <td><?php echo $flight['AIRCRAFT'] ?></td>
                             <td>
                                 <span class="status Confirmed">Confirmed</span>
                             </td>
@@ -78,6 +87,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                                 </div>
                             </td>
                         </tr>
+                        <?php endforeach ?>
     
 
                     </tbody>

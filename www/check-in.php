@@ -36,7 +36,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         </div>
         
           <div class="search-container">
-                    <h2 class="search-strip-title">Passengers</h2>
+                    <h2 class="search-strip-title">Check-Ins</h2>
                     <div class="search-bar">
                         <input type="text" class="search" id="search-bar" placeholder="Enter ID">
                         <button class="search-btn"><i class="fa fa-search"></i></button>
@@ -48,11 +48,10 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 <thead class="dams-table-head">
                     <tr>
                         <th>Check-In Id</th>
-                        <th>Passenger</th>
-                        <th>Flight</th>
+                        <th>Booking</th>
                         <th>Date</th>
-                        <th>From</th>
-                        <th>To</th>
+                        <th>dep</th>
+                        <th>dest</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -60,8 +59,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                 <tbody id="tablebody">
                     <tr>
                         <td>CHK0989</td>
-                        <td>123456789012345678</td>
-                        <td>AH1432</td>
+                        <td>AB92LK</td>
                         <td>20 December 2025</td>
                         <td>ALG-DAAG</td>
                         <td>ORN-DAOO</td>
@@ -71,9 +69,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
                             <i class="fa-solid fa-user-check"></i>
                             </button>
                          </td>
- 
-                            
-                        
+             
                     </tr>
 
  
