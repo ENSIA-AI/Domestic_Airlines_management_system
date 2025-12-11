@@ -7,45 +7,6 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 }
 
 include "../internal/db_config.php";
-
-if (isset($_POST["type"])) {
-    if ($_POST["type"] == "DEL" and isset($_POST["airport"]) and strlen($_POST["airport"]) == 3) {
-        $stmt = $conn->prepare("DELETE FROM AIRPORTS WHERE IATA_CODE = ?");
-        $stmt->bind_param("s", $_POST["airport"]);
-        $stmt->execute();
-    } else if ($_POST["type"] == "ADD") {
-        $stmt = $conn->prepare("INSERT INTO AIRPORTS VALUES (?,?,?,?,?,?,?)");
-        $stmt->bind_param(
-            "ssssddi",
-            $_POST["IATA_CODE"],
-            $_POST["ICAO_CODE"],
-            $_POST["WILAYA"],
-            $_POST["DISPLAY_NAME"],
-            $_POST["LATITUDE"],
-            $_POST["LONGITUDE"],
-            $_POST["ELEVATION"]
-        );
-        $stmt->execute();
-    }
-}
-
-$sql = "SELECT * FROM AIRPORTS";
-$result_airports = $conn->query($sql);
-
-function display_degrees($nb, $s1, $s2)
-{
-    $sign = $nb >= 0 ? $s1 : $s2;
-    $nb = abs($nb);
-    $degs = floor($nb);
-    $nb -= $degs;
-    $nb *= 60;
-    $mins = floor($nb);
-    $nb -= $mins;
-    $secs = floor($nb * 60);
-    return $degs . "° " . sprintf("%02d", $mins) . "′ " . sprintf("%02d", $secs) . "′′ " . $sign;
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -94,32 +55,16 @@ function display_degrees($nb, $s1, $s2)
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php while ($row = $result_airports->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= $row["IATA_CODE"]; ?></td>
-                            <td><?= $row["ICAO_CODE"]; ?></td>
-                            <td><?= $row["WILAYA"]; ?></td>
-                            <td><?= $row["DISPLAY_NAME"]; ?></td>
-                            <td><?= display_degrees($row["LATITUDE"], "N", "S"); ?></td>
-                            <td><?= display_degrees($row["LONGITUDE"], "E", "W"); ?></td>
-                            <td><?= $row["ELEVATION"]; ?> m</td>
-                            <td>
-                                <div class="options">
-                                    <button class="option" name="<?= $row["IATA_CODE"] ?>"
-                                        onclick="deleteAirport('<?= $row['IATA_CODE'] ?>')"><i
-                                            class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
             </table>
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                Loading...
+            </div>
         </div>
     </main>
 
     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="AddForm" method="POST">
+        <form class="dams-add-form">
             <h2 id="title">Add New Airport</h2>
             <input type="hidden" name="type" value="ADD">
 
@@ -145,7 +90,7 @@ function display_degrees($nb, $s1, $s2)
             <input type="number" name="ELEVATION" id="elevationField" required>
 
             <div class="form-actions">
-                <button type="submit" class="submit-btn" id="submit-btn">Add Airport</button>
+                <button type="button" class="submit-btn" id="submit-btn">Add Airport</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
@@ -170,6 +115,60 @@ function display_degrees($nb, $s1, $s2)
             });
         }
     }
+</script>
+
+<script>
+    function updateTable() {
+        document.getElementsByClassName("table-container")[0].innerHTML = `
+            <table class="dams-table" id="search-table">
+                <thead>
+                    <tr>
+                        <th>IATA Code</th>
+                        <th>ICAO Code</th>
+                        <th>Wilaya</th>
+                        <th>Name</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Elevation</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                Loading...
+            </div>`;
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementsByClassName("table-container")[0].innerHTML = this.responseText;
+            }
+        }
+        xmlhttp.open("GET", "backend/airports.php", true);
+        xmlhttp.send();
+    }
+    updateTable();
+
+
+    document.getElementById('submit-btn').addEventListener('click', () => {
+        const form = document.getElementsByClassName('dams-add-form')[0];
+        const formData = new FormData(form);
+        fetch('backend/airports.php', {
+            method: 'POST',
+            body: formData
+        }).then((res) => {
+            console.log(res.text);
+            updateTable();
+            document.getElementById('overlay').classList.remove('active');
+            form.reset();
+        }).catch((e) => {
+            console.log(e);
+            alert("Error while adding the airport, please retry later.");
+        })
+
+
+    });
 </script>
 
 </html>
