@@ -9,9 +9,57 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
     unset($_SESSION["loggedin"]);
 }
 
-$query = 'SELECT * FROM FLIGHTS';
-$result = mysqli_query($conn, $query);
-$flights = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// selection :
+$select_flights_query = 'SELECT * FROM FLIGHTS';
+$flights_result = mysqli_query($conn, $select_flights_query);
+$flights = mysqli_fetch_all($flights_result, MYSQLI_ASSOC);
+
+$select_airports_query = 'SELECT * FROM AIRPORTS';
+$airports_result = mysqli_query($conn, $select_airports_query);
+$airports = mysqli_fetch_all($airports_result, MYSQLI_ASSOC);
+
+$select_aircrafts_query = 'SELECT * FROM AIRCRAFTS';
+$aircrafts_result = mysqli_query($conn, $select_aircrafts_query);
+$aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
+
+// insertion :
+
+if (isset($_POST['request_type'])) {
+    //   flight_number=${FID}&
+    //     departure_time=${encodeURIComponent(DATE)}&
+    //     dep_airport=${DEP}&
+    //     arr_airport=${ARR}&
+    //     status=${STATUS}&
+    //     aircraft=${AC}`;
+    $request_type = mysqli_real_escape_string($conn, $_POST['request_type']);
+    
+
+    
+    if ($request_type == 'insert') {
+        $FNUM = mysqli_real_escape_string($conn, $_POST['flight_number']);
+        $TIME = mysqli_real_escape_string($conn, $_POST['departure_time']);
+        $DEP_AIRPORT = mysqli_real_escape_string($conn, $_POST['dep_airport']);
+        $ARR_AIRPORT= mysqli_real_escape_string($conn, $_POST['arr_airport']);
+        $STATUS = mysqli_real_escape_string($conn, $_POST['status']);
+        $AIRCRAFT = mysqli_real_escape_string($conn, $_POST['aircraft']);
+
+        $insert_flight_query = "INSERT INTO FLIGHTS(FLIGHT_NUMBER, DEPARTURE_TIME,
+        DEP_AIRPORT, ARR_AIRPORT, AIRCRAFT, `STATUS`)
+        values('$FNUM', '$TIME', '$DEP_AIRPORT', '$ARR_AIRPORT', '$AIRCRAFT', '$STATUS')";
+        if (mysqli_query($conn, $insert_flight_query)) {
+            echo 'successful insertion';
+        } else {
+            echo mysqli_error($conn);
+        }
+    } elseif ($request_type == 'update') {
+
+    } elseif ($request_type == 'delete') {
+
+    } else {
+        echo 'invalid request type';
+    }
+}
 
 ?>
 
@@ -105,19 +153,29 @@ $flights = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
             <label for="DEP">Departure: </label>
-            <input type="text" name="DEP" id="DEP" required>
+            <select name="DEP" id="DEP" required>
+                <?php foreach($airports as $airport): ?>
+                    <option value="<?php echo $airport['IATA_CODE']?>"><?php echo $airport['IATA_CODE'] ?></option>
+                <?php endforeach?>
+            </select>
 
             <label for="DEST">Destination: </label>
-            <input type="text" name="DEST" id="DEST" required>
+            <select name="DEST" id="DEST" required>
+                <?php foreach($airports as $airport): ?>
+                    <option value="<?php echo $airport['IATA_CODE']?>"><?php echo $airport['IATA_CODE'] ?></option>
+                <?php endforeach?>
+            </select>
+
 
             <label for="AC">Aircraft: </label>
-            <input type="text" name="AC" id="AC" pattern="AC[0-9]{4}">
+            <select name="AC" id="AC">
+                <?php foreach($aircrafts as $aircraft): ?>
+                    <option value="<?php echo $aircraft['AIRCRAFT_REGISTRATION'] ?>"><?php echo $aircraft['AIRCRAFT_REGISTRATION'] ?></option>
+                <?php endforeach ?>
+            </select>
 
             <label for="DATE">Departure Date: </label>
-            <input type="date" name="DATE" id="DATE" required>
-
-
-
+            <input type="datetime-local" name="DATE" id="DATE" required>
 
             <label for="STATUS">Status: </label>
             <select id="STATUS" name="STATUS" required>

@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let isEdit = false;
     let editRow = null;
    
-    
-
     const numToMonth = {
         '01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr', '05': 'May', '06': 'Jun',
         '07': 'Jul', '08': 'Aug', '09': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dec'
@@ -29,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // adding a new flight
     form.addEventListener('submit', (e) => {
         e.preventDefault();
+        console.log('form called');
         // fetching user inputs
         
         const DEP = document.getElementById('DEP').value;
@@ -54,20 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return str;
         }
         let FID = generateRandomId();
-   
-        // transform STATUS to Title Case
-        let statusString;
-        STATUS == 'confirmed' ? statusString = 'Confirmed' : statusString = 'Pending';
-        
-        let dateParts = DATE.split('-');
-        let fixedDate = `${dateParts[2]}\u00A0${numToMonth[dateParts[1]]}\u00A0${dateParts[0]}`;
+        let statusString = STATUS; 
+        let formattedDate = DATE.replace('T', ' ') + ":00";
         // creating a new flight row
         const newr = document.createElement('tr');
         newr.innerHTML = `
                         <td>${FID}</td>
                         <td>${DEP}</td>
                         <td>${ARR}</td>
-                        <td>${fixedDate}</td>
+                        <td>${formattedDate}</td>
                         <td>${AC}</td>
                         <td><span class="status ${statusString}">${statusString}</span></td>
                         <td>
@@ -79,16 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
                         </td>`;
 
 
+        
+        let mysqlDateTime = DATE.replace('T', ' ') + ":00";
+        // insertion : - ajax http request
+        let backendParams = `request_type=insert&`+
+        `flight_number=${FID}&`+
+        `departure_time=${encodeURIComponent(mysqlDateTime)}&`+
+        `dep_airport=${DEP}&`+
+        `arr_airport=${ARR}&`+
+        `status=${STATUS}&`+
+        `aircraft=${AC}`;
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../../admin/flights.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('http requested');
+            if(this.status == 200) {
+                // inserting the row to the front end
+                 tableBody.prepend(newr);
+                 console.log(this.responseText);
+            }
+        }
 
-        tableBody.prepend(newr);
+        xhr.send(backendParams);
         form.reset();
         overlay.classList.remove('active');
     })
 
 
     // inspect a flight row (fa-eye) event listner
-
-
     function view(r) {
 
 
@@ -140,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             restore();
         }, { once: true });
     }
-
+    // editing a flight row (fa-edit) event listner
     function edit(r) {
         const infos = r.querySelectorAll('td');
         const fid = infos[0].textContent.trim();
@@ -171,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isEdit = true;
         editRow = r;
     }
-
+    // removing a flight row (fa-remove) event listner
     function remove(r) {
         const confirmed = confirm('Are You Sure About Doing This Action?');
         if (confirmed) {
@@ -181,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
+    // listning to clicks in the webpage (3 cases : view edit or delete)
     document.addEventListener('click', (e) => {
         const row = e.target.closest('tr');
         if (e.target.classList.contains('fa-eye')) view(row);
