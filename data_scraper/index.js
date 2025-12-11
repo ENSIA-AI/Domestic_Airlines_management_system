@@ -115,7 +115,7 @@ axios.get(`https://api.aviationstack.com/v1/timetable`, {
     params: {
         access_key: process.env.API_KEY,
         iataCode: depAirport,
-        date: "2025-12-04",
+        date: "2025-12-11",
         type: "departure"
     }
 })
