@@ -1,6 +1,15 @@
 <?php
 session_start();
+
+include("../internal/db_config.php");
+
+if(isset($_POST["type"])){
+    if(isset($_POST["type"]) == "DEL" and isset($_POST[users]))
+
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">

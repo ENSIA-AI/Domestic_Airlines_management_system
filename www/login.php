@@ -1,3 +1,7 @@
+<?php 
+include("internal/login_process.php")
+?>
+
 <!doctype html>
 <html lang="ar">
 <head>
@@ -10,8 +14,6 @@
   <title>Login page</title>
   
 </head>
-<body>
-
   <div class="top">
     <div class="top-bar">
       <div class="left">
@@ -47,7 +49,7 @@
         <img src="/static/images/logo-inverted.png" alt="company-logo" class="logo">
         <h1>Login</h1>
         <p class="subtitle">Enter your email and password to access our services.</p>
-        <form id="LoginForm" action="/?log-in=yes" method="POST">
+        <form id="LoginForm" action="internal/login_process.php" method="POST">
           <div class="form-group">
             <label for="email">Email Address</label>
             <div class="input-wrapper">
