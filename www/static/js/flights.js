@@ -55,7 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return str;
         }
         let FID = generateRandomId();
-        let statusString = STATUS; 
+        let statusString = STATUS.toLowerCase();
+        statusString = statusString.charAt(0).toUpperCase() + statusString.slice(1); 
+        console.log(statusString);
         let formattedDate = DATE.replace('T', ' ') + ":00";
         // creating a new flight row
         const newr = document.createElement('tr');
@@ -93,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(this.status == 200) {
                 // inserting the row to the front end
                  tableBody.prepend(newr);
-                 console.log(this.responseText);
+                 
             }
         }
 
