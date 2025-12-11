@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return Math.floor(Math.random() * max);
         }
         function generateRandomId() {
-            let str = '';
-            for (let i = 0 ; i < 3 ; ++i) {
-                str = str + chars[getRandomInt(26)]
+            if (getRandomInt(2) == 1) {
+                str = 'AH';
+            } else {
+                str = 'SF';
             }
             for (let j = 0 ; j < 3 ; ++j) {
                 str = str + nums[getRandomInt(10)];
