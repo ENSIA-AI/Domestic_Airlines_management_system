@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return Math.floor(Math.random() * max);
         }
         function generateRandomId() {
+            let str = '';
             if (getRandomInt(2) == 1) {
                 str = 'AH';
             } else {
