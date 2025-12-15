@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +31,7 @@
                 <button type="submit" class="submit-btn">Verify Code</button>
             </form>
             <div class="info-box">
-                <p>Didn’t receive the code? <a href="#" class="resend-link">Resend code</a></p>
+                <p>Didn't receive the code? <a href="#" class="resend-link">Resend code</a></p>
             </div>
             <div class="back-to-login">
                 <a href="login.php#login">← Back to Login</a>
