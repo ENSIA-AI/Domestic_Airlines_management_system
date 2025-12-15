@@ -3,9 +3,6 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// load composer's autoloader
-require __DIR__ . "/../vendor/autoload.php";
-
 function sendResetCode($email, $code)
 {
     // replace these placeholders with your actual credentials
