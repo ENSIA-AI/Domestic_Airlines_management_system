@@ -1,4 +1,5 @@
 *.rdb
 www/internal/db_config.php
+www/internal/email.php
 data_scraper/node_modules/
 data_scraper/.env

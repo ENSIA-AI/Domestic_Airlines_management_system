@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+include "../internal/db_config.php";
+include "../internal/email.php";
+if (isset($_POST["type"])) {
+    $email = trim($_POST["email"]);
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
