@@ -4,3 +4,4 @@ www/internal/email.php
 data_scraper/node_modules/
 data_scraper/.env
 vendor/
+data_scraper/db_config.json
