@@ -101,24 +101,36 @@ include "../internal/db_config.php";
 </body>
 
 <script>
-    // searchBar
-    const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", () => { search(); }, false);
-
-    // Delete button
-    function deleteAirport(airport) {
-        if (confirm(`Do you really wanna delete airport ${airport} ?`)) {
-            postRedirect('', {
-                type: 'DEL',
-                airport: airport
-            });
-        }
-    }
+    searchBar.addEventListener("keyup", () => {
+        search("search-table");
+    }, false);
 </script>
 
 <script>
-    function updateTable() {
+    function deleteAirport(airport) {
+        if (confirm(`Do you really wanna delete airport ${airport} ?`)) {
+            setTableToLoading();
+
+            const formData = new FormData();
+            formData.append('type', 'DEL');
+            formData.append('airport', airport);
+
+            fetch('backend/airports.php', {
+                method: 'POST',
+                body: formData
+            }).then((res) => {
+                updateTable();
+            }).catch((e) => {
+                console.log(e);
+                alert("Error while removing the airport, please retry later.");
+                updateTable();
+
+            });
+        }
+    }
+
+    function setTableToLoading() {
         document.getElementsByClassName("table-container")[0].innerHTML = `
             <table class="dams-table" id="search-table">
                 <thead>
@@ -138,7 +150,9 @@ include "../internal/db_config.php";
                 <div class="spinner"></div>
                 Loading...
             </div>`;
+    }
 
+    function updateTable() {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -152,20 +166,21 @@ include "../internal/db_config.php";
 
 
     document.getElementById('submit-btn').addEventListener('click', () => {
+        setTableToLoading();
         const form = document.getElementsByClassName('dams-add-form')[0];
         const formData = new FormData(form);
         fetch('backend/airports.php', {
             method: 'POST',
             body: formData
         }).then((res) => {
-            console.log(res.text);
             updateTable();
             document.getElementById('overlay').classList.remove('active');
             form.reset();
         }).catch((e) => {
             console.log(e);
             alert("Error while adding the airport, please retry later.");
-        })
+            updateTable();
+        });
 
 
     });
