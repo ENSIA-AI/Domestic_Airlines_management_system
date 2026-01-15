@@ -51,7 +51,7 @@ include "./internal/db_config.php";
                 <table>
                     <tr>
                         <th>Time</th>
-                        <th>Destination</th>
+                        <th><?=($_GET["type"] == 'Departures' ? "Destination" : "Origin")?></th>
                         <th>IATA</th>
                         <th>Number</th>
                         <th>Gate</th>
@@ -76,7 +76,20 @@ include "./internal/db_config.php";
 
                     <?php else: ?>
 
-                        Planes never arrive to this airport, sorry.
+                        <?php
+                        $sql = "SELECT FLIGHT_NUMBER, ADDTIME(CASE WHEN REAL_DEPARTURE_TIME IS NULL THEN DEPARTURE_TIME WHEN (DEPARTURE_TIME > REAL_DEPARTURE_TIME) THEN DEPARTURE_TIME ELSE REAL_DEPARTURE_TIME END, SEC_TO_TIME(DURATION*60)) AS ARRIVAL_TIME, AIRPORTS.WILAYA AS DEP_WILAYA, ARR_AIRPORT, DEP_GATE, STATUS FROM FLIGHTS LEFT JOIN AIRPORTS ON FLIGHTS.DEP_AIRPORT = AIRPORTS.IATA_CODE WHERE ARR_AIRPORT = '" . $_GET["airport"] . "' AND ADDTIME(CASE WHEN REAL_DEPARTURE_TIME IS NULL THEN DEPARTURE_TIME WHEN (DEPARTURE_TIME > REAL_DEPARTURE_TIME) THEN DEPARTURE_TIME ELSE REAL_DEPARTURE_TIME END, SEC_TO_TIME(DURATION*60)) >= NOW() ORDER BY ARRIVAL_TIME LIMIT 30;";
+                        $result_flights = $conn->query($sql);
+                        while ($row = $result_flights->fetch_assoc()):
+                            ?>
+                            <tr>
+                                <td><?= (new DateTime($row["ARRIVAL_TIME"]))->format('H:i') ?></td>
+                                <td><?= $row["DEP_WILAYA"] ?></td>
+                                <td><?= $row["ARR_AIRPORT"] ?></td>
+                                <td><?= $row["FLIGHT_NUMBER"] ?></td>
+                                <td><?= $row["DEP_GATE"] ?></td>
+                                <td><?= str_replace('_', ' ', $row["STATUS"]) ?></td>
+                            </tr>
+                        <?php endwhile; ?>
 
                     <?php endif; ?>
                 </table>
