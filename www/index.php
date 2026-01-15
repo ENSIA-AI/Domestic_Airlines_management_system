@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
-    $_SESSION["loggedin"] = "yes";
-} else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
-    unset($_SESSION["loggedin"]);
-}
+include("internal/session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +34,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         <div class="dashboard-grid">
             <div class="stat-card card-flights">
                 <div class="stat-content">
-                    <h3><?=$result["FLIGHTS_TODAY"]?></h3>
+                    <h3><?= $result["FLIGHTS_TODAY"] ?></h3>
                     <p>Flights Today</p>
                 </div>
                 <div class="stat-icon">
@@ -49,7 +44,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
             <div class="stat-card card-pax">
                 <div class="stat-content">
-                    <h3><?=$result["PASSENGERS_TODAY"]?></h3>
+                    <h3><?= $result["PASSENGERS_TODAY"] ?></h3>
                     <p>Passengers Today</p>
                 </div>
                 <div class="stat-icon">
@@ -59,7 +54,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
             <div class="stat-card card-fleet">
                 <div class="stat-content">
-                    <h3><?=$result["AIRCRAFTS_COUNT"]?></h3>
+                    <h3><?= $result["AIRCRAFTS_COUNT"] ?></h3>
                     <p>Active Aircraft</p>
                 </div>
                 <div class="stat-icon">
@@ -69,7 +64,7 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
 
             <div class="stat-card card-airports">
                 <div class="stat-content">
-                    <h3><?=$result["AIRPORTS_COUNT"]?></h3>
+                    <h3><?= $result["AIRPORTS_COUNT"] ?></h3>
                     <p>Airports</p>
                 </div>
                 <div class="stat-icon">
@@ -79,22 +74,31 @@ if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
         </div>
 
         <h2>Announcements</h2>
-        <div>
-            <?php 
-                $sql = "SELECT TITLE, CONTENT, TIMESTAMP, TYPE, FULL_NAME FROM ANNOUNCEMENTS LEFT OUTER JOIN USERS ON ANNOUNCEMENTS.AUTHOR = USERS.UID";
-                $result = $conn->query(query: $sql);
-                while($row = $result->fetch_assoc()):
-                    $date = (new DateTime($row["TIMESTAMP"]))->format('d M Y H:i');
-            ?>
-            <div class="announcement <?=$row["TYPE"]?>-card">
-                <h3><?=$row["TITLE"]?></h3>
-                <p><?=$row["CONTENT"]?></p>
-                <span class="author">- <?=$row["FULL_NAME"]?> on <?=$date?></span>
+        <div id="announcements">
+            <div class="spinner-container r-10 bg-transparent">
+                <div class="spinner"></div>
+                Loading...
             </div>
-            <?php endwhile; ?>
         </div>
     </main>
     <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 </body>
+
+</html>
+<script>
+    function updateAnnouncements() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("announcements").innerHTML = this.responseText;
+            }
+        }
+        xmlhttp.open("GET", "backend/announcements.php", true);
+        xmlhttp.send();
+    }
+    updateAnnouncements();
+
+    setInterval(updateAnnouncements(), 60000);
+</script>
 
 </html>

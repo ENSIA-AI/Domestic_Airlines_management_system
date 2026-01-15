@@ -1,11 +1,5 @@
 <?php
-session_start();
-if (isset($_GET["log-in"]) and $_GET["log-in"] == "yes") {
-    $_SESSION["loggedin"] = "yes";
-} else if (isset($_GET["log-in"]) and $_GET["log-in"] == "no") {
-    unset($_SESSION["loggedin"]);
-}
-
+include("../internal/session.php");
 include "../internal/db_config.php";
 ?>
 

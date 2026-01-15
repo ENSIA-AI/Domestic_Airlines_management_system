@@ -19,11 +19,7 @@
         <?php endif; ?>
     </div>
     <div>
-        <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
-            <a href="/?log-in=no">Log out</a>
-        <?php else: ?>
-            <a href="/login.php">Log in</a>
-        <?php endif; ?>
+        <a href="/?logout=0">Log out</a>
     </div>
     <script>
         addEventListener('load', () => {

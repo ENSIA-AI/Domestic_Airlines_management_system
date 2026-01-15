@@ -574,3 +574,12 @@ input[type=number] {
   animation: spin 1s linear infinite;
   box-sizing: border-box;
 }
+
+.r-10{
+  border-radius: 10px;
+}
+
+.bg-transparent{
+  background-color: transparent;
+  background: transparent;
+}

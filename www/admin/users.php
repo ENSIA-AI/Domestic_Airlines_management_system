@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("../internal/session.php");
 include("../internal/db_config.php");
 ?>
 
