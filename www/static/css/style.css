@@ -428,6 +428,16 @@ thead {
   background-color: blue;
 }
 
+.error-msg {
+    color: #e03131;
+    padding: 12px 16px;
+    margin: 15px 0;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
 
 .options {
   display: flex;
