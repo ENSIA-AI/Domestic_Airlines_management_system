@@ -406,6 +406,10 @@ thead {
   background-color: #0b7825;
 }
 
+.status.Completed {
+  background-color: #110b78;
+}
+
 .status.Pending,
 .status.Maintenance,
 .status.Waiting,
@@ -592,4 +596,79 @@ input[type=number] {
 .bg-transparent{
   background-color: transparent;
   background: transparent;
+}
+
+.view-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(35, 42, 62, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+}
+
+.view-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.view-content {
+    background-color: #222e50c9;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: scroll;
+    color: white;
+    backdrop-filter: blur(3px);
+}
+
+.view-content h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 1.8rem;
+}
+
+.view-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-row:last-of-type {
+    border-bottom: none;
+}
+
+.view-label {
+    font-weight: bold;
+}
+
+.view-value {
+    font-weight: 400;
+    text-align: right;
+}
+
+.close-view-btn {
+    width: 100%;
+    padding: 0.85rem;
+    margin-top: 1.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: white;
+    background-color: var(--space-cadet-light);
+    border: none;
+}
+
+.close-view-btn:hover {
+    background-color: var(--space-cadet);
+    transform: translateY(-2px);
 }
