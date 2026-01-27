@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         xhr.onerror = function () {
-            alert('Erreur de connexion. Veuillez réessayer.');
+            alert('Connection error. Please try again.');
             updateTable();
         };
         
