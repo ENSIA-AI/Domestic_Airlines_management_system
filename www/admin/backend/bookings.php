@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $check_result = $check_stmt->get_result();
 
             if ($check_result->num_rows > 0) {
-                http_response_code(409);
                 echo "Error: This passenger already has a booking for this flight.";
             } else {
                 $stmt = $conn->prepare("INSERT INTO BOOKINGS (PASSENGER_NUM, FLIGHT_NUMBER, DEPARTURE_TIME, CLASS, STATUS) VALUES (?, ?, ?, ?, ?)");
