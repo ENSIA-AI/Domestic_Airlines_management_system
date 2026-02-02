@@ -83,11 +83,8 @@ function editPassenger(passenger) {
     document.getElementById('form-type').value = 'UPDATE';
     document.getElementById('passenger_num').value = passenger.PASSENGER_NUM;
     document.getElementById('id_type').value = passenger.ID_TYPE;
-    
-    // Clean ID number (remove P or ID prefix)
     let idNumClean = passenger.ID_NUM.replace(/^(P|ID)/, '');
     document.getElementById('id_num').value = idNumClean;
-    
     document.getElementById('first_name').value = passenger.FIRST_NAME;
     document.getElementById('middle_name').value = passenger.MIDDLE_NAME || '';
     document.getElementById('last_name').value = passenger.LAST_NAME;
@@ -95,11 +92,8 @@ function editPassenger(passenger) {
     document.getElementById('gender').value = passenger.GENDER;
     document.getElementById('nationality').value = passenger.NATIONALITY;
     document.getElementById('date_of_birth').value = passenger.DATE_OF_BIRTH;
-    
-    // Set phone country and number
     document.getElementById('phone_country').value = passenger.PHONE_COUNTRY_CODE;
     document.getElementById('phone_number').value = passenger.PHONE_NUMBER;
-    
     document.getElementById('overlay').classList.add('active');
 }
 
@@ -120,11 +114,8 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById("form-type").value = "ADD";
         document.getElementById("passenger_num").value = '';
         form.reset();
-        
-        // Reset to default (Algeria)
         document.getElementById('phone_country').value = 'DZ';
         document.getElementById('nationality').value = 'DZ';
-        
         overlay.classList.add('active');
     });
     

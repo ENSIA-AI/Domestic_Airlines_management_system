@@ -25,8 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["type"])) {
     $gender = isset($_POST["gender"]) ? strtoupper($_POST["gender"]) : null;
     $nationality = $_POST["nationality"] ?? 'DZ';
     $date_of_birth = $_POST["date_of_birth"];
-
-    // Validate country codes
+    
     $check_country = $conn->prepare("SELECT COUNTRY_CODE FROM COUNTRIES WHERE COUNTRY_CODE = ?");
     $check_country->bind_param("s", $nationality);
     $check_country->execute();
@@ -73,20 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["type"])) {
             WHERE ID_TYPE=? AND ID_NUM=? AND FIRST_NAME=? AND MIDDLE_NAME=? AND LAST_NAME=? 
             AND PHONE_COUNTRY_CODE=? AND PHONE_NUMBER=? AND EMAIL=? AND GENDER=? AND NATIONALITY=? AND DATE_OF_BIRTH=?
         ");
-        $check->bind_param(
-            "sssssssssss",
-            $id_type,
-            $id_num,
-            $first_name,
-            $middle_name,
-            $last_name,
-            $phone_country_code,
-            $phone_number,
-            $email,
-            $gender,
-            $nationality,
-            $date_of_birth
-        );
+        $check->bind_param("sssssssssss", $id_type, $id_num, $first_name, $middle_name, $last_name, $phone_country_code, $phone_number, $email, $gender, $nationality, $date_of_birth);
         $check->execute();
         $result = $check->get_result();
 
@@ -105,22 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["type"])) {
                 PHONE_COUNTRY_CODE=?, PHONE_NUMBER=?, EMAIL=?, GENDER=?, NATIONALITY=?, DATE_OF_BIRTH=?
             WHERE PASSENGER_NUM=?
         ");
-        $stmt->bind_param(
-            "sssssssssssi",
-            $id_type,
-            $id_num,
-            $first_name,
-            $middle_name,
-            $last_name,
-            $phone_country_code,
-            $phone_number,
-            $email,
-            $gender,
-            $nationality,
-            $date_of_birth,
-            $passenger_num
-        );
-
+        $stmt->bind_param("sssssssssssi", $id_type, $id_num, $first_name, $middle_name, $last_name, $phone_country_code, $phone_number, $email, $gender, $nationality, $date_of_birth, $passenger_num);
         if (!$stmt->execute()) {
             echo "Error updating passenger: " . $stmt->error;
         }
