@@ -1,11 +1,6 @@
 <?php
 include("../internal/session.php");
 include "../internal/db_config.php";
-
-
-
-
-// selection :
 $select_flights_query = 'SELECT * FROM FLIGHTS';
 $flights_result = mysqli_query($conn, $select_flights_query);
 $flights = mysqli_fetch_all($flights_result, MYSQLI_ASSOC);
@@ -17,45 +12,6 @@ $airports = mysqli_fetch_all($airports_result, MYSQLI_ASSOC);
 $select_aircrafts_query = 'SELECT * FROM AIRCRAFTS';
 $aircrafts_result = mysqli_query($conn, $select_aircrafts_query);
 $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
-
-// insertion :
-
-if (isset($_POST['request_type'])) {
-    //   flight_number=${FID}&
-    //     departure_time=${encodeURIComponent(DATE)}&
-    //     dep_airport=${DEP}&
-    //     arr_airport=${ARR}&
-    //     status=${STATUS}&
-    //     aircraft=${AC}`;
-    $request_type = mysqli_real_escape_string($conn, $_POST['request_type']);
-    
-
-    
-    if ($request_type == 'insert') {
-        $FNUM = mysqli_real_escape_string($conn, $_POST['flight_number']);
-        $TIME = mysqli_real_escape_string($conn, $_POST['departure_time']);
-        $DEP_AIRPORT = mysqli_real_escape_string($conn, $_POST['dep_airport']);
-        $ARR_AIRPORT= mysqli_real_escape_string($conn, $_POST['arr_airport']);
-        $STATUS = mysqli_real_escape_string($conn, $_POST['status']);
-        $AIRCRAFT = mysqli_real_escape_string($conn, $_POST['aircraft']);
-
-        $insert_flight_query = "INSERT INTO FLIGHTS(FLIGHT_NUMBER, DEPARTURE_TIME,
-        DEP_AIRPORT, ARR_AIRPORT, AIRCRAFT, `STATUS`)
-        values('$FNUM', '$TIME', '$DEP_AIRPORT', '$ARR_AIRPORT', '$AIRCRAFT', '$STATUS')";
-        if (mysqli_query($conn, $insert_flight_query)) {
-            echo 'successful insertion';
-        } else {
-            echo mysqli_error($conn);
-        }
-    } elseif ($request_type == 'update') {
-
-    } elseif ($request_type == 'delete') {
-
-    } else {
-        echo 'invalid request type';
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -86,15 +42,7 @@ if (isset($_POST['request_type'])) {
             <div class="search-container">
                 <h2 class="recent">Flights Table</h2>
                 <div class="search-bar">
-                    <!-- <select class="searchFilter" id="searchFilter">
-                            old search filter code"
-                            <option value="id">Search by ID</option>
-                            <option value="destination">Search by Destination</option>
-                            <option value="date">Search by Date</option>
-                            <option value="status">Search by Status</option>
-                        </select> -->
                     <input type="text" class="search" id="search-bar" placeholder="Search">
-
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>

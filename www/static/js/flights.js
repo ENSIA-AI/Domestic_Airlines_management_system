@@ -60,21 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(statusString);
         let formattedDate = DATE.replace('T', ' ') + ":00";
         // creating a new flight row
-        const newr = document.createElement('tr');
-        newr.innerHTML = `
-                        <td>${FID}</td>
-                        <td>${DEP}</td>
-                        <td>${ARR}</td>
-                        <td>${formattedDate}</td>
-                        <td>${AC}</td>
-                        <td><span class="status ${statusString}">${statusString}</span></td>
-                        <td>
-                            <div class="options">
-                            <button class="option"><i class="fa fa-eye"></i></button>
-                            <button class="option"><i class="fa fa-edit"></i></button>
-                            <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>`;
 
 
         
@@ -88,13 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
         `status=${STATUS}&`+
         `aircraft=${AC}`;
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../../admin/flights.php', true);
+        xhr.open('POST', '../../admin/backend/flights.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             console.log('http requested');
             if(this.status == 200) {
                 // inserting the row to the front end
-                 tableBody.prepend(newr);
+                console.log(`new row inserted ${FID}`);
+                tableBody.insertAdjacentHTML('afterbegin', this.responseText);
                  
             }
         }
@@ -158,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
     }
     // editing a flight row (fa-edit) event listner
+    // ajax request_type=edit
     function edit(r) {
         const infos = r.querySelectorAll('td');
         const fid = infos[0].textContent.trim();
@@ -189,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editRow = r;
     }
     // removing a flight row (fa-remove) event listner
+    // ajax request_type=delete
     function remove(r) {
         const confirmed = confirm('Are You Sure About Doing This Action?');
         if (confirmed) {
