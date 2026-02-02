@@ -1,5 +1,13 @@
 <?php
 include("../internal/session.php");
+include("../internal/db_config.php");
+
+$countries_query = "SELECT COUNTRY_CODE, COUNTRY_NAME, PHONE_CODE FROM COUNTRIES ORDER BY COUNTRY_NAME";
+$countries_result = $conn->query($countries_query);
+$countries = [];
+while ($country = $countries_result->fetch_assoc()) {
+    $countries[] = $country;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +73,7 @@ include("../internal/session.php");
 
             <label for="id_num">ID/Passport Number (numbers only): </label>
             <input type="text" name="id_num" id="id_num" placeholder="e.g., 12345601 or 56789012" required>
+
             <div class="name-container">
                 <div>
                     <label for="first_name">First Name: </label>
@@ -79,20 +88,40 @@ include("../internal/session.php");
             <label for="last_name">Last Name: </label>
             <input type="text" name="last_name" id="last_name" required>
 
-            <label for="phone">Phone Number: </label>
-            <input type="tel" name="phone" id="phone" pattern="[+]?[0-9]{10,15}" required>
-
             <label for="email">Email: </label>
             <input type="email" name="email" id="email" required>
+
             <label for="gender">Gender: </label>
             <select name="gender" id="gender" required>
                 <option value="MALE">Male</option>
                 <option value="FEMALE">Female</option>
             </select>
+
             <label for="nationality">Nationality: </label>
-            <input type="text" name="nationality" id="nationality" value="Algeria" required>
+            <select name="nationality" id="nationality" required>
+                <?php foreach ($countries as $country): ?>
+                    <option value="<?= $country['COUNTRY_CODE'] ?>"
+                        <?= $country['COUNTRY_CODE'] === 'DZ' ? 'selected' : '' ?>><?= $country['COUNTRY_NAME'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+
             <label for="date_of_birth">Date of Birth: </label>
             <input type="date" name="date_of_birth" id="date_of_birth" required>
+            <label for="phone_number">Phone Number:</label>
+            <div class="phone-group">
+                <select name="phone_country" id="phone_country" required class="phone-country">
+                    <?php foreach ($countries as $country): ?>
+                        <option value="<?= $country['COUNTRY_CODE'] ?>"
+                            data-code="<?= $country['PHONE_CODE'] ?>"
+                            <?= $country['COUNTRY_CODE'] === 'DZ' ? 'selected' : '' ?>>
+                            <?= $country['COUNTRY_NAME'] ?> (<?= $country['PHONE_CODE'] ?>)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="tel" name="phone_number" id="phone_number" placeholder="999 999 999" pattern="[0-9]{6,15}" class="phone-input" required>
+            </div>
+
             <div class="form-actions">
                 <button type="button" class="submit-btn" id="submit-btn">Add Passenger</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
@@ -152,6 +181,13 @@ include("../internal/session.php");
     searchBar.addEventListener("keyup", () => {
         search();
     }, false);
+    const phoneCountry = document.getElementById("phone_country");
+    function updatePhoneCode() {
+        const selected = phoneCountry.options[phoneCountry.selectedIndex];
+        phoneCodeDisplay.textContent = selected.dataset.code || "+000";
+    }
+    phoneCountry.addEventListener("change", updatePhoneCode);
+    updatePhoneCode();
 </script>
 
 </html>

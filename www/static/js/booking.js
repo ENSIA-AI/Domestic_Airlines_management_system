@@ -124,7 +124,7 @@ function viewBooking(booking, displayDatetime) {
     document.getElementById('view-flight').textContent = booking.FLIGHT_NUMBER || '';
     document.getElementById('view-departure').textContent = displayDatetime || '';
     document.getElementById('view-class').textContent = display(booking.CLASS);
-    document.getElementById('view-phone').textContent = booking.PHONE || '';
+    document.getElementById('view-phone').textContent = booking.PHONE_NUMBER || '';
     document.getElementById('view-status').textContent = display(booking.STATUS);
     document.getElementById('view-modal').classList.add('active');
 }

@@ -57,20 +57,19 @@ function deletePassenger(id){
     xhr.send(formData);
 }
 
-function viewPassenger(passenger, displayDob){
+function viewPassenger(passenger, displayDob, fullPhone, nationalityName){
     const fullname = (passenger.FIRST_NAME || '') + ' ' + (passenger.MIDDLE_NAME || '') + ' ' + (passenger.LAST_NAME || '');
-    const idDisplay = passenger.ID_TYPE === 'PASSPORT' ? 
-        passenger.ID_NUM.replace('P', 'P-') : 
-        passenger.ID_NUM.replace('ID', 'ID-');
+    const idDisplay = passenger.ID_NUM.replace(/^(P|ID)/, '$1-');
+    
     document.getElementById('view-passenger-id').textContent = passenger.PASSENGER_NUM || '';
     document.getElementById('view-id-type').textContent = display(passenger.ID_TYPE);
     document.getElementById('view-id-num').textContent = idDisplay;
     document.getElementById('view-full-name').textContent = fullname.trim();
-    document.getElementById('view-phone').textContent = passenger.PHONE || '';
+    document.getElementById('view-phone').textContent = fullPhone || '';
     document.getElementById('view-email').textContent = passenger.EMAIL || '';
     document.getElementById('view-dob').textContent = displayDob || '';
     document.getElementById('view-gender').textContent = display(passenger.GENDER);
-    document.getElementById('view-nationality').textContent = passenger.NATIONALITY || '';
+    document.getElementById('view-nationality').textContent = nationalityName || '';
     document.getElementById('view-modal').classList.add('active');
 }
 
@@ -84,41 +83,56 @@ function editPassenger(passenger) {
     document.getElementById('form-type').value = 'UPDATE';
     document.getElementById('passenger_num').value = passenger.PASSENGER_NUM;
     document.getElementById('id_type').value = passenger.ID_TYPE;
+    
+    // Clean ID number (remove P or ID prefix)
     let idNumClean = passenger.ID_NUM.replace(/^(P|ID)/, '');
     document.getElementById('id_num').value = idNumClean;
+    
     document.getElementById('first_name').value = passenger.FIRST_NAME;
-    document.getElementById('middle_name').value = passenger.MIDDLE_NAME;
+    document.getElementById('middle_name').value = passenger.MIDDLE_NAME || '';
     document.getElementById('last_name').value = passenger.LAST_NAME;
-    document.getElementById('phone').value = passenger.PHONE;
     document.getElementById('email').value = passenger.EMAIL;
     document.getElementById('gender').value = passenger.GENDER;
     document.getElementById('nationality').value = passenger.NATIONALITY;
     document.getElementById('date_of_birth').value = passenger.DATE_OF_BIRTH;
+    
+    // Set phone country and number
+    document.getElementById('phone_country').value = passenger.PHONE_COUNTRY_CODE;
+    document.getElementById('phone_number').value = passenger.PHONE_NUMBER;
+    
     document.getElementById('overlay').classList.add('active');
 }
 
-
 document.addEventListener('DOMContentLoaded', function(){
     updateTable();
+    
     const addBtn = document.getElementById("add-passenger-btn");
     const cancelBtn = document.getElementById("cancel-btn");
     const submitBtn = document.getElementById('submit-btn');
     const closeBtn = document.getElementById('close-view-btn');
     const view = document.getElementById('view-modal');
     const form = document.getElementById('AddForm');       
-    const overlay = document.getElementById('overlay'); 
+    const overlay = document.getElementById('overlay');
+    
     addBtn.addEventListener('click', ()=>{
         document.getElementById("form-title").textContent = "Add New Passenger";
         document.getElementById("submit-btn").textContent = "Add Passenger";
         document.getElementById("form-type").value = "ADD";
         document.getElementById("passenger_num").value = '';
         form.reset();
+        
+        // Reset to default (Algeria)
+        document.getElementById('phone_country').value = 'DZ';
+        document.getElementById('nationality').value = 'DZ';
+        
         overlay.classList.add('active');
     });
+    
     cancelBtn.addEventListener('click', ()=>{
         overlay.classList.remove('active');
         form.reset();
     });
+    
     submitBtn.addEventListener('click', () => {
         setTableToLoading();
         const formData = new FormData(form);
@@ -146,11 +160,13 @@ document.addEventListener('DOMContentLoaded', function(){
         };
         xhr.send(formData);
     });
+    
     view.addEventListener('click', function(e) {
         if (e.target === this) {
             closeview();
         }
     });
+    
     closeBtn.addEventListener('click', function (e) {
         closeview();
     });
