@@ -112,6 +112,14 @@ if (isset($_POST['request_type'])) {
       }
            
     } elseif ($request_type == 'delete') {
+      if(isset($_POST['flight_number'])) {
+        $FID = $_POST['flight_number'];
+        $query = "DELETE FROM FLIGHTS WHERE `FLIGHT_NUMBER` = '$FID'";
+        if (!mysqli_query($conn, $query)) {
+          echo mysqli_errno($conn);
+        }
+        
+      }
 
     } else {
         echo 'invalid request type';

@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('AddForm');
     const tableBody = document.getElementById('tablebody');
     const overlay = document.getElementById('overlay');
-    const title = document.getElementById('title');
+    const title = document.getElementById('form-title');
     const submitBtn = document.getElementById('submit-btn');
     const cancelBtn = document.getElementById('cancel-btn');
+    const addBtn = document.getElementById('add-flight-btn');
     let isEdit = false;
     let editRow = null;
    
@@ -23,6 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const [year, month, day] = date.split('-');
         return `${String(Number(day))}\u00A0${numToMonth[month]}\u00A0${year}`;
     }
+
+    addBtn.addEventListener('click', () => {
+        document.getElementById('form-title').textContent = 'Add New Flight';
+        document.getElementById('submit-btn').textContent = 'Add Flight';
+        form.reset();
+        overlay.classList.add('active');
+    });
 
     // adding a new flight
     form.addEventListener('submit', (e) => {
@@ -195,9 +203,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function remove(r) {
         const confirmed = confirm('Are You Sure About Doing This Action?');
         if (confirmed) {
-            if(r) {
-                r.remove();
+        let request_type = 'delete';
+        let FID = r.querySelectorAll('td')[0].textContent.trim(); 
+        let backendParams = `request_type=${request_type}&`+
+        `flight_number=${FID}`;
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../admin/backend/flights.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('http POST REQUEST');
+            if(this.status == 200) {
+                // inserting the row to the front end
+                console.log(`row ${FID} is getting deleted`);
+                loadrows();
+                 
             }
+        }
+
+        xhr.send(backendParams);
+        form.reset();
         }
     }
 

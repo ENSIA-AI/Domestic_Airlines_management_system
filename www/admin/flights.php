@@ -32,7 +32,7 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
     <main class="content">
         <div class="dams-head">
             <h1 class="title">Flight Management</h1>
-            <button class="btn add-btn">
+            <button class="btn add-btn" id="add-flight-btn">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -59,18 +59,21 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
                     </thead>
                     <tbody  id="tablebody">
 
-    
+                        
 
                     </tbody>
                 </table>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                    Loading...
+                </div>
             </div>
         </div>
 
     </main>
     <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="AddForm">
-            <h2 id="title">Add New Flight</h2>
-
+            <h2 id="form-title">Add New Flight</h2>
 
 
             <label for="DEP">Departure: </label>
@@ -102,8 +105,8 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
             <select id="STATUS" name="STATUS" required>
                 <option value="scheduled">Scheduled</option>
                 <option value="delayed">Delayed</option>
-                <option value="canceled" disabled>Canceled</option>
-                <option value="arrived" disabled>Arrived</option>
+                <option value="canceled" >Canceled</option>
+                <option value="arrived" >Arrived</option>
             </select>
 
             <div class="form-actions">
