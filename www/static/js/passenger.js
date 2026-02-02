@@ -189,8 +189,8 @@ function validateID() {
         }
     } else if (idType === 'ID_CARD') {
         if (nationality === 'DZ') {
-            if (!/^[0-9]{18}$/.test(id)) {
-                idField.setCustomValidity('Algerian ID must be exactly 18 digits');
+            if (!/^[0-9]{9}$/.test(id)) {
+                idField.setCustomValidity('Algerian ID must be exactly 9 digits');
                 return false;
             }
         } else {
@@ -202,21 +202,6 @@ function validateID() {
     }
     return true;
 }
-
-function updateIdPlaceholder() {
-    const idType = document.getElementById('id_type').value;
-    const idField = document.getElementById('id_num');
-    if (idType === 'PASSPORT') {
-        idField.placeholder = '(ex: 123456890)';
-    } else{
-        idField.placeholder = '(ex: 123456789012345678)';
-    }
-}
-
-document.getElementById('id_type').addEventListener('change', updateIdPlaceholder);
-document.getElementById('nationality').addEventListener('change', updateIdPlaceholder);
-
-updateIdPlaceholder();
 
 function validatePHONE() {
     const nationality = document.getElementById('nationality').value;
