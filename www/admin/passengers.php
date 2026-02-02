@@ -65,39 +65,39 @@ while ($country = $countries_result->fetch_assoc()) {
             <input type="hidden" name="type" id="form-type" value="ADD">
             <input type="hidden" name="passenger_num" id="passenger_num" value="">
 
-            <label for="id_type">ID Type: </label>
+            <label for="id_type">ID Type</label>
             <select name="id_type" id="id_type" required>
                 <option value="ID_CARD">ID Card</option>
                 <option value="PASSPORT">Passport</option>
             </select>
 
-            <label for="id_num">ID/Passport Number (numbers only): </label>
-            <input type="text" name="id_num" id="id_num" placeholder="e.g., 12345601 or 56789012" required>
+            <label for="id_num">ID/Passport Number</label>
+            <input type="text" name="id_num" id="id_num" placeholder="(ex: 123456789)" required>
 
             <div class="name-container">
                 <div>
-                    <label for="first_name">First Name: </label>
-                    <input type="text" name="first_name" id="first_name" required>
+                    <label for="first_name">First Name</label>
+                    <input type="text" name="first_name" id="first_name" pattern="[A-Za-z\s\-']{2,50}" required>
                 </div>
                 <div>
-                    <label for="middle_name">Middle Name: </label>
-                    <input type="text" name="middle_name" id="middle_name">
+                    <label for="middle_name">Middle Name</label>
+                    <input type="text" name="middle_name" id="middle_name" pattern="[A-Za-z\s\-']{2,50}">
                 </div>
             </div>
 
-            <label for="last_name">Last Name: </label>
-            <input type="text" name="last_name" id="last_name" required>
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" id="last_name" pattern="[A-Za-z\s\-']{2,50}" required>
 
-            <label for="email">Email: </label>
-            <input type="email" name="email" id="email" required>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="(ex: example@email.com)" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
 
-            <label for="gender">Gender: </label>
+            <label for="gender">Gender</label>
             <select name="gender" id="gender" required>
                 <option value="MALE">Male</option>
                 <option value="FEMALE">Female</option>
             </select>
 
-            <label for="nationality">Nationality: </label>
+            <label for="nationality">Nationality</label>
             <select name="nationality" id="nationality" required>
                 <?php foreach ($countries as $country): ?>
                     <option value="<?= $country['COUNTRY_CODE'] ?>"
@@ -106,9 +106,10 @@ while ($country = $countries_result->fetch_assoc()) {
                 <?php endforeach; ?>
             </select>
 
-            <label for="date_of_birth">Date of Birth: </label>
-            <input type="date" name="date_of_birth" id="date_of_birth" required>
-            <label for="phone_number">Phone Number:</label>
+            <label for="date_of_birth">Date of Birth</label>
+            <input type="date" name="date_of_birth" id="date_of_birth" min="1905-01-01" max="<?= date('Y-m-d') ?>" required>
+
+            <label for="phone_number">Phone Number</label>
             <div class="phone-group">
                 <select name="phone_country" id="phone_country" required class="phone-country">
                     <?php foreach ($countries as $country): ?>
@@ -119,7 +120,7 @@ while ($country = $countries_result->fetch_assoc()) {
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <input type="tel" name="phone_number" id="phone_number" placeholder="999 999 999" pattern="[0-9]{6,15}" class="phone-input" required>
+                <input type="tel" name="phone_number" id="phone_number" placeholder="(ex: 0555 123 456)" class="phone-input" required>
             </div>
 
             <div class="form-actions">
@@ -182,9 +183,9 @@ while ($country = $countries_result->fetch_assoc()) {
         search();
     }, false);
     const phoneCountry = document.getElementById("phone_country");
+
     function updatePhoneCode() {
         const selected = phoneCountry.options[phoneCountry.selectedIndex];
-        phoneCodeDisplay.textContent = selected.dataset.code || "+000";
     }
     phoneCountry.addEventListener("change", updatePhoneCode);
     updatePhoneCode();

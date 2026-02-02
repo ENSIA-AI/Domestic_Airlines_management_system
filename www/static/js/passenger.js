@@ -125,6 +125,14 @@ document.addEventListener('DOMContentLoaded', function(){
     });
     
     submitBtn.addEventListener('click', () => {
+        if (!validateID()) {
+            form.reportValidity();
+            return;
+        }
+        if (!validatePHONE()) {
+            form.reportValidity();
+            return;
+        }
         setTableToLoading();
         const formData = new FormData(form);
         const xhr = new XMLHttpRequest();
@@ -158,7 +166,89 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
     
-    closeBtn.addEventListener('click', function (e) {
+    closeBtn.addEventListener('click', ()=> {
         closeview();
     });
 });
+
+// form validation
+function validateID() {
+    const idType = document.getElementById('id_type').value;
+    const id = document.getElementById('id_num').value.trim();
+    const nationality = document.getElementById('nationality').value;
+    const idField = document.getElementById('id_num');
+    idField.setCustomValidity('');
+    if (!id) {
+        idField.setCustomValidity('ID/Passport number is required');
+        return false;
+    }
+    if (idType === 'PASSPORT') {
+        if (!/^[A-Z0-9]{8,9}$/i.test(id)) {
+            idField.setCustomValidity('Passport must be 8-9 characters (letters/numbers only)');
+            return false;
+        }
+    } else if (idType === 'ID_CARD') {
+        if (nationality === 'DZ') {
+            if (!/^[0-9]{18}$/.test(id)) {
+                idField.setCustomValidity('Algerian ID must be exactly 18 digits');
+                return false;
+            }
+        } else {
+            if (!/^[0-9]{6,15}$/.test(id)) {
+                idField.setCustomValidity('ID must be 6-15 digits');
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function updateIdPlaceholder() {
+    const idType = document.getElementById('id_type').value;
+    const idField = document.getElementById('id_num');
+    if (idType === 'PASSPORT') {
+        idField.placeholder = '(ex: 123456890)';
+    } else{
+        idField.placeholder = '(ex: 123456789012345678)';
+    }
+}
+
+document.getElementById('id_type').addEventListener('change', updateIdPlaceholder);
+document.getElementById('nationality').addEventListener('change', updateIdPlaceholder);
+
+updateIdPlaceholder();
+
+function validatePHONE() {
+    const nationality = document.getElementById('nationality').value;
+    const phoneField = document.getElementById('phone_number');
+    const rawPhone = phoneField.value.trim();
+    const phone = rawPhone.replace(/\s+/g, '');
+
+    phoneField.setCustomValidity('');
+
+    if (!phone) {
+        phoneField.setCustomValidity('Phone number is required');
+        return false;
+    }
+    if (nationality === 'DZ') {
+        const mobile = /^0[567][0-9]{8}$/;
+        const fixe = /^02[0-9]{7}$/;
+        if (!mobile.test(phone) && !fixe.test(phone)) {
+            phoneField.setCustomValidity(
+                'Algerian number must be 05/06/07 + 8 digits OR 02 + 7 digits'
+            );
+            return false;
+        }
+    }else {
+        const tel = /^[0-9]{7,15}$/;
+        if (!tel.test(phone)) {
+            phoneField.setCustomValidity(
+                'Phone number must be 7–15 digits (international format)'
+            );
+            return false;
+        }
+    }
+    phoneField.setCustomValidity('');
+    return true;
+}
+
