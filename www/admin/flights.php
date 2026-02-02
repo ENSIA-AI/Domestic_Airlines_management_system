@@ -1,9 +1,7 @@
 <?php
 include("../internal/session.php");
 include "../internal/db_config.php";
-$select_flights_query = 'SELECT * FROM FLIGHTS';
-$flights_result = mysqli_query($conn, $select_flights_query);
-$flights = mysqli_fetch_all($flights_result, MYSQLI_ASSOC);
+
 
 $select_airports_query = 'SELECT * FROM AIRPORTS';
 $airports_result = mysqli_query($conn, $select_airports_query);
@@ -60,27 +58,7 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
                         </tr>
                     </thead>
                     <tbody  id="tablebody">
-                        <?php foreach ($flights as $flight): ?>
-                        <tr>
-                            <td><?php echo $flight['FLIGHT_NUMBER']  ?></td>
-                            <td><?php echo $flight['DEP_AIRPORT'] ?></td>
-                            <td><?php echo $flight['ARR_AIRPORT'] ?></td>
-                            <td><?php echo $flight['DEPARTURE_TIME'] ?></td>
-                            <td><?php echo $flight['AIRCRAFT'] ?></td>
-                            <td>
-                                <span class="status <?php echo ucwords(strtolower($flight['STATUS'])) ?> ">
-                                    <?php echo ucwords(strtolower($flight['STATUS']))  ?>
-                                </span>
-                            </td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach ?>
+
     
 
                     </tbody>

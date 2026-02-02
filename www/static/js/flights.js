@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    loadrows();
     const form = document.getElementById('AddForm');
     const tableBody = document.getElementById('tablebody');
     const overlay = document.getElementById('overlay');
@@ -76,11 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
         xhr.open('POST', '../../admin/backend/flights.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
-            console.log('http requested');
+            console.log('http POST REQUEST');
             if(this.status == 200) {
                 // inserting the row to the front end
                 console.log(`new row inserted ${FID}`);
-                tableBody.insertAdjacentHTML('afterbegin', this.responseText);
+                loadrows();
                  
             }
         }
@@ -143,6 +143,23 @@ document.addEventListener('DOMContentLoaded', () => {
             restore();
         }, { once: true });
     }
+
+    function loadrows() {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '../../admin/backend/flights.php', true);
+        xhr.onload = function() {
+            console.log('http GET request');
+            if(this.status == 200) {
+                // inserting the row to the front end
+                tableBody.insertAdjacentHTML('afterbegin', this.responseText);
+                 
+            }
+        }
+
+        xhr.send();
+
+    }
+
     // editing a flight row (fa-edit) event listner
     // ajax request_type=edit
     function edit(r) {
@@ -167,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const inputs = form.querySelectorAll('input, select');
         inputs.forEach(input => input.removeAttribute('disabled'));
-        title.textContent = 'Edit Booking';
+        title.textContent = 'Edit Flight';
         submitBtn.style.display = 'block';
         submitBtn.textContent = 'Save Changes';
         cancelBtn.textContent = 'Cancel';
