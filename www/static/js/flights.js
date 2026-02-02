@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('submit-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const addBtn = document.getElementById('add-flight-btn');
+    const tableContainer = document.querySelector('.table-container');
     let isEdit = false;
     let editRow = null;
    
@@ -25,6 +26,32 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${String(Number(day))}\u00A0${numToMonth[month]}\u00A0${year}`;
     }
 
+    function setTableToLoading() {
+        tableContainer.innerHTML = `
+                    <table class="dams-table" id="search-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Departure</th>
+                                <th>Destination</th>
+                                <th>Date</th>
+                                <th>Aircraft</th>
+                                <th>Status</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody  id="tablebody">
+
+                            
+
+                        </tbody>
+                    </table>
+                    <div class="spinner-container">
+                        <div class="spinner"></div>
+                        Loading...
+                    </div>`;
+    }
+
     addBtn.addEventListener('click', () => {
         document.getElementById('form-title').textContent = 'Add New Flight';
         document.getElementById('submit-btn').textContent = 'Add Flight';
@@ -34,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // adding a new flight
     form.addEventListener('submit', (e) => {
+        setTableToLoading() 
         e.preventDefault();
         let FID = 0;
         let request_type = "";
@@ -161,7 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('http GET request');
             if(this.status == 200) {
                 // inserting the row to the front end
-                tableBody.insertAdjacentHTML('afterbegin', this.responseText);
+                tableContainer.innerHTML =
+                this.responseText;
                  
             }
         }
@@ -201,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // removing a flight row (fa-remove) event listner
     // ajax request_type=delete
     function remove(r) {
+        setTableToLoading() 
         const confirmed = confirm('Are You Sure About Doing This Action?');
         if (confirmed) {
         let request_type = 'delete';
@@ -233,6 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (e.target.classList.contains('fa-trash')) remove(row);
 
     });
+
+
 
   
 

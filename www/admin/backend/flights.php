@@ -9,7 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $flights_result = mysqli_query($conn, $select_flights_query);
   $flights = mysqli_fetch_all($flights_result, MYSQLI_ASSOC);
 
-  
+  echo '<table class="dams-table" id="search-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Departure</th>
+                            <th>Destination</th>
+                            <th>Date</th>
+                            <th>Aircraft</th>
+                            <th>Status</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody  id="tablebody">';
   foreach($flights as $flight) {
     $flight['STATUS'] = ucwords(strtolower($flight['STATUS']));
       echo                   
@@ -33,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             </td>
         </tr>";
         }
+
+    echo '</tbody></table>';
                         
   
 }
