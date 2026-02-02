@@ -74,6 +74,31 @@ include("internal/session.php");
         </div>
 
         <h2>Announcements</h2>
+        <?php
+        if ($_SESSION["ROLE"] == 'admin'):
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['announcement_title']) && isset(($_POST['announcement_desc']))  && isset(($_POST['announcement_type']))) {
+                $statement = $conn->prepare("INSERT INTO ANNOUNCEMENTS (AUTHOR,TITLE, CONTENT, TYPE) VALUES (?, ?, ?, ?)");
+                $statement->bind_param("isss", $_SESSION["UID"], $_POST['announcement_title'], $_POST['announcement_desc'], $_POST['announcement_type']);
+                $statement->execute();
+            }
+
+            ?>
+            <div>
+                <form class="announcement-form" method="POST">
+                    <input placeholder="Title" name="announcement_title" required></input>
+                    <textarea placeholder="Description" name="announcement_desc" required></textarea>
+                    <select required name="announcement_type">
+                        <option disabled selected value>-- Announcement Type --</option>
+                        <option value="success">Success</option>
+                        <option value="info">Information</option>
+                        <option value="danger">Danger</option>
+                        <option value="warning">Warning</option>
+                    </select>
+                    <button>Post Announcement</button>
+                </form>
+            </div>
+        <?php endif; ?>
         <div id="announcements">
             <div class="spinner-container r-10 bg-transparent">
                 <div class="spinner"></div>
