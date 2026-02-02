@@ -78,7 +78,7 @@ if (isset($_POST['request_type'])) {
         } else {
             echo mysqli_error($conn);
         }
-    } elseif ($request_type == 'update') {
+    } elseif ($request_type == 'edit') {
         $FNUM = mysqli_real_escape_string($conn, $_POST['flight_number']);
         $TIME = mysqli_real_escape_string($conn, $_POST['departure_time']);
         $DEP_AIRPORT = mysqli_real_escape_string($conn, $_POST['dep_airport']);
@@ -87,16 +87,30 @@ if (isset($_POST['request_type'])) {
         $STATUS = ucwords(strtolower($STATUS));
         $AIRCRAFT = mysqli_real_escape_string($conn, $_POST['aircraft']);
 
-        $update_flight_query = "INSERT INTO FLIGHTS(FLIGHT_NUMBER, DEPARTURE_TIME,
-        DEP_AIRPORT, ARR_AIRPORT, AIRCRAFT, `STATUS`)
-        values('$FNUM', '$TIME', '$DEP_AIRPORT', '$ARR_AIRPORT', '$AIRCRAFT', '$STATUS')";
-        if (mysqli_query($conn, $update_flight_query)) {
-  
-        } else {
-            echo mysqli_error($conn);
-        }
-           
+       $stmt = $conn->prepare(
+        "UPDATE FLIGHTS
+        SET DEPARTURE_TIME = ?,
+            DEP_AIRPORT = ?,
+            ARR_AIRPORT = ?,
+            STATUS = ?,
+            AIRCRAFT = ?
+        WHERE FLIGHT_NUMBER = ?"
+      );
 
+      $stmt->bind_param(
+        "ssssss",
+        $TIME,
+        $DEP_AIRPORT,
+        $ARR_AIRPORT,
+        $STATUS,
+        $AIRCRAFT,
+        $FNUM
+      );
+
+      if (!$stmt->execute()) {
+        echo $stmt->error;
+      }
+           
     } elseif ($request_type == 'delete') {
 
     } else {

@@ -96,7 +96,7 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
             </select>
 
             <label for="DATE">Departure Date: </label>
-            <input type="datetime-local" name="DATE" id="DATE" required>
+            <input type="datetime-local" name="DATE" step="1" id="DATE" required>
 
             <label for="STATUS">Status: </label>
             <select id="STATUS" name="STATUS" required>

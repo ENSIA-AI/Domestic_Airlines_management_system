@@ -27,47 +27,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // adding a new flight
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log('form called');
-        // fetching user inputs
-        
+        let FID = 0;
+        let request_type = "";
+        if (isEdit) {
+            FID = editRow.querySelectorAll('td')[0].textContent.trim();
+            request_type = "edit";
+            isEdit = false;
+        } else {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const nums = '0123456789';
+            // random id generation
+            function getRandomInt(max) {
+                // returns random number range (0, max-1)
+                return Math.floor(Math.random() * max);
+            }
+            function generateRandomId() {
+                let str = '';
+                if (getRandomInt(2) == 1) {
+                    str = 'AH';
+                } else {
+                    str = 'SF';
+                }
+                for (let j = 0 ; j < 3 ; ++j) {
+                    str = str + nums[getRandomInt(10)];
+                }
+                return str;
+            }
+           FID = generateRandomId();
+           request_type = "insert";
+
+        }
         const DEP = document.getElementById('DEP').value;
         const ARR = document.getElementById('DEST').value;
         const DATE = document.getElementById('DATE').value;
         const AC = document.getElementById('AC').value;
         const STATUS = document.getElementById('STATUS').value;
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const nums = '0123456789';
-        // random id generation
-        function getRandomInt(max) {
-            // returns random number range (0, max-1)
-            return Math.floor(Math.random() * max);
-        }
-        function generateRandomId() {
-            let str = '';
-            if (getRandomInt(2) == 1) {
-                str = 'AH';
-            } else {
-                str = 'SF';
-            }
-            for (let j = 0 ; j < 3 ; ++j) {
-                str = str + nums[getRandomInt(10)];
-            }
-            return str;
-        }
-        let FID = generateRandomId();
-        let statusString = STATUS.toLowerCase();
-        statusString = statusString.charAt(0).toUpperCase() + statusString.slice(1); 
-        console.log(statusString);
-        let formattedDate = DATE.replace('T', ' ') + ":00";
-        // creating a new flight row
 
+        // let formattedDate = DATE.replace('T', ' ') + ":00";
+        // let mysqlDateTime = DATE.replace('T', ' ') + ":00";
+        // insertion/update : - ajax http request
 
-        
-        let mysqlDateTime = DATE.replace('T', ' ') + ":00";
-        // insertion : - ajax http request
-        let backendParams = `request_type=insert&`+
+        let backendParams = `request_type=${request_type}&`+
         `flight_number=${FID}&`+
-        `departure_time=${encodeURIComponent(mysqlDateTime)}&`+
+        `departure_time=${DATE}&`+
         `dep_airport=${DEP}&`+
         `arr_airport=${ARR}&`+
         `status=${STATUS}&`+
@@ -79,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('http POST REQUEST');
             if(this.status == 200) {
                 // inserting the row to the front end
-                console.log(`new row inserted ${FID}`);
+                console.log(`row ${FID} is inserted/edited`);
                 loadrows();
                  
             }
@@ -94,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // inspect a flight row (fa-eye) event listner
     function view(r) {
 
-
         const infos = r.querySelectorAll('td');
         const fid = infos[0].textContent.trim();
         const departure = infos[1].textContent.trim();
@@ -103,17 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const aircraft = infos[4].textContent.trim();
         const status = infos[5].querySelector('.status').textContent.trim().toLowerCase();
 
+        
+
         title.textContent = `Flight Details ${fid}`;
 
         document.getElementById('DEP').value = departure;
         document.getElementById('DEST').value = destination;
         document.getElementById('AC').value = aircraft;
         document.getElementById('STATUS').value = status;
+        document.getElementById('DATE').value = date;
+ 
+        
 
-        const yyyymmdd = date.split(' ')[0];
-        
-        
-        document.getElementById('DATE').value = yyyymmdd;
 
         const inputs = form.querySelectorAll('input, select');
         inputs.forEach(input => input.setAttribute('disabled', 'disabled'));
@@ -164,27 +166,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // ajax request_type=edit
     function edit(r) {
         const infos = r.querySelectorAll('td');
-        const fid = infos[0].textContent.trim();
-        const departure = infos[1].textContent.trim();
-        const destination = infos[2].textContent.trim();
-        const date = infos[3].textContent.trim();
-        const aircraft = infos[4].textContent.trim();
-        const status = infos[5].querySelector('.status').textContent.trim().toLowerCase();
+        const FID = infos[0].textContent.trim();
+        const DEP = infos[1].textContent.trim();
+        const ARR = infos[2].textContent.trim();
+        const DATE = infos[3].textContent.trim();
+        const AC = infos[4].textContent.trim();
+        const STATUS = infos[5].querySelector('.status').textContent.trim().toLowerCase();
 
-        title.textContent = `Flight Details ${fid}`;
-
-        document.getElementById('DEP').value = departure;
-        document.getElementById('DEST').value = destination;
-        document.getElementById('AC').value = aircraft;
-        document.getElementById('STATUS').value = status;
-
-         const yyyymmdd = date.split(' ')[0];
-        document.getElementById('DATE').value = yyyymmdd;
-
+        document.getElementById('DEP').value = DEP;
+        document.getElementById('DEST').value = ARR;
+        document.getElementById('AC').value = AC;
+        document.getElementById('STATUS').value = STATUS;
+        document.getElementById('DATE').value = DATE;
+ 
 
         const inputs = form.querySelectorAll('input, select');
         inputs.forEach(input => input.removeAttribute('disabled'));
-        title.textContent = 'Edit Flight';
+        title.textContent = `Edit Flight ${FID}`;
         submitBtn.style.display = 'block';
         submitBtn.textContent = 'Save Changes';
         cancelBtn.textContent = 'Cancel';
