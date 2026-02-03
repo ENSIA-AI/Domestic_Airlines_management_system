@@ -24,9 +24,7 @@ include("internal/session.php");
     <main class="content">
         <div class="dams-head">
             <h1 class="title">Check-Ins</h1>
-            <button class="btn add-btn">
-                <i class="fa fa-plus"></i> 
-            </button>
+
         </div>
         
           <div class="search-container">
@@ -41,30 +39,14 @@ include("internal/session.php");
           <table class="dams-table" id="search-table">
                 <thead class="dams-table-head">
                     <tr>
-                        <th>Check-In Id</th>
                         <th>Booking</th>
-                        <th>Date</th>
-                        <th>dep</th>
-                        <th>dest</th>
-                        <th>Status</th>
+                        <th>Final Price</th>
+                        <th>DeadLine</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tablebody">
-                    <tr>
-                        <td>CHK0989</td>
-                        <td>AB92LK</td>
-                        <td>20 December 2025</td>
-                        <td>ALG-DAAG</td>
-                        <td>ORN-DAOO</td>
-                        <td><span class="status Waiting">Waiting</span></td>
-                        <td>
-                            <button class="option">
-                            <i class="fa-solid fa-user-check"></i>
-                            </button>
-                         </td>
-             
-                    </tr>
+       
 
  
                             
@@ -72,38 +54,14 @@ include("internal/session.php");
                     </tr>
                 </tbody>
             </table>
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                Loading...
+            </div>
         </div>
     </main>
 
-     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="BookingForm">
-            <h2 id="title">Add A New Passenger For Check-In</h2>
-            <div class="name-container">
-                <label for="fn">First Name: </label>
-                <input type="text" name="First_Name" id="fn" required>
-                <label for="ln">Last Name: </label>
-                <input type="text" name="Last" id="ln" required>
-            </div>
-            <label for="flight_n">Flight Number: </label>
-            <input type="text" name="Flight-Num" id="flight_n" required>
-            <label for="date">Departure Date: </label>
-            <input type="date" name="date" id="dep-date" required>
-            <label for="departure">Departure: </label>
-            <input type="text" name="departure" id="departure" >
-            <label for="destination">Destination: </label>
-            <input type="text" name="destination" id="destination" required>
-            <label for="status">Status: </label>
-            <select id="status" name="status" value="Waiting" disabled>
-                <option value="waiting">Waiting</option>
-                <option value="done">Done</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-            <div class="form-actions">
-                <button type="submit" class="submit-btn" id="submit-btn">Add Passenger</button>
-                <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
-            </div>
-        </form>
-    </div>
+
     
     <div class="check-in-overlay" id="check-in-overlay">
             <div id="step1" class="step">
@@ -329,7 +287,7 @@ include("internal/session.php");
 
 
 
-    <script src="/static/js/form.js"></script>
+    
     <script src="/static/js/check-in.js"></script>
 
 </body>
@@ -338,7 +296,7 @@ include("internal/session.php");
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
-        search();
+        search("search-table");
     }, false);
 </script>
 
