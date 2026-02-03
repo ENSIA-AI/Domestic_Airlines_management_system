@@ -8,13 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
-
+    const pdfFrame = document.getElementById('pdf-frame');
+    
     const nextBtn1 = document.getElementById('next-btn1');
     const nextBtn2 = document.getElementById('next-btn2');
     const prevBtn1 = document.getElementById('prev-btn1');
     const prevBtn2 = document.getElementById('prev-btn2');
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn1');
+    let selectedSeat = null;
 
     loadRows();
 
@@ -76,7 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // seat selection
         if (e.target.classList.contains('seat')) {
-            e.target.classList.toggle('taken');
+             // remove previous selection
+            document.querySelectorAll('.seat.taken').forEach(seat => {
+            seat.classList.remove('taken');
+            });
+
+            // select new seat
+            e.target.classList.add('taken');
+            selectedSeat = e.target.textContent.trim();
         }
     });
 
@@ -87,9 +96,35 @@ document.addEventListener('DOMContentLoaded', () => {
         step2.classList.add('active');
     });
 
+// Update the Next Button 2 logic
     nextBtn2?.addEventListener('click', () => {
-        step2.classList.remove('active');
-        step3.classList.add('active');
+        if (!selectedSeat) {
+            alert('Please select a seat first.');
+            return;
+        }
+
+        // Prepare data to send to backend
+        const formData = new FormData(checkInForm);
+        formData.append('Seat', selectedSeat);
+        formData.append('action', 'generateBoardingPass');
+
+        pdfFrame.src = ""; 
+
+        fetch('backend/check-in.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            // Set the iframe source to the PDF blob URL
+            pdfFrame.src = url;
+            
+            // Move to Step 3
+            step2.classList.remove('active');
+            step3.classList.add('active');
+        })
+        .catch(err => console.error("Error generating PDF:", err));
     });
 
     prevBtn1?.addEventListener('click', () => {
@@ -103,9 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     confirmBtn?.addEventListener('click', () => {
-        closeCheckIn();
-        // TODO: send boarding data
+        // This triggers the print dialog for the PDF inside the iframe
+        pdfFrame.contentWindow.print();
+        
+        // Optional: Close the modal after a delay
+        setTimeout(() => {
+            alert("Check-in Complete!");
+            closeCheckIn();
+        }, 1000);
     });
+
 
     cancelBtn?.addEventListener('click', closeCheckIn);
 

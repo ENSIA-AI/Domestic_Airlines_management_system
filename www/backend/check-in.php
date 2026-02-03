@@ -42,14 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           echo "
           <div class='name-container'>
               <label>First Name:</label>
-              <input type='text' value='$first_name' disabled>
+              <input type='text' name = 'First_Name' value='$first_name' readonly>
 
               <label>Last Name:</label>
-              <input type='text' value='$last_name' disabled>
+              <input type='text' name='Last_Name' value='$last_name' readonly>
           </div>
 
           <label>Passenger Number:</label>
-          <input type='text' value='$passenger_num' disabled>
+          <input type='text' name=' value='$passenger_num' readonly>
 
           <div class='dep-dest'>
               <label>Flight Number:</label>
@@ -57,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           </div>
 
           <div class='dep-dest'>
-              <input type='text' value='$flight_number' disabled>
-              <input type='date' value='$date' disabled>
+              <input type='text' name='Flight_Number' value='$flight_number' readonly>
+              <input type='date' name='Date' value='$date' readonly>
           </div>
 
           <div class='dep-dest'>
@@ -67,12 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
           </div>
 
           <div class='dep-dest'>
-              <input type='text' value='$departure' disabled>
-              <input type='text' value='$destination' disabled>
+              <input type='text' name='Departure' value='$departure' readonly>
+              <input type='text' name='Destination' value='$destination' readonly>
           </div>
 
           <label>Class:</label>
-          <input type='text' value='$class' disabled>
+          <input type='text' name='Class' value='$class' readonly>
           ";
 
         } 
@@ -146,6 +146,52 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
 
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] === 'generateBoardingPass') {
+    require('fpdf186/fpdf.php'); 
+
+    
+    $name = $_POST['First_Name'] . " " . $_POST['Last_Name'];
+    $flight = $_POST['Flight_Number'];
+    $seat = $_POST['Seat'];
+    $from = $_POST['Departure'];
+    $to = $_POST['Destination'];
+    $date = $_POST['Date'];
+    $class = $_POST['Class'];
+
+    $pdf = new FPDF('L', 'mm', array(200, 80)); 
+    $pdf->AddPage();
+    
+    // Header
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, 'BOARDING PASS', 0, 1, 'C');
+    $pdf->Line(10, 20, 190, 20);
+
+    // Body
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Ln(10);
+    
+    // Column 1
+    $pdf->Cell(90, 10, "Passenger: $name", 0, 0);
+    $pdf->Cell(90, 10, "Flight: $flight", 0, 1);
+    
+    // Column 2
+    $pdf->Cell(90, 10, "From: $from", 0, 0);
+    $pdf->Cell(90, 10, "To: $to", 0, 1);
+    
+    // Column 3
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->Cell(90, 10, "SEAT: $seat", 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 10, "Date: $date", 0, 1);
+
+    $pdf->SetFont('Arial', 'I', 10);
+    $pdf->Cell(0, 15, "Class: $class", 0, 0, 'R');
+
+    // Output the PDF
+    $pdf->Output('I', 'BoardingPass.pdf'); 
+    exit;
 }
 
 
