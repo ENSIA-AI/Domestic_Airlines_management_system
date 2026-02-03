@@ -68,37 +68,39 @@ include("internal/session.php");
                 <h1 class="step-title">Personal Information & Luggage</h2>
                     <form class="dams-add-form" id="check-in-form">
                         <div class="name-container">
-                            <label for="check-in-fn">First Name: </label>
+
+                            <label for="First_Name">First Name: </label>
                             <input type="text" name="First_Name" id="check-in-fn" required disabled>
-                            <label for="check-in-ln" >Last Name: </label>
-                            <input type="text" name="Last" id="check-in-ln" required disabled>
+
+                            <label for="Last_Name" >Last Name: </label>
+                            <input type="text" name="Last_Name" id="check-in-ln" required disabled>
+
                         </div>
-                        <label for="passport_n">Passport Number: </label>
-                        <input type="text" name="Passport" id="passport_n" required>
-                        <label for="luggage">Luggage Cap: </label>
-                        <select id="luggage" name="luggage" value="23kg">
-                            <option value="23kg">23Kg Or Less</option>
-                            <option value="40kg">40Kg Or Less</option>
-                            <option value="80kg">80Kg Or Less</option>
-                        </select>
+                        <label for="Passenger_Num">Passenger Number: </label>
+                        <input type="text" name="Passenger_Num" id="passport_n" required>
+
+
                         <div class="dep-dest">
                             <label for="check-in-flight_n">Flight Number: </label>
                             <label for="check-in-date">Date: </label>
                         </div>
+
                         <div class="dep-dest">
-                        <input type="text" name="Flight-Num" id="check-in-flight_n" required disabled>
-                        <input type="date" name="date" id="check-in-date" required disabled>
+                        <input type="text" name="Flight_Num" id="check-in-flight_n" required disabled>
+                        <input type="date" name="Date" id="check-in-date" step="1" required disabled>
                         </div>
+
                         <div class="dep-dest">
                             <label for="check-in-destination">Destination: </label>
                             <label for="check-in-departure">Departure: </label>
                         </div>
+
                         <div class="dep-dest">
-                            <input type="text" name="departure" id="check-in-departure" disabled>
-                            <input type="text" name="destination" id="check-in-destination" required disabled>
+                            <input type="text" name="Departure" id="check-in-departure" disabled>
+                            <input type="text" name="Destination" id="check-in-destination" required disabled>
                         </div>
                         <label for="class">Class: </label>
-                        <select id="class" name="class" value="Economy" >
+                        <select id="class" name="Class" value="Economy" >
                             <option value="economy">Economy</option>
                             <option value="bussiness">Bussiness</option>
                             <option value="first-class">First Class</option>
@@ -274,11 +276,15 @@ include("internal/session.php");
                             </div>
             </div>
             <div id="step3" class="step">
-                <h2 class="step-title">Boarding Pass QR Code</h2>
-                <img src="static/images/boarding-pass.png">
-                <div class="form-actions">
-                <button class="cancel-btn" id="prev-btn2">Previous</button>
-                <button type="submit" class="submit-btn" id="confirm-btn">Confirm & Print</button>
+                <h2 class="step-title">Boarding Pass Preview</h2>
+                
+                <div id="pdf-preview-container" style="width: 100%; height: 400px; margin-bottom: 20px; border: 1px solid #ccc;">
+                    <iframe id="pdf-frame" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+
+                <div class="button-group">
+                    <button class="cancel-btn" id="prev-btn2">Previous</button>
+                    <button type="submit" class="submit-btn" id="confirm-btn">Confirm & Print</button>
                 </div>
             </div>
         
