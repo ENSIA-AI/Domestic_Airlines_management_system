@@ -52,54 +52,6 @@ include("../internal/db_config.php");
                         </tr>
                     </thead>
                     <tbody id="tablebody">
-                        <tr>
-                            <td>UA001</td>
-                            <td>Anes Mechkak</td>
-                            <td>anesa-2007</td>
-                            <td>anes2007@gmail.com</td>
-                            <td>Admin</td>
-                            <td><span class="status Active">Active</span></td>
-                            <td>15&nbsp;Jan&nbsp;2018</td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>UA002</td>
-                            <td>Samir Benkhelifa</td>
-                            <td>samir.b</td>
-                            <td>samir.b@airalgerie.dz</td>
-                            <td>Manager</td>
-                            <td><span class="status Active">Active</span></td>
-                            <td>22&nbsp;Mar&nbsp;2019</td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>UA003</td>
-                            <td>Linda Mokrane</td>
-                            <td>linda.m</td>
-                            <td>linda.m@airalgerie.dz</td>
-                            <td>Employee</td>
-                            <td><span class="status Retired">Inactive</span></td>
-                            <td>10&nbsp;Jun&nbsp;2020</td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -107,9 +59,11 @@ include("../internal/db_config.php");
         </div>
     </main>
     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="AddForm">
+        <form class="dams-add-form">
             <h2 id="title">Add New User</h2>
-            
+
+            <input type="hidden" name="type" value="ADD">
+
             <label for="fullname">Full Name: </label>
             <input type="text" name="fullname" id="fullname" placeholder="FULL NAME" required>
             
@@ -122,22 +76,24 @@ include("../internal/db_config.php");
             <label for="role">Role: </label>
             <select id="role" name="role" required>
                 <option value="Admin">Admin</option>
-                <option value="Manager">Manager</option>
                 <option value="Employee">Employee</option>
-                <optio value="viewer">viewer</option>
             </select>
             
             <label for="status">Status: </label>
             <select id="status" name="status" required>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
             </select>
+
             
             <label for="date-created">Date Created: </label>
             <input type="date" name="date-created" id="date-created" required>
             
+            <label for="paasword">Password:</label>
+            <input type="password" name="password" required>
+
             <div class="form-actions">
-                <button type="submit" class="submit-btn" id="submit-btn">Add User</button>
+                <button type="button" class="submit-btn" id="submit-btn">Add User</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
@@ -155,4 +111,79 @@ include("../internal/db_config.php");
     }, false);
 </script>
 
+
+<script>
+    function deleteUser(userId) {
+        if (confirm(`Do you really want to delete user ${userId}?`)) {
+            setTableToLoading();
+
+            const formData = new FormData();
+            formData.append('type', 'DEL');
+            formData.append('userId', userId);
+
+            fetch('backend/users.php', {
+                method: 'POST',
+                body: formData
+            }).then((res) => {
+                updateTable();
+            }).catch((e) => {
+                console.log(e);
+                alert("Error while removing the user, please retry later.");
+                updateTable();
+            });
+        }
+    }
+
+    function setTableToLoading() {
+        document.getElementsByClassName("table-container")[0].innerHTML = `
+            <table class="dams-table" id="search-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Full Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Date Created</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                Loading...
+            </div>`;
+    }
+
+    function updateTable() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementsByClassName("table-container")[0].innerHTML = this.responseText;
+            }
+        }
+        xmlhttp.open("GET", "backend/users.php", true);
+        xmlhttp.send();
+    }
+    updateTable();
+
+    document.getElementById('submit-btn').addEventListener('click', () => {
+        setTableToLoading();
+        const form = document.getElementsByClassName('dams-add-form')[0];
+        const formData = new FormData(form);
+        fetch('backend/users.php', {
+            method: 'POST',
+            body: formData
+        }).then((res) => {
+            updateTable();
+            document.getElementById('overlay').classList.remove('active');
+            form.reset();
+        }).catch((e) => {
+            console.log(e);
+            alert("Error while adding the user, please retry later.");
+            updateTable();
+        });
+    });
+</script>
 </html>
