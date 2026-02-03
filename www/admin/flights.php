@@ -3,13 +3,6 @@ include("../internal/session.php");
 include "../internal/db_config.php";
 
 
-
-
-// selection :
-$select_flights_query = 'SELECT * FROM FLIGHTS';
-$flights_result = mysqli_query($conn, $select_flights_query);
-$flights = mysqli_fetch_all($flights_result, MYSQLI_ASSOC);
-
 $select_airports_query = 'SELECT * FROM AIRPORTS';
 $airports_result = mysqli_query($conn, $select_airports_query);
 $airports = mysqli_fetch_all($airports_result, MYSQLI_ASSOC);
@@ -17,45 +10,6 @@ $airports = mysqli_fetch_all($airports_result, MYSQLI_ASSOC);
 $select_aircrafts_query = 'SELECT * FROM AIRCRAFTS';
 $aircrafts_result = mysqli_query($conn, $select_aircrafts_query);
 $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
-
-// insertion :
-
-if (isset($_POST['request_type'])) {
-    //   flight_number=${FID}&
-    //     departure_time=${encodeURIComponent(DATE)}&
-    //     dep_airport=${DEP}&
-    //     arr_airport=${ARR}&
-    //     status=${STATUS}&
-    //     aircraft=${AC}`;
-    $request_type = mysqli_real_escape_string($conn, $_POST['request_type']);
-    
-
-    
-    if ($request_type == 'insert') {
-        $FNUM = mysqli_real_escape_string($conn, $_POST['flight_number']);
-        $TIME = mysqli_real_escape_string($conn, $_POST['departure_time']);
-        $DEP_AIRPORT = mysqli_real_escape_string($conn, $_POST['dep_airport']);
-        $ARR_AIRPORT= mysqli_real_escape_string($conn, $_POST['arr_airport']);
-        $STATUS = mysqli_real_escape_string($conn, $_POST['status']);
-        $AIRCRAFT = mysqli_real_escape_string($conn, $_POST['aircraft']);
-
-        $insert_flight_query = "INSERT INTO FLIGHTS(FLIGHT_NUMBER, DEPARTURE_TIME,
-        DEP_AIRPORT, ARR_AIRPORT, AIRCRAFT, `STATUS`)
-        values('$FNUM', '$TIME', '$DEP_AIRPORT', '$ARR_AIRPORT', '$AIRCRAFT', '$STATUS')";
-        if (mysqli_query($conn, $insert_flight_query)) {
-            echo 'successful insertion';
-        } else {
-            echo mysqli_error($conn);
-        }
-    } elseif ($request_type == 'update') {
-
-    } elseif ($request_type == 'delete') {
-
-    } else {
-        echo 'invalid request type';
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +32,7 @@ if (isset($_POST['request_type'])) {
     <main class="content">
         <div class="dams-head">
             <h1 class="title">Flight Management</h1>
-            <button class="btn add-btn">
+            <button class="btn add-btn" id="add-flight-btn">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -86,15 +40,7 @@ if (isset($_POST['request_type'])) {
             <div class="search-container">
                 <h2 class="recent">Flights Table</h2>
                 <div class="search-bar">
-                    <!-- <select class="searchFilter" id="searchFilter">
-                            old search filter code"
-                            <option value="id">Search by ID</option>
-                            <option value="destination">Search by Destination</option>
-                            <option value="date">Search by Date</option>
-                            <option value="status">Search by Status</option>
-                        </select> -->
                     <input type="text" class="search" id="search-bar" placeholder="Search">
-
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
@@ -112,39 +58,22 @@ if (isset($_POST['request_type'])) {
                         </tr>
                     </thead>
                     <tbody  id="tablebody">
-                        <?php foreach ($flights as $flight): ?>
-                        <tr>
-                            <td><?php echo $flight['FLIGHT_NUMBER']  ?></td>
-                            <td><?php echo $flight['DEP_AIRPORT'] ?></td>
-                            <td><?php echo $flight['ARR_AIRPORT'] ?></td>
-                            <td><?php echo $flight['DEPARTURE_TIME'] ?></td>
-                            <td><?php echo $flight['AIRCRAFT'] ?></td>
-                            <td>
-                                <span class="status <?php echo ucwords(strtolower($flight['STATUS'])) ?> ">
-                                    <?php echo ucwords(strtolower($flight['STATUS']))  ?>
-                                </span>
-                            </td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach ?>
-    
+
+                        
 
                     </tbody>
                 </table>
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                    Loading...
+                </div>
             </div>
         </div>
 
     </main>
     <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="AddForm">
-            <h2 id="title">Add New Flight</h2>
-
+            <h2 id="form-title">Add New Flight</h2>
 
 
             <label for="DEP">Departure: </label>
@@ -170,14 +99,14 @@ if (isset($_POST['request_type'])) {
             </select>
 
             <label for="DATE">Departure Date: </label>
-            <input type="datetime-local" name="DATE" id="DATE" required>
+            <input type="datetime-local" name="DATE" step="1" id="DATE" required>
 
             <label for="STATUS">Status: </label>
             <select id="STATUS" name="STATUS" required>
                 <option value="scheduled">Scheduled</option>
                 <option value="delayed">Delayed</option>
-                <option value="canceled" disabled>Canceled</option>
-                <option value="arrived" disabled>Arrived</option>
+                <option value="canceled" >Canceled</option>
+                <option value="arrived" >Arrived</option>
             </select>
 
             <div class="form-actions">
@@ -200,7 +129,7 @@ if (isset($_POST['request_type'])) {
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
-        search();
+        search("search-table");
     }, false);
 </script>
 

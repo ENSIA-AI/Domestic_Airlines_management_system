@@ -174,7 +174,7 @@ include("internal/session.php");
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
-        search();
+        search("search-table");
     }, false);
 </script>
 

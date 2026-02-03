@@ -1,4 +1,6 @@
+const tableContainer = document.querySelector(".table-container");
 document.addEventListener('DOMContentLoaded', () => {
+    loadrows();
     const table = document.getElementById('dams-table-body');
     const form = document.getElementById('BookingForm'); 
     const numToMonth = {
@@ -16,44 +18,44 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${String(Number(day))}\u00A0${numToMonth[month]}\u00A0${year}`;
     }
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    // form.addEventListener('submit', (e) => {
+    //     e.preventDefault();
 
-        const firstName = document.getElementById('fn').value.trim();
-        const lastName = document.getElementById('ln').value.trim();
-        const flight_num = document.getElementById('flight_n').value.trim();
-        const dep_date = document.getElementById('dep-date').value.trim();
-        const departure = document.getElementById('departure').value.trim();
-        const destination = document.getElementById('destination').value.trim();
-        const status = document.getElementById('status').value.trim();
+    //     const firstName = document.getElementById('fn').value.trim();
+    //     const lastName = document.getElementById('ln').value.trim();
+    //     const flight_num = document.getElementById('flight_n').value.trim();
+    //     const dep_date = document.getElementById('dep-date').value.trim();
+    //     const departure = document.getElementById('departure').value.trim();
+    //     const destination = document.getElementById('destination').value.trim();
+    //     const status = document.getElementById('status').value.trim();
 
-        let dateparts = dep_date.split('-');
+    //     let dateparts = dep_date.split('-');
 
-        const newr = document.createElement('tr');
-        newr.innerHTML = `
-        <td>${firstName} ${lastName}</td>
-        <td>${flight_num}</td>
-        <td>${simplify(dep_date)}</td>
-        <td>${departure}</td>
-        <td>${destination}</td>
-        <td><span class="status ${capitalize(status)}">${capitalize(status)}</span></td>
-        <td>
-            <div class="options">
-                <button class="option">
-                <i class="fa-solid fa-user-check"></i>
-                </button>
-            </div>
-        </td>`;
+    //     const newr = document.createElement('tr');
+    //     newr.innerHTML = `
+    //     <td>${firstName} ${lastName}</td>
+    //     <td>${flight_num}</td>
+    //     <td>${simplify(dep_date)}</td>
+    //     <td>${departure}</td>
+    //     <td>${destination}</td>
+    //     <td><span class="status ${capitalize(status)}">${capitalize(status)}</span></td>
+    //     <td>
+    //         <div class="options">
+    //             <button class="option">
+    //             <i class="fa-solid fa-user-check"></i>
+    //             </button>
+    //         </div>
+    //     </td>`;
 
-        table.prepend(newr);
+    //     table.prepend(newr);
 
 
-        const overlay = document.getElementById('overlay');
-        if (overlay) {
-            overlay.classList.remove('active');
-            form.reset();
-        }
-    });
+    //     const overlay = document.getElementById('overlay');
+    //     if (overlay) {
+    //         overlay.classList.remove('active');
+    //         form.reset();
+    //     }
+    // });
 
 
 
@@ -131,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // status = done
             // button of check in transform to done
             // print boarding-pass
+            // transform status in booking.php from confimed to completed
             step3.classList.remove('active');
             checkInOverlay.classList.remove('active');
         }) 
@@ -169,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target.classList.contains('seat')) {
                 e.target.classList.toggle('taken');
                 if (e.target.classList.contains('taken')) {
-                    let chosenSeat = e.target;
+                    let chosenSeat = e.target.textContent.trim();
                     // work here later
                 }
 
@@ -191,7 +194,19 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     
+    // backend ajax :
 
+    function loadrows() {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "backend/check-in.php", true);
+        xhr.onload = function () {
+            if (this.status == 200) {
+                console.log("loading rows from booking where status == confirmed");
+                tableContainer.innerHTML = xhr.responseText;
+            }
+        }
+        xhr.send();
+    }
 
 
 });

@@ -1,5 +1,13 @@
 <?php
 include("../internal/session.php");
+include("../internal/db_config.php");
+
+$countries_query = "SELECT COUNTRY_CODE, COUNTRY_NAME, PHONE_CODE FROM COUNTRIES ORDER BY COUNTRY_NAME";
+$countries_result = $conn->query($countries_query);
+$countries = [];
+while ($country = $countries_result->fetch_assoc()) {
+    $countries[] = $country;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,17 +18,15 @@ include("../internal/session.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/static/js/search.js"></script>
-    <title>Passenger Management - Domestic Airlines</title>
+    <title>Passenger Management</title>
 </head>
 
 <body>
-    <?php
-    include("../internal/sidebar.php");
-    ?>
+    <?php include("../internal/sidebar.php"); ?>
     <main class="content">
         <div class="dams-head">
             <h1 class="title">Passenger Management</h1>
-            <button class="btn add-btn">
+            <button class="btn add-btn" id="add-passenger-btn">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -36,7 +42,8 @@ include("../internal/session.php");
             <table class="dams-table" id="search-table">
                 <thead>
                     <tr>
-                        <th>National ID</th>
+                        <th>ID</th>
+                        <th>ID/Passport Number</th>
                         <th>Passenger Name</th>
                         <th>Phone</th>
                         <th>Date of Birth</th>
@@ -45,88 +52,124 @@ include("../internal/session.php");
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody class="Ptbody" id="tablebody">
-                    <tr>
-                        <td>123456789012345678</td>
-                        <td>Ahmed Benali</td>
-                        <td>0555123456</td>
-                        <td>1985-03-15</td>
-                        <td>Male</td>
-                        <td>Algerian</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>234567890123456789</td>
-                        <td>Fatima Khelifi</td>
-                        <td>0661234567</td>
-                        <td>1990-07-22</td>
-                        <td>Female</td>
-                        <td>Algerian</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>345678901234567890</td>
-                        <td>Karim Meziani</td>
-                        <td>0770345678</td>
-                        <td>1988-11-08</td>
-                        <td>Male</td>
-                        <td>Algerian</td>
-                        <td>
-                            <div class="options">
-                                <button class="option"><i class="fa fa-eye"></i></button>
-                                <button class="option"><i class="fa fa-edit"></i></button>
-                                <button class="option"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                Loading...
+            </div>
         </div>
     </main>
     <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="PassengerForm">
-            <h2 id="title">Add New Passenger</h2>
+        <form class="dams-add-form" id="AddForm">
+            <h2 id="form-title">Add New Passenger</h2>
+            <input type="hidden" name="type" id="form-type" value="ADD">
+            <input type="hidden" name="passenger_num" id="passenger_num" value="">
+
+            <label for="id_type">ID Type</label>
+            <select name="id_type" id="id_type" required>
+                <option value="ID_CARD">ID Card</option>
+                <option value="PASSPORT">Passport</option>
+            </select>
+
+            <label for="id_num">ID/Passport Number</label>
+            <input type="text" name="id_num" id="id_num" placeholder="(ex: 123456789)" required>
+
             <div class="name-container">
-                <label for="First_Name">First Name: </label>
-                <input type="text" name="First_Name" id="fn" required>
-                <label for="Last">Last Name: </label>
-                <input type="text" name="Last" id="ln" required>
+                <div>
+                    <label for="first_name">First Name</label>
+                    <input type="text" name="first_name" id="first_name" pattern="[A-Za-z\s\-']{2,50}" required>
+                </div>
+                <div>
+                    <label for="middle_name">Middle Name</label>
+                    <input type="text" name="middle_name" id="middle_name" pattern="[A-Za-z\s\-']{2,50}">
+                </div>
             </div>
-            <label for="National_ID">National ID: </label>
-            <input type="text" name="National_ID" id="national_id" pattern="[0-9]{18}" required>
-            <label for="Phone">Phone Number: </label>
-            <input type="tel" id="phone" name="phone" pattern="(0[0-9]8)|(0[567][0-9]{8})" required>
-            <label for="date_of_birth">Date of Birth: </label>
-            <input type="date" name="date_of_birth" id="dob" required>
-            <label for="gender">Gender: </label>
+
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" id="last_name" pattern="[A-Za-z\s\-']{2,50}" required>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="(ex: example@email.com)" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+
+            <label for="gender">Gender</label>
             <select name="gender" id="gender" required>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
             </select>
-            <label for="nationality">Nationality: </label>
+
+            <label for="nationality">Nationality</label>
             <select name="nationality" id="nationality" required>
-                <option value="Algerian">Algerian</option>
-                <option value="Foreign">Foreign / Other</option>
+                <?php foreach ($countries as $country): ?>
+                    <option value="<?= $country['COUNTRY_CODE'] ?>"
+                        <?= $country['COUNTRY_CODE'] === 'DZ' ? 'selected' : '' ?>><?= $country['COUNTRY_NAME'] ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
-            <label for="email">Email: </label>
-            <input type="email" name="email" id="email">
+
+            <label for="date_of_birth">Date of Birth</label>
+            <input type="date" name="date_of_birth" id="date_of_birth" min="1905-01-01" max="<?= date('Y-m-d') ?>" required>
+
+            <label for="phone_number">Phone Number</label>
+            <div class="phone-group">
+                <select name="phone_country" id="phone_country" required class="phone-country">
+                    <?php foreach ($countries as $country): ?>
+                        <option value="<?= $country['COUNTRY_CODE'] ?>"
+                            data-code="<?= $country['PHONE_CODE'] ?>"
+                            <?= $country['COUNTRY_CODE'] === 'DZ' ? 'selected' : '' ?>>
+                            <?= $country['COUNTRY_NAME'] ?> (<?= $country['PHONE_CODE'] ?>)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="tel" name="phone_number" id="phone_number" placeholder="(ex: 0555 123 456)" class="phone-input" required>
+            </div>
+
             <div class="form-actions">
-                <button type="submit" class="submit-btn" id="submit-btn">Add Passenger</button>
+                <button type="button" class="submit-btn" id="submit-btn">Add Passenger</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
+    </div>
+    <div class="view-modal" id="view-modal">
+        <div class="view-content">
+            <h2>Passenger Details</h2>
+            <div class="view-row">
+                <div class="view-label">Passenger ID:</div>
+                <div class="view-value" id="view-passenger-id"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">ID Type:</div>
+                <div class="view-value" id="view-id-type"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">ID/Passport Number:</div>
+                <div class="view-value" id="view-id-num"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">Full Name:</div>
+                <div class="view-value" id="view-full-name"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">Phone:</div>
+                <div class="view-value" id="view-phone"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">Email:</div>
+                <div class="view-value" id="view-email"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">Date of Birth:</div>
+                <div class="view-value" id="view-dob"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">Gender:</div>
+                <div class="view-value" id="view-gender"></div>
+            </div>
+            <div class="view-row">
+                <div class="view-label">Nationality:</div>
+                <div class="view-value" id="view-nationality"></div>
+            </div>
+            <button id="close-view-btn" class="close-view-btn">Close</button>
+        </div>
     </div>
     <script src="/static/js/form.js"></script>
     <script src="/static/js/passenger.js"></script>
@@ -139,6 +182,13 @@ include("../internal/session.php");
     searchBar.addEventListener("keyup", () => {
         search();
     }, false);
+    const phoneCountry = document.getElementById("phone_country");
+
+    function updatePhoneCode() {
+        const selected = phoneCountry.options[phoneCountry.selectedIndex];
+    }
+    phoneCountry.addEventListener("change", updatePhoneCode);
+    updatePhoneCode();
 </script>
 
 </html>

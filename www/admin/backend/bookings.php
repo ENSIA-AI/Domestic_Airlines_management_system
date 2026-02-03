@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         </thead>
         <tbody class="dams-table-body">
             <?php
-            $sql = "SELECT b.BOOKING_ID, p.FIRST_NAME, p.LAST_NAME, p.PHONE, b.FLIGHT_NUMBER, b.DEPARTURE_TIME, b.CLASS, b.STATUS, b.PASSENGER_NUM FROM BOOKINGS b JOIN PASSENGERS p ON b.PASSENGER_NUM = p.PASSENGER_NUM ORDER BY b.BOOKING_ID DESC";
+            $sql = "SELECT b.BOOKING_ID, p.FIRST_NAME, p.LAST_NAME, p.PHONE_NUMBER, b.FLIGHT_NUMBER, b.DEPARTURE_TIME, b.CLASS, b.STATUS, b.PASSENGER_NUM FROM BOOKINGS b JOIN PASSENGERS p ON b.PASSENGER_NUM = p.PASSENGER_NUM ORDER BY b.BOOKING_ID DESC";
             $result_bookings = $conn->query($sql);
             while ($row = $result_bookings->fetch_assoc()):
                 $departure_datetime = new DateTime($row['DEPARTURE_TIME']);
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     <td><?= $row["FLIGHT_NUMBER"]; ?></td>
                     <td><?= $display_datetime; ?></td>
                     <td><?= display($row["CLASS"]); ?></td>
-                    <td><?= $row["PHONE"]; ?></td>
+                    <td><?= $row["PHONE_NUMBER"]; ?></td>
                     <td><span class="status <?= $status_display; ?>"><?= $status_display; ?></span></td>
                     <td>
                         <div class="options">
