@@ -73,7 +73,7 @@ include("internal/session.php");
                             <label for="check-in-ln" >Last Name: </label>
                             <input type="text" name="Last" id="check-in-ln" required disabled>
                         </div>
-                        <label for="passport_n">Passport Number: </label>
+                        <label for="passport_n">Passenger Number: </label>
                         <input type="text" name="Passport" id="passport_n" required>
                         <label for="luggage">Luggage Cap: </label>
                         <select id="luggage" name="luggage" value="23kg">
@@ -87,7 +87,7 @@ include("internal/session.php");
                         </div>
                         <div class="dep-dest">
                         <input type="text" name="Flight-Num" id="check-in-flight_n" required disabled>
-                        <input type="date" name="date" id="check-in-date" required disabled>
+                        <input type="date" name="date" id="check-in-date" step="1" required disabled>
                         </div>
                         <div class="dep-dest">
                             <label for="check-in-destination">Destination: </label>
