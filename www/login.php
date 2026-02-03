@@ -18,13 +18,14 @@ include("internal/login_process.php")
     <div class="top-bar">
       <div class="left">
         <img src="static/images/logo.png" alt="Logo" class="logo1">
-        <button class="button1" onclick="location.href='#login'">Sign In</button>
-        <button class="button2" onclick="location.href='#f'">Our Services</button>
+        <button class="button1" onclick="location.href='#login'"><b>Sign In</b></button>
+        <button class="button2" onclick="location.href='#f'"><b>Our Services</b></button>
       </div>
     </div>
 
     <!-- Center content -->
     <div class="center-content">
+      <br>
       <h1 class="welcome">Welcome to Domestic Airline Manager</h1>
       <p class="description">Manage your flights, bookings, and passengers efficiently.</p>
       <button class="button4" onclick="location.href='#login'">Sign In Now !</button>
@@ -62,6 +63,14 @@ include("internal/login_process.php")
               <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Enter your password" required>
             </div>
           </div>
+
+          <div class="form-group remember-me">
+            <label class="checkbox-label">
+            <input type="checkbox" name="remember_me" value="1">
+            <span>Remember me for 30 days</span>
+            </label>
+          </div>
+
           <button type="submit" class="submit-btn">Login</button>
         </form>
         <div class="info-box">

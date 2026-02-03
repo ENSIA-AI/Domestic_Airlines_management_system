@@ -2,13 +2,26 @@
 include("../../internal/session.php");
 include("../../internal/db_config.php");
 
-// Handle GET request (fetch users)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Query database
+
     $result = $conn->query("SELECT * FROM USERS ORDER BY UID");
     
-    // Generate HTML table
+
     echo '<table class="dams-table" id="search-table">';
+    echo '
+<thead>
+    <tr>
+        <th>UID</th>
+        <th>Full Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Options</th>
+    </tr>
+</thead>
+';
     echo '<tbody>';
     
 while ($user = $result->fetch_assoc()) {
