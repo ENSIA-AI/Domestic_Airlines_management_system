@@ -4,146 +4,146 @@ include "../internal/db_config.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
    
-    if (isset($_GET['action'])) {
-        if ($_GET['action'] === 'getBookingInfo') {
-          $booking_id = (int) $_GET['bookingId'];
-          $sql = "
-          SELECT
-              b.DEPARTURE_TIME,
-              b.FLIGHT_NUMBER,
-              b.CLASS,
-              p.PASSENGER_NUM,
-              p.FIRST_NAME,
-              p.LAST_NAME,
-              f.DEP_AIRPORT,
-              f.ARR_AIRPORT
-          FROM BOOKINGS b
-          JOIN PASSENGERS p ON p.PASSENGER_NUM = b.PASSENGER_NUM
-          JOIN FLIGHTS f ON f.FLIGHT_NUMBER = b.FLIGHT_NUMBER
-          WHERE b.BOOKING_ID = ?
-          ";
+  if (isset($_GET['action'])) {
+    if ($_GET['action'] === 'getBookingInfo') {
+      $booking_id = (int) $_GET['bookingId'];
+      $sql = "
+      SELECT
+          b.DEPARTURE_TIME,
+          b.FLIGHT_NUMBER,
+          b.CLASS,
+          p.PASSENGER_NUM,
+          p.FIRST_NAME,
+          p.LAST_NAME,
+          f.DEP_AIRPORT,
+          f.ARR_AIRPORT
+      FROM BOOKINGS b
+      JOIN PASSENGERS p ON p.PASSENGER_NUM = b.PASSENGER_NUM
+      JOIN FLIGHTS f ON f.FLIGHT_NUMBER = b.FLIGHT_NUMBER
+      WHERE b.BOOKING_ID = ?
+      ";
 
 
-          $stmt = $conn->prepare($sql);
-          $stmt->bind_param('i', $booking_id);
-          $stmt->execute();
-          $result = $stmt->get_result();
-          $data = $result->fetch_assoc();
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param('i', $booking_id);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $data = $result->fetch_assoc();
 
-          $passenger_num = htmlspecialchars($data['PASSENGER_NUM']);
-          $first_name    = htmlspecialchars($data['FIRST_NAME']);
-          $last_name     = htmlspecialchars($data['LAST_NAME']);
-          $flight_number = htmlspecialchars($data['FLIGHT_NUMBER']);
-          $date          = substr($data['DEPARTURE_TIME'], 0, 10);
-          $departure     = htmlspecialchars($data['DEP_AIRPORT']);
-          $destination   = htmlspecialchars($data['ARR_AIRPORT']);
-          $class         = htmlspecialchars($data['CLASS']);
+      $passenger_num = htmlspecialchars($data['PASSENGER_NUM']);
+      $first_name    = htmlspecialchars($data['FIRST_NAME']);
+      $last_name     = htmlspecialchars($data['LAST_NAME']);
+      $flight_number = htmlspecialchars($data['FLIGHT_NUMBER']);
+      $date          = substr($data['DEPARTURE_TIME'], 0, 10);
+      $departure     = htmlspecialchars($data['DEP_AIRPORT']);
+      $destination   = htmlspecialchars($data['ARR_AIRPORT']);
+      $class         = htmlspecialchars($data['CLASS']);
 
-          echo "
-          <div class='name-container'>
-              <label>First Name:</label>
-              <input type='text' name = 'First_Name' value='$first_name' readonly>
+      echo "
+      <div class='name-container'>
+          <label>First Name:</label>
+          <input type='text' name = 'First_Name' value='$first_name' readonly>
 
-              <label>Last Name:</label>
-              <input type='text' name='Last_Name' value='$last_name' readonly>
-          </div>
+          <label>Last Name:</label>
+          <input type='text' name='Last_Name' value='$last_name' readonly>
+      </div>
 
-          <label>Passenger Number:</label>
-          <input type='text' name=' value='$passenger_num' readonly>
+      <label>Passenger Number:</label>
+      <input type='text' name='Passenger_Num' value='$passenger_num' readonly>
 
-          <div class='dep-dest'>
-              <label>Flight Number:</label>
-              <label>Date:</label>
-          </div>
+      <div class='dep-dest'>
+          <label>Flight Number:</label>
+          <label>Date:</label>
+      </div>
 
-          <div class='dep-dest'>
-              <input type='text' name='Flight_Number' value='$flight_number' readonly>
-              <input type='date' name='Date' value='$date' readonly>
-          </div>
+      <div class='dep-dest'>
+          <input type='text' name='Flight_Number' value='$flight_number' readonly>
+          <input type='date' name='Date' value='$date' readonly>
+      </div>
 
-          <div class='dep-dest'>
-              <label>Departure:</label>
-              <label>Destination:</label>
-          </div>
+      <div class='dep-dest'>
+          <label>Departure:</label>
+          <label>Destination:</label>
+      </div>
 
-          <div class='dep-dest'>
-              <input type='text' name='Departure' value='$departure' readonly>
-              <input type='text' name='Destination' value='$destination' readonly>
-          </div>
+      <div class='dep-dest'>
+          <input type='text' name='Departure' value='$departure' readonly>
+          <input type='text' name='Destination' value='$destination' readonly>
+      </div>
 
-          <label>Class:</label>
-          <input type='text' name='Class' value='$class' readonly>
-          ";
+      <label>Class:</label>
+      <input type='text' name='Class' value='$class' readonly>
+      ";
 
-        } 
-        
-        elseif ($_GET['action'] === 'loadrows') {
-              $bookings_query = "SELECT * FROM BOOKINGS WHERE `STATUS` = 'CONFIRMED'";
-              $bookings_result = mysqli_query($conn , $bookings_query);
-              $bookings = mysqli_fetch_all($bookings_result, MYSQLI_ASSOC);
+    } 
+    
+    elseif ($_GET['action'] === 'loadrows') {
+          $bookings_query = "SELECT * FROM BOOKINGS WHERE `STATUS` = 'CONFIRMED'";
+          $bookings_result = mysqli_query($conn , $bookings_query);
+          $bookings = mysqli_fetch_all($bookings_result, MYSQLI_ASSOC);
 
-              echo ' <table class="dams-table" id="search-table">
-                            <thead class="dams-table-head">
-                                <tr>
-                                    <th>Booking</th>
-                                    <th>Final Price</th>
-                                    <th>DeadLine</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablebody">';
-              foreach($bookings as $booking) {
-                $booking_id = $booking['BOOKING_ID'];
-                $deadline = (new DateTime($booking['DEPARTURE_TIME']))
-                          ->modify('-6 hours')
-                          ->format('Y-m-d H:i:s');
-                $class = $booking['CLASS'];
-                $final_price = "0 DZD";
-                switch ($class) {
-                  case 'ECO_PROMO':
-                      $final_price = '12000 DZD';
-                      break;
+          echo ' <table class="dams-table" id="search-table">
+                        <thead class="dams-table-head">
+                            <tr>
+                                <th>Booking</th>
+                                <th>Final Price</th>
+                                <th>DeadLine</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablebody">';
+          foreach($bookings as $booking) {
+            $booking_id = $booking['BOOKING_ID'];
+            $deadline = (new DateTime($booking['DEPARTURE_TIME']))
+                      ->modify('-6 hours')
+                      ->format('Y-m-d H:i:s');
+            $class = $booking['CLASS'];
+            $final_price = "0 DZD";
+            switch ($class) {
+              case 'ECO_PROMO':
+                  $final_price = '12000 DZD';
+                  break;
 
-                  case 'ECO_SMART':
-                      $final_price = '15000 DZD';
-                      break;
+              case 'ECO_SMART':
+                  $final_price = '15000 DZD';
+                  break;
 
-                  case 'ECO_PLUS':
-                      $final_price = '18000 DZD';
-                      break;
+              case 'ECO_PLUS':
+                  $final_price = '18000 DZD';
+                  break;
 
-                  case 'ECO_FLEX':
-                      $final_price = '22000 DZD';
-                      break;
+              case 'ECO_FLEX':
+                  $final_price = '22000 DZD';
+                  break;
 
-                  case 'BUSINESS_PLUS':
-                      $final_price = '40000 DZD';
-                      break;
+              case 'BUSINESS_PLUS':
+                  $final_price = '40000 DZD';
+                  break;
 
-                  case 'PREMIERE_PLUS':
-                      $final_price = '60000 DZD';
-                      break;
+              case 'PREMIERE_PLUS':
+                  $final_price = '60000 DZD';
+                  break;
 
-                  default:
-                      $final_price = '0 DZD'; 
-            }
-
-              echo "<tr>
-                      <td>$booking_id</td>
-                      <td>$final_price</td>
-                      <td>$deadline</td>
-                      <td>
-                          <button class=\"option\">
-                          <i class=\"fa-solid fa-user-check\"></i>
-                          </button>
-                        </td>
-
-                      </tr>";
-              }
-
-                echo '</tbody></table>';
+              default:
+                  $final_price = '0 DZD'; 
         }
+
+          echo "<tr>
+                  <td>$booking_id</td>
+                  <td>$final_price</td>
+                  <td>$deadline</td>
+                  <td>
+                      <button class=\"option\">
+                      <i class=\"fa-solid fa-user-check\"></i>
+                      </button>
+                    </td>
+
+                  </tr>";
+          }
+
+            echo '</tbody></table>';
     }
+  }
 
 
 }
@@ -151,7 +151,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] === 'generateBoardingPass') {
     require('fpdf186/fpdf.php'); 
 
-    
     $name = $_POST['First_Name'] . " " . $_POST['Last_Name'];
     $flight = $_POST['Flight_Number'];
     $seat = $_POST['Seat'];
@@ -160,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] === 'generateBoardi
     $date = $_POST['Date'];
     $class = $_POST['Class'];
 
-    $pdf = new FPDF('L', 'mm', array(200, 80)); 
+    $pdf = new FPDF('L', 'mm', array(200, 120)); 
     $pdf->AddPage();
     
     // Header
@@ -194,6 +193,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] === 'generateBoardi
     exit;
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] === 'makeBookingCompleted') {
+    $booking_id = $_POST['currentBookingId'];
+    $sql = "UPDATE `BOOKINGS` SET `STATUS` = 'COMPLETED' WHERE `BOOKING_ID` = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    $stmt->bind_param('i', $booking_id);
+    $stmt->execute();
+    if (mysqli_error($conn)) {
+        echo mysqli_error($conn);
+    }
+}
 
 
 ?>

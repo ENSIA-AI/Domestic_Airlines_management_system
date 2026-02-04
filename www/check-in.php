@@ -67,44 +67,7 @@ include("internal/session.php");
             <div id="step1" class="step">
                 <h1 class="step-title">Personal Information & Luggage</h2>
                     <form class="dams-add-form" id="check-in-form">
-                        <div class="name-container">
 
-                            <label for="First_Name">First Name: </label>
-                            <input type="text" name="First_Name" id="check-in-fn" required disabled>
-
-                            <label for="Last_Name" >Last Name: </label>
-                            <input type="text" name="Last_Name" id="check-in-ln" required disabled>
-
-                        </div>
-                        <label for="Passenger_Num">Passenger Number: </label>
-                        <input type="text" name="Passenger_Num" id="passport_n" required>
-
-
-                        <div class="dep-dest">
-                            <label for="check-in-flight_n">Flight Number: </label>
-                            <label for="check-in-date">Date: </label>
-                        </div>
-
-                        <div class="dep-dest">
-                        <input type="text" name="Flight_Num" id="check-in-flight_n" required disabled>
-                        <input type="date" name="Date" id="check-in-date" step="1" required disabled>
-                        </div>
-
-                        <div class="dep-dest">
-                            <label for="check-in-destination">Destination: </label>
-                            <label for="check-in-departure">Departure: </label>
-                        </div>
-
-                        <div class="dep-dest">
-                            <input type="text" name="Departure" id="check-in-departure" disabled>
-                            <input type="text" name="Destination" id="check-in-destination" required disabled>
-                        </div>
-                        <label for="class">Class: </label>
-                        <select id="class" name="Class" value="Economy" >
-                            <option value="economy">Economy</option>
-                            <option value="bussiness">Bussiness</option>
-                            <option value="first-class">First Class</option>
-                        </select>
                      </form>
                     <div class="form-actions">
                             <button type="button" class="cancel-btn" id="cancel-btn1">Cancel</button>
@@ -291,9 +254,6 @@ include("internal/session.php");
     </div>
 
 
-
-
-    
     <script src="/static/js/check-in.js"></script>
 
 </body>
@@ -307,11 +267,3 @@ include("internal/session.php");
 </script>
 
 </html>
-
-<!--
-to implement in the future :
-add button interactiveness
-checki-in button interactivness
-when status=Done Check in action appear in grey or disappear or change to UnCheck
-
--->
