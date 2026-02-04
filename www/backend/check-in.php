@@ -149,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] === 'generateBoardingPass') {
-    require('fpdf186/fpdf.php'); 
+    require('../internal/fpdf186/fpdf.php'); 
 
     $name = $_POST['First_Name'] . " " . $_POST['Last_Name'];
     $flight = $_POST['Flight_Number'];
