@@ -350,11 +350,17 @@ h1 {
   margin-right: 20px;
 }
 
-.add-btn:hover {
+.add-btn:not(:disabled):hover {
   background-color: var(--myrtle-green-light);
   transform: translateY(-3px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
+button:disabled {
+    opacity: 0.4;              
+    cursor: not-allowed;       
+}
+
 
 .dams-table {
   min-width: min-content;

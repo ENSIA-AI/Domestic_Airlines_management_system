@@ -25,7 +25,7 @@ include("../internal/db_config.php");
         <div class="content">
             <div class="dams-head">
                 <h1>Users Management</h1>
-                <button class="btn add-btn">
+                <button class="btn add-btn"<?php if ($_SESSION['ROLE'] !== "Admin") echo "disabled"; ?>>
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
@@ -97,7 +97,41 @@ include("../internal/db_config.php");
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
             </div>
         </form>
+<div class="view-modal" id="view-modal">
+    <div class="view-content">
+        <h2>User Details</h2>
+        <div class="view-row">
+            <div class="view-label">User ID:</div>
+            <div class="view-value" id="view-user-id"></div>
+        </div>
+        <div class="view-row">
+            <div class="view-label">Full Name:</div>
+            <div class="view-value" id="view-full-name"></div>
+        </div>
+        <div class="view-row">
+            <div class="view-label">Username:</div>
+            <div class="view-value" id="view-username"></div>
+        </div>
+        <div class="view-row">
+            <div class="view-label">Email:</div>
+            <div class="view-value" id="view-email"></div>
+        </div>
+        <div class="view-row">
+            <div class="view-label">Role:</div>
+            <div class="view-value" id="view-role"></div>
+        </div>
+        <div class="view-row">
+            <div class="view-label">Status:</div>
+            <div class="view-value" id="view-status"></div>
+        </div>
+        <div class="view-row">
+            <div class="view-label">Date Created:</div>
+            <div class="view-value" id="view-date"></div>
+        </div>
+        <button id="close-view-btn" class="close-view-btn">Close</button>
     </div>
+</div>
+
     <script src="/static/js/form.js"></script>
     <script src="/static/js/users.js"></script>
     <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
