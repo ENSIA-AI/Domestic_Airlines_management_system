@@ -180,7 +180,7 @@ while ($country = $countries_result->fetch_assoc()) {
     const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
-        search();
+        search("search-table");
     }, false);
     const phoneCountry = document.getElementById("phone_country");
 
