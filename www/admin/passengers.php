@@ -177,7 +177,6 @@ while ($country = $countries_result->fetch_assoc()) {
 
 </body>
 <script>
-    const table = document.getElementById("search-table");
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
         search("search-table");
