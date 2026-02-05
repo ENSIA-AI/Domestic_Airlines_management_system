@@ -85,9 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadingAnimation() {
         checkInForm.innerHTML = `
-                                <div class="spinner-container" style="background-color: rgba(255, 255, 255, 0);">
+                                <div class="spinner-container" 
+                                style="background-color: rgba(255, 255, 255, 0);">
                                     <div class="spinner"></div>
-                                        Loading...
+                                    Loading...
                                 </div>`;
     }
 
