@@ -82,18 +82,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 $status_display = display($row["STATUS"]);
             ?>
                 <tr>
-                    <td><?= $row["BOOKING_ID"]; ?></td>
-                    <td><?= $row["FIRST_NAME"] . " " . $row["LAST_NAME"]; ?></td>
-                    <td><?= $row["FLIGHT_NUMBER"]; ?></td>
-                    <td><?= $display_datetime; ?></td>
+                    <td><?= htmlspecialchars($row["BOOKING_ID"]); ?></td>
+                    <td><?= htmlspecialchars($row["FIRST_NAME"] . " " . $row["LAST_NAME"]); ?></td>
+                    <td><?= htmlspecialchars($row["FLIGHT_NUMBER"]); ?></td>
+                    <td><?= htmlspecialchars($display_datetime); ?></td>
                     <td><?= display($row["CLASS"]); ?></td>
-                    <td><?= $row["PHONE_NUMBER"]; ?></td>
+                    <td><?= htmlspecialchars($row["PHONE_NUMBER"]); ?></td>
                     <td><span class="status <?= $status_display; ?>"><?= $status_display; ?></span></td>
                     <td>
                         <div class="options">
                             <button class="option" onclick='viewBooking(<?= json_encode($row) ?>, "<?= $display_datetime ?>")'><i class="fa fa-eye"></i></button>
                             <button class="option" onclick='editBooking(<?= json_encode($row) ?>)'><i class="fa fa-edit"></i></button>
-                            <button class="option" onclick="deleteBooking('<?= $row['BOOKING_ID'] ?>')"><i class="fa fa-trash"></i></button>
+                            <button class="option" onclick="deleteBooking('<?= htmlspecialchars($row['BOOKING_ID']) ?>')"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
                 </tr>

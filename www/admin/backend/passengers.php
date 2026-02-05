@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["type"])) {
     $gender = isset($_POST["gender"]) ? strtoupper($_POST["gender"]) : null;
     $nationality = $_POST["nationality"] ?? 'DZ';
     $date_of_birth = $_POST["date_of_birth"];
-    
+
     $check_country = $conn->prepare("SELECT COUNTRY_CODE FROM COUNTRIES WHERE COUNTRY_CODE = ?");
     $check_country->bind_param("s", $nationality);
     $check_country->execute();
@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"):
                         <div class="options">
                             <button class="option" onclick='viewPassenger(<?= htmlspecialchars(json_encode($r), ENT_QUOTES) ?>, "<?= $display_dob ?>", "<?= htmlspecialchars($full_phone) ?>", "<?= htmlspecialchars($r["NATIONALITY_NAME"]) ?>")'><i class="fa fa-eye"></i></button>
                             <button class="option" onclick='editPassenger(<?= htmlspecialchars(json_encode($r), ENT_QUOTES) ?>)'><i class="fa fa-edit"></i></button>
-                            <button class="option" onclick="deletePassenger(<?= $r['PASSENGER_NUM'] ?>)"><i class="fa fa-trash"></i></button>
+                            <button class="option" onclick="deletePassenger(<?= htmlspecialchars($r['PASSENGER_NUM']) ?>)"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
                 </tr>

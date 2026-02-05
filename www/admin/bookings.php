@@ -32,7 +32,6 @@ $result_ft = $conn->query($sql_ft);
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
-
             <div class="search-container">
                 <h2 class="recent">Recent Bookings</h2>
                 <div class="search-bar">
@@ -40,7 +39,6 @@ $result_ft = $conn->query($sql_ft);
                     <button class="search-btn"><i class="fa fa-search"></i></button>
                 </div>
             </div>
-
             <div class="table-container">
                 <table class="dams-table" id="search-table">
                     <thead>

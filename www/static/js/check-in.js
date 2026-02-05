@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn1');
     let selectedSeat = null;
-
+    let currentBookingId = null;
     loadRows();
 
     function resetSteps() {
@@ -42,9 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const infos = row.querySelectorAll('td');
         if (!infos.length) return;
-
+        openCheckIn();
+        loadingAnimation();
         const bookingId = infos[0].textContent.trim();
-
+        currentBookingId = bookingId;
         const xhr = new XMLHttpRequest();
         xhr.open(
             'GET',
@@ -55,11 +56,40 @@ document.addEventListener('DOMContentLoaded', () => {
         xhr.onload = function () {
             if (xhr.status === 200) {
                  checkInForm.innerHTML = xhr.responseText;
-                openCheckIn();
+                
             }
         };
 
         xhr.send();
+    }
+
+    function makeBookingCompleted() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST',
+            `backend/check-in.php`,
+            true
+        );
+
+        let backendParams = `action=makeBookingCompleted` + 
+        `&currentBookingId=${encodeURIComponent(currentBookingId)}`;
+
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if(this.status == 200) {
+                 loadRows();
+            }
+        }
+
+        xhr.send(backendParams);
+    }
+
+    function loadingAnimation() {
+        checkInForm.innerHTML = `
+                                <div class="spinner-container" 
+                                style="background-color: rgba(255, 255, 255, 0);">
+                                    <div class="spinner"></div>
+                                    Loading...
+                                </div>`;
     }
 
     /* ---------- GLOBAL EVENT HANDLING ---------- */
@@ -96,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         step2.classList.add('active');
     });
 
-// Update the Next Button 2 logic
     nextBtn2?.addEventListener('click', () => {
         if (!selectedSeat) {
             alert('Please select a seat first.');
@@ -138,20 +167,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     confirmBtn?.addEventListener('click', () => {
-        // This triggers the print dialog for the PDF inside the iframe
-        pdfFrame.contentWindow.print();
+        // for printing when the confirm button is clicked, uncomment this
+        // pdfFrame.contentWindow.print();
         
+        // make the booking status completed instead of confirmed :
+        makeBookingCompleted();
+        currentBookingId = null;
+
         // Optional: Close the modal after a delay
         setTimeout(() => {
             alert("Check-in Complete!");
             closeCheckIn();
         }, 1000);
+
     });
 
 
     cancelBtn?.addEventListener('click', closeCheckIn);
 
-    /* ---------- AJAX ---------- */
 
     function loadRows() {
         const xhr = new XMLHttpRequest();
