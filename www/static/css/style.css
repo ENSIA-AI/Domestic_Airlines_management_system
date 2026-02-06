@@ -464,6 +464,12 @@ thead {
     align-items: center;
 }
 
+#match-error {
+    color: red;
+    display: none;
+    font-size: 14px;
+    margin-top: 5px;
+}
 
 .options {
   display: flex;
