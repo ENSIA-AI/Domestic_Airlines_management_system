@@ -63,45 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         setTableToLoading() 
         e.preventDefault();
-        let FID = 0;
+        
         let request_type = "";
         if (isEdit) {
-            FID = editRow.querySelectorAll('td')[0].textContent.trim();
             request_type = "edit";
             isEdit = false;
         } else {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            // random id generation
-            function getRandomInt(max) {
-                // returns random number range (0, max-1)
-                return Math.floor(Math.random() * max);
-            }
-            function generateRandomId() {
-                let str = '';
-                if (getRandomInt(2) == 1) {
-                    str = 'AH';
-                } else {
-                    str = 'SF';
-                }
-                for (let j = 0 ; j < 3 ; ++j) {
-                    str = str + nums[getRandomInt(10)];
-                }
-                return str;
-            }
-           FID = generateRandomId();
            request_type = "insert";
-
         }
+        const FID = document.getElementById('FLIGHT_NUM').value;
         const DEP = document.getElementById('DEP').value;
         const ARR = document.getElementById('DEST').value;
         const DATE = document.getElementById('DATE').value;
         const AC = document.getElementById('AC').value;
         const STATUS = document.getElementById('STATUS').value;
 
-        // let formattedDate = DATE.replace('T', ' ') + ":00";
-        // let mysqlDateTime = DATE.replace('T', ' ') + ":00";
-        // insertion/update : - ajax http request
+
 
         let backendParams = `request_type=${request_type}&`+
         `flight_number=${FID}&`+
@@ -117,7 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('http POST REQUEST');
             if(this.status == 200) {
                 // inserting the row to the front end
-                console.log(`row ${FID} is inserted/edited`);
+                console.log(`row ${FID} ${DATE} is inserted/edited`);
+                console.log(this.responseText);
                 loadrows();
                  
             }
@@ -138,18 +116,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const destination = infos[2].textContent.trim();
         const date = infos[3].textContent.trim();
         const aircraft = infos[4].textContent.trim();
-        const status = infos[5].querySelector('.status').textContent.trim().toLowerCase();
-
+        const status = infos[7].querySelector('.status').textContent.trim().toLowerCase();
+        const DGATE = infos[5].textContent.trim();
+        const AGATE = infos[6].textContent.trim();
         
 
         title.textContent = `Flight Details ${fid}`;
-
+        document.getElementById('FLIGHT_NUM').value = fid;
         document.getElementById('DEP').value = departure;
         document.getElementById('DEST').value = destination;
         document.getElementById('AC').value = aircraft;
         document.getElementById('STATUS').value = status;
         document.getElementById('DATE').value = date;
- 
+        document.getElementById('DEP_GATE').value = DGATE;
+        document.getElementById('ARR_GATE').value = AGATE;
         
 
 
@@ -208,13 +188,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const ARR = infos[2].textContent.trim();
         const DATE = infos[3].textContent.trim();
         const AC = infos[4].textContent.trim();
-        const STATUS = infos[5].querySelector('.status').textContent.trim().toLowerCase();
-
+        const DGATE = infos[5].textContent.trim();
+        const AGATE = infos[6].textContent.trim();
+        const STATUS = infos[7].querySelector('.status').textContent.trim().toLowerCase();
+        console.log(FID);
+        document.getElementById('FLIGHT_NUM').value = FID;
         document.getElementById('DEP').value = DEP;
         document.getElementById('DEST').value = ARR;
         document.getElementById('AC').value = AC;
         document.getElementById('STATUS').value = STATUS;
         document.getElementById('DATE').value = DATE;
+        document.getElementById('DEP_GATE').value = DGATE;
+        document.getElementById('ARR_GATE').value = AGATE;
  
 
         const inputs = form.querySelectorAll('input, select');
@@ -233,25 +218,28 @@ document.addEventListener('DOMContentLoaded', () => {
         setTableToLoading() 
         const confirmed = confirm('Are You Sure About Doing This Action?');
         if (confirmed) {
-        let request_type = 'delete';
-        let FID = r.querySelectorAll('td')[0].textContent.trim(); 
-        let backendParams = `request_type=${request_type}&`+
-        `flight_number=${FID}`;
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../admin/backend/flights.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-            console.log('http POST REQUEST');
-            if(this.status == 200) {
-                // inserting the row to the front end
-                console.log(`row ${FID} is getting deleted`);
-                loadrows();
-                 
+            let FID = r.querySelectorAll('td')[0].textContent.trim(); 
+            let TIME = r.querySelectorAll('td')[3].textContent.trim();
+            let backendParams = `request_type=delete&`+
+            `flight_number=${FID}&` + `departure_time=${TIME}`;
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '../../admin/backend/flights.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                console.log('http POST REQUEST');
+                if(this.status == 200) {
+                    // deleting the row
+                    console.log(`row ${FID} ${TIME} is getting deleted`);
+                    console.log(this.responseText);
+                    loadrows();
+                    
+                }
             }
-        }
 
-        xhr.send(backendParams);
-        form.reset();
+            xhr.send(backendParams);
+            form.reset();
+        } else {
+            loadrows();
         }
     }
 
