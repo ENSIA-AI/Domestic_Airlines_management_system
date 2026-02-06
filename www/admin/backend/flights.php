@@ -94,6 +94,9 @@ if (isset($_POST['request_type'])) {
         $STATUS = ucwords(strtolower($STATUS));
         $AIRCRAFT = mysqli_real_escape_string($conn, $_POST['aircraft']);
 
+        $OLD_FNUM = $_POST['old_flight_number']; 
+        $OLD_TIME = $_POST['old_departure_time'];
+
        $stmt = $conn->prepare(
         "UPDATE FLIGHTS
         SET FLIGHT_NUMBER = ?,
@@ -113,8 +116,8 @@ if (isset($_POST['request_type'])) {
         $ARR_AIRPORT,
         $STATUS,
         $AIRCRAFT,
-        $FNUM,
-        $TIME
+        $OLD_FNUM,
+        $OLD_TIME
       );
 
       if (!$stmt->execute()) {
