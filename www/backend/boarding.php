@@ -57,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
             $flight_number = htmlspecialchars($flight['FLIGHT_NUMBER']);
             $departure_time = $flight['DEPARTURE_TIME'];
-            $departure_gate = htmlspecialchars($flight['DEP_GATE']);
-            $arrival_gate = htmlspecialchars($flight['ARR_GATE']);
+            $departure_gate = htmlspecialchars($flight['DEP_GATE'] == null ? "" : $flight['DEP_GATE']);
+            $arrival_gate = htmlspecialchars($flight['ARR_GATE'] == null ? "" : $flight['ARR_GATE']);
             $total_bookings = $flight['total_bookings'];
 
             $parts = explode(' ', $departure_time);
