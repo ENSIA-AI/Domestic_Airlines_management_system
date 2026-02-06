@@ -1,145 +1,262 @@
 <?php
 include("../internal/session.php");
+include("../internal/db_config.php");
+
+$ROLE = $_SESSION['ROLE'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+
     <script src="/static/js/search.js"></script>
+
     <title>Aircraft Management</title>
 </head>
 
 <body>
-    <?php
-    include("../internal/sidebar.php");
-    ?>
-    <main>
-        <div class="content">
-            <div class="dams-head">
-                <h1>Aircraft Management</h1>
-                <button class="btn add-btn">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
 
-            <div class="search-container">
-                <h2 class="recent">Fleet Overview</h2>
-                <div class="search-bar"><input type="text" class="search" id="search-bar" placeholder="Search">
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
+<?php include("../internal/sidebar.php"); ?>
 
-            <div class="table-container">
-                <table class="dams-table" id="search-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Model</th>
-                            <th>Registration Number</th>
-                            <th>Service Entry Date</th>
-                            <th>Capacity</th>
-                            <th>Status</th>
-                            <th>Options</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablebody">
-                        <tr>
-                            <td>AC001</td>
-                            <td>Boeing 737-800</td>
-                            <td>7T-VKA</td>
-                            <td>15&nbsp;Jan&nbsp;2018</td>
-                            <td>189</td>
-                            <td><span class="status Active">Active</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>AC002</td>
-                            <td>Airbus A330-200</td>
-                            <td>7T-VJV</td>
-                            <td>22&nbsp;Mar&nbsp;2019</td>
-                            <td>260</td>
-                            <td><span class="status Maintenance">Maintenance</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>AC003</td>
-                            <td>Boeing 787-9</td>
-                            <td>7T-VKP</td>
-                            <td>10&nbsp;Jun&nbsp;2020</td>
-                            <td>290</td>
-                            <td><span class="status Retired">Retired</span></td>
-                            <td>
-                                <div class="options">
-                                    <button class="option"><i class="fa fa-eye"></i></button>
-                                    <button class="option"><i class="fa fa-edit"></i></button>
-                                    <button class="option"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<main>
+    <div class="content">
+
+        <div class="dams-head">
+            <h1>Aircraft Management</h1>
+
+            <button class="btn add-btn" id="add-air-btn"
+                <?php if($ROLE != "admin") echo "disabled"; ?>>
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+
+        <div class="search-container">
+            <h2 class="recent">Fleet Overview</h2>
+
+            <div class="search-bar">
+                <input type="text" class="search" id="search-bar"
+                       placeholder="Search Registration/Model">
+                <button class="search-btn"><i class="fa fa-search"></i></button>
             </div>
         </div>
-        </div>
-    </main>
-    <div class="form-overlay" id="overlay">
-        <form class="dams-add-form" id="AddForm">
-            <h2 id="title">Add New Aircraft</h2>
-            
-            <label for="model">Aircraft Model: </label>
-            <input type="text" name="model" id="model" required>
-            
-            <label for="registration">Registration Number: </label>
-            <input type="text" name="registration" id="registration" required>
-            
-            <label for="service-date">Service Entry Date: </label>
-            <input type="date" name="service-date" id="service-date" required>
-            
-            <label for="capacity">Capacity (Passengers): </label>
-            <input type="number" name="capacity" id="capacity" min="1" required>
-            
-            <label for="status">Status: </label>
-            <select id="status" name="status" required>
-                <option value="Active">Active</option>
-                <option value="Maintenance">Maintenance</option>
-                <option value="Retired">Retired</option>
-                <option value="Out of Service">Out of Service
-            </select>
-            
-            <div class="form-actions">
-                <button type="submit" class="submit-btn" id="submit-btn">Add Aircraft</button>
-                <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+
+        <div class="table-container">
+            <div class="spinner-container">
+                <div class="spinner"></div> Loading Fleet...
             </div>
-        </form>
+        </div>
+
     </div>
-    <script src="/static/js/form.js"></script>
-    <script src="/static/js/aircrafts.js"></script>
-    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
-</body>
+</main>
 
+<!-- ===================== FORM MODAL ===================== -->
+<div class="form-overlay" id="overlay">
+
+    <form class="dams-add-form" id="aircraft-form">
+
+        <h2 id="form-title">Add New Aircraft</h2>
+
+        <input type="hidden" name="type" id="form-type" value="ADD">
+        <input type="hidden" name="old_reg" id="old_reg">
+
+        <label>Registration:</label>
+        <input type="text" name="reg" id="reg" required>
+
+        <label>Constructor:</label>
+        <input type="text" name="constructor" id="constructor" required>
+
+        <label>Model:</label>
+        <input type="text" name="model" id="model" required>
+
+        <label>Delivery Year:</label>
+        <input type="number" name="year" id="year"
+               min="1950" max="<?=date('Y')?>"
+               required>
+
+        <label>Status:</label>
+        <select name="status" id="status" required>
+            <option value="active">Active</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="out of service">Out of Service</option>
+            <option value="retired">Retired</option>
+        </select>
+
+        <div class="form-actions">
+            <button type="button" class="submit-btn" id="submit-btn">Submit</button>
+            <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+        </div>
+
+    </form>
+</div>
+
+
+<!-- ===================== VIEW MODAL ===================== -->
+<div class="view-modal" id="view-modal">
+    <div class="view-content">
+
+        <h2>Aircraft Details</h2>
+
+        <p><b>Registration:</b> <span id="v-reg"></span></p>
+        <p><b>Constructor:</b> <span id="v-cons"></span></p>
+        <p><b>Model:</b> <span id="v-mod"></span></p>
+        <p><b>Year:</b> <span id="v-year"></span></p>
+        <p><b>Status:</b> <span id="v-status"></span></p>
+
+        <button id="close-view-btn" class="close-view-btn">Close</button>
+    </div>
+</div>
+
+
+<!-- ===================== JAVASCRIPT ===================== -->
 <script>
-    const table = document.getElementById("search-table");
-    const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("keyup", () => {
-        search();
-    }, false);
+
+const ROLE = "<?= $ROLE ?>";
+
+// Search
+document.getElementById("search-bar")
+    .addEventListener("keyup", () => search("search-table"));
+
+
+// Load Table
+function updateTable() {
+    fetch("backend/aircrafts.php")
+        .then(res => res.text())
+        .then(html => {
+            document.querySelector(".table-container").innerHTML = html;
+            setupEditButtons();
+            setupViewButtons();
+        });
+}
+updateTable();
+
+
+// Open Add Form
+document.getElementById("add-air-btn").onclick = () => {
+    document.getElementById("aircraft-form").reset();
+    document.getElementById("form-type").value = "ADD";
+    document.getElementById("form-title").textContent = "Add New Aircraft";
+    document.getElementById("reg").readOnly = false;
+    document.getElementById("overlay").classList.add("active");
+};
+
+
+// Submit Form
+document.getElementById("submit-btn").onclick = () => {
+
+    if (ROLE !== "admin") return alert("Unauthorized");
+
+    const form = document.getElementById("aircraft-form");
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const formData = new FormData(form);
+
+    fetch("backend/aircrafts.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById("overlay").classList.remove("active");
+            updateTable();
+        }
+    })
+    .catch(err => alert("Error: " + err));
+};
+
+
+// Cancel Form
+document.getElementById("cancel-btn").onclick = () => {
+    document.getElementById("overlay").classList.remove("active");
+};
+
+
+// Setup Edit Buttons
+function setupEditButtons() {
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+        btn.onclick = function() {
+            if (ROLE !== "admin") return alert("Unauthorized");
+
+            const reg = this.getAttribute("data-reg");
+
+            fetch("backend/aircrafts.php?view=" + reg)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("form-type").value = "EDIT";
+                    document.getElementById("form-title").textContent = "Edit Aircraft";
+                    document.getElementById("old_reg").value = data.AIRCRAFT_REGISTRATION;
+                    document.getElementById("reg").value = data.AIRCRAFT_REGISTRATION;
+                    document.getElementById("reg").readOnly = true;
+                    document.getElementById("constructor").value = data.CONSTRUCTOR;
+                    document.getElementById("model").value = data.MODEL;
+                    document.getElementById("year").value = data.DELIVERY_YEAR;
+                    document.getElementById("status").value = data.STATUS;
+                    document.getElementById("overlay").classList.add("active");
+                });
+        };
+    });
+}
+
+
+// Setup View Buttons
+function setupViewButtons() {
+    document.querySelectorAll(".view-btn").forEach(btn => {
+        btn.onclick = function() {
+            const reg = this.getAttribute("data-reg");
+
+            fetch("backend/aircrafts.php?view=" + reg)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("v-reg").textContent = data.AIRCRAFT_REGISTRATION;
+                    document.getElementById("v-cons").textContent = data.CONSTRUCTOR;
+                    document.getElementById("v-mod").textContent = data.MODEL;
+                    document.getElementById("v-year").textContent = data.DELIVERY_YEAR;
+                    document.getElementById("v-status").textContent = data.STATUS;
+                    document.getElementById("view-modal").classList.add("active");
+                });
+        };
+    });
+}
+
+
+// Close View Modal
+document.getElementById("close-view-btn").onclick = () => {
+    document.getElementById("view-modal").classList.remove("active");
+};
+
+
+function deleteAircraft(reg) {
+    if (ROLE !== "admin") return alert("Unauthorized");
+    if (!confirm("Delete aircraft " + reg + "?")) return;
+    const formData = new FormData();
+    formData.append("type", "DEL");
+    formData.append("reg", reg);
+    fetch("backend/aircrafts.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.success) {
+            alert("Impossible to remove this plane as it has been used on a flight");
+            return;
+        }
+        updateTable();
+    })
+
+    .catch(err => alert("Error: " + err));
+}
+
 </script>
 
+</body>
 </html>
