@@ -7,7 +7,7 @@ include "./internal/db_config.php";
 
 <head>
     <meta charset="UTF-8">
-    <title>Departures - DAMS</title>
+    <title><?=(isset($_GET["type"]) ? ($_GET["type"]) : "Airport Display Pane")?> - DAMS</title>
     <link rel="stylesheet" href="static/css/display-pane.css">
     <script src="static/js/display-pane.js"></script>
 </head>
