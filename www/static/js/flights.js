@@ -78,7 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const AC = document.getElementById('AC').value;
         const STATUS = document.getElementById('STATUS').value;
 
-
+        OLD_FLIGHT_NUMBER = editRow.querySelectorAll('td')[0].textContent;
+        OLD_DEPARTURE_TIME = editRow.querySelectorAll('td')[3].textContent;
 
         let backendParams = `request_type=${request_type}&`+
         `flight_number=${FID}&`+
@@ -86,7 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `dep_airport=${DEP}&`+
         `arr_airport=${ARR}&`+
         `status=${STATUS}&`+
-        `aircraft=${AC}`;
+        `aircraft=${AC}&` + 
+        `old_flight_number=${OLD_FLIGHT_NUMBER}&` +
+        `old_departure_time=${OLD_DEPARTURE_TIME}`;
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '../../admin/backend/flights.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -104,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         xhr.send(backendParams);
         form.reset();
         overlay.classList.remove('active');
+        editRow = null;
+        loadrows();
     })
 
 
@@ -191,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const DGATE = infos[5].textContent.trim();
         const AGATE = infos[6].textContent.trim();
         const STATUS = infos[7].querySelector('.status').textContent.trim().toLowerCase();
+
         console.log(FID);
         document.getElementById('FLIGHT_NUM').value = FID;
         document.getElementById('DEP').value = DEP;
