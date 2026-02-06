@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         if ($type === "ADD") {
             $stmt = $conn->prepare("INSERT INTO AIRCRAFTS (AIRCRAFT_REGISTRATION, CONSTRUCTOR, MODEL, DELIVERY_YEAR, STATUS) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssiss", $reg, $cons, $model, $year, $status);
+            $stmt->bind_param("sssis", $reg, $cons, $model, $year, $status);
             if(!$stmt->execute()){
                 throw new Exception($stmt->error);
             }
