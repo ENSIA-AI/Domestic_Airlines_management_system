@@ -53,10 +53,11 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
                             <th>Destination</th>
                             <th>Date</th>
                             <th>Aircraft</th>
-                            <th>Status</th>
-                            <th>Options</th>
+                            <th>Status</th>                       
                             <th>DGate</th>
                             <th>AGate</th>
+                            <th>Options</th>
+
                         </tr>
                     </thead>
                     <tbody  id="tablebody">
