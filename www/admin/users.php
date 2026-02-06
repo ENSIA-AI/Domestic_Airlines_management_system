@@ -2,7 +2,7 @@
 include("../internal/session.php");
 include("../internal/db_config.php");
 
-$ROLE = $_SESSION['ROLE']; // ✅ role المستخدم حالياً
+$ROLE = $_SESSION['ROLE'];
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ $ROLE = $_SESSION['ROLE']; // ✅ role المستخدم حالياً
     <div class="content">
         <div class="dams-head">
             <h1>Users Management</h1>
-            <!-- ✅ زر Add يظهر فقط للـ admin -->
+
             <button class="btn add-btn" id="add-user-btn" <?php if($ROLE != "admin") echo "disabled"; ?>>
                 <i class="fa fa-plus"></i>
             </button>
@@ -59,7 +59,6 @@ $ROLE = $_SESSION['ROLE']; // ✅ role المستخدم حالياً
     </div>
 </main>
 
-<!-- ✅ FORM ADD/EDIT USER -->
 <div class="form-overlay" id="overlay">
     <form class="dams-add-form" id="user-form">
         <h2 id="form-title">Add New User</h2>
@@ -87,9 +86,6 @@ $ROLE = $_SESSION['ROLE']; // ✅ role المستخدم حالياً
             <option value="0">Inactive</option>
         </select>
 
-        <label for="date-created">Date Created: </label>
-        <input type="date" name="date-created" id="date-created" required>
-
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>
 
@@ -100,7 +96,6 @@ $ROLE = $_SESSION['ROLE']; // ✅ role المستخدم حالياً
     </form>
 </div>
 
-<!-- ✅ VIEW MODAL -->
 <div class="view-modal" id="view-modal">
     <div class="view-content">
         <h2>User Details</h2>
@@ -127,13 +122,13 @@ searchBar.addEventListener("keyup", () => search(), false);
 //fix problems
 document.getElementById("add-user-btn").addEventListener("click", () => {
     const form = document.getElementById("user-form");
-    form.reset(); // This clears the text fields
+    form.reset();
     
     // Reset form state to ADD mode
     document.getElementById("form-title").textContent = "Add New User";
     document.getElementById("form-type").value = "ADD";
     document.getElementById("userId").value = "";
-    document.getElementById("password").required = true; // Password is required for new users
+    document.getElementById("password").required = true; 
     
     // Open the overlay
     document.getElementById("overlay").classList.add("active");
@@ -143,7 +138,7 @@ document.getElementById("add-user-btn").addEventListener("click", () => {
 document.getElementById("cancel-btn").addEventListener("click", () => {
     document.getElementById("overlay").classList.remove("active");
 });
-// ✅ DELETE USER
+
 function deleteUser(userId){
     if("<?= $ROLE ?>" != "admin") return alert("You are not allowed!");
     if(confirm("Do you really want to delete user "+userId+"?")){
@@ -156,7 +151,7 @@ function deleteUser(userId){
     }
 }
 
-// ✅ UPDATE TABLE
+
 function updateTable(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -236,10 +231,6 @@ function setupEditButtons() {
                 document.getElementById("role").value = tr.children[4].textContent; 
                 document.getElementById("status").value = (tr.children[5].textContent.trim() === "Active") ? "1" : "0";
                 
-                // 5. Set Date
-                // Ensure your table date format is YYYY-MM-DD for this to work!
-                document.getElementById("date-created").value = tr.children[6].textContent;
-
                 // 6. Make Password Optional for Edit
                 document.getElementById("password").value = "";
                 document.getElementById("password").required = false; 

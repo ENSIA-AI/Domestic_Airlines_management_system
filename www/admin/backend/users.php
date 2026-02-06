@@ -48,13 +48,12 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         $email = $_POST['email'];
         $role = $_POST['role'];
         $status = $_POST['status'];
-        $date = $_POST['date-created'];
         $password = $_POST['password'];
         $hash = password_hash($password,PASSWORD_BCRYPT);
 
         if($type==="ADD"){
-            $stmt = $conn->prepare("INSERT INTO USERS(FULL_NAME,USER_NAME,EMAIL,ROLE,STATUS,DATE,PASSWORD) VALUES(?,?,?,?,?,?,?)");
-            $stmt->bind_param("ssssiss",$fullname,$username,$email,$role,$status,$date,$hash);
+            $stmt = $conn->prepare("INSERT INTO USERS(FULL_NAME,USER_NAME,EMAIL,ROLE,STATUS,DATE,PASSWORD) VALUES(?,?,?,?,?,CURRENT_TIMESTAMP(),?)");
+            $stmt->bind_param("ssssis",$fullname,$username,$email,$role,$status,$hash);
             $stmt->execute();
 
 
@@ -77,18 +76,17 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $email    = $_POST['email'];
     $role     = $_POST['role'];
     $status   = $_POST['status'];
-    $date     = $_POST['date-created'];
     $password = $_POST['password'];
 
     if(!empty($password)) {
         // If admin typed a NEW password, hash it and update EVERYTHING
         $hash = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=?, DATE=?, PASSWORD=? WHERE UID=?");
+        $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=?, PASSWORD=? WHERE UID=?");
         $stmt->bind_param("ssssisss", $fullname, $username, $email, $role, $status, $date, $hash, $UID);
     } else {
         // If password field is EMPTY, update everything EXCEPT the password
-        $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=?, DATE=? WHERE UID=?");
-        $stmt->bind_param("ssssiss", $fullname, $username, $email, $role, $status, $date, $UID);
+        $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=? WHERE UID=?");
+        $stmt->bind_param("ssssis", $fullname, $username, $email, $role, $status, $UID);
     }
     $stmt->execute();
 }
