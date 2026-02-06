@@ -1,6 +1,4 @@
-<?php 
-include("internal/login_process.php")
-?>
+
 
 <!doctype html>
 <html lang="ar">
@@ -50,7 +48,7 @@ include("internal/login_process.php")
         <img src="/static/images/logo-inverted.png" alt="company-logo" class="logo">
         <h1>Login</h1>
         <p class="subtitle">Enter your email and password to access our services.</p>
-        <form id="LoginForm" action="internal/login_process.php" method="POST">
+        <form id="LoginForm" method="POST">
           <div class="form-group">
             <label for="email">Email Address</label>
             <div class="input-wrapper">
@@ -70,7 +68,7 @@ include("internal/login_process.php")
             <span>Remember me for 30 days</span>
             </label>
           </div>
-
+          <div id="error-message" style="display: none; color: #d32f2f; background-color: #ffebee; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;"></div>
           <button type="submit" class="submit-btn">Login</button>
         </form>
         <div class="info-box">
@@ -114,19 +112,63 @@ include("internal/login_process.php")
       </div>
     </div>
   </footer>
-
-  <script>
-    let loginbutton = document.querySelector(".button4");
-    let loginbutton2 = document.querySelector(".button1");
-    let inputlogin = document.querySelector("#email");
-    
-    loginbutton.onclick = function() {
-      inputlogin.focus();
-    };
-    
-    loginbutton2.onclick = function() {
-      inputlogin.focus();
-    };
-  </script>
 </body>
+  <script>
+let loginbutton = document.querySelector(".button4");
+let loginbutton2 = document.querySelector(".button1");
+let inputlogin = document.querySelector("#email");
+
+loginbutton.onclick = function() {
+    inputlogin.focus();
+};
+
+loginbutton2.onclick = function() {
+    inputlogin.focus();
+};
+
+// AJAX form submission
+document.getElementById('LoginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+    
+    const errorDiv = document.getElementById('error-message');
+    const submitBtn = this.querySelector('.submit-btn');
+    
+    // Hide previous errors
+    errorDiv.style.display = 'none';
+    
+    // Disable submit button during request
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Logging in...';
+    
+    // Get form data
+    const formData = new FormData(this);
+    
+    // Send AJAX request
+    fetch('internal/login_process.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Redirect on success
+            window.location.href = data.redirect || '/';
+        } else {
+            // Show error message
+            errorDiv.textContent = data.message || 'Invalid credentials';
+            errorDiv.style.display = 'block';
+            
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Login';
+        }
+    })
+    .catch(error => {
+        errorDiv.textContent = 'An error occurred. Please try again.';
+        errorDiv.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
+    });
+});
+</script>
 </html>
