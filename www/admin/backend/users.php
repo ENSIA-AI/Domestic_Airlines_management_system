@@ -101,9 +101,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 
 
-
-
-
     } elseif($type==="DEL"){
         $userId = $_POST['userId'];
         $stmt = $conn->prepare("DELETE FROM USERS WHERE UID=?");
