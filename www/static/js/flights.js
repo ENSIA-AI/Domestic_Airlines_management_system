@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <th>Destination</th>
                                 <th>Date</th>
                                 <th>Aircraft</th>
+                                <th>DGate</th>
+                                <th>AGate</th>
                                 <th>Status</th>
                                 <th>Options</th>
                             </tr>
@@ -52,64 +54,66 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>`;
     }
 
-    addBtn.addEventListener('click', () => {
-        document.getElementById('form-title').textContent = 'Add New Flight';
-        document.getElementById('submit-btn').textContent = 'Add Flight';
-        form.reset();
-        overlay.classList.add('active');
-    });
+    // addBtn.addEventListener('click', () => {
+    //     document.getElementById('form-title').textContent = 'Add New Flight';
+    //     document.getElementById('submit-btn').textContent = 'Add Flight';
+    //     form.reset();
+    //     overlay.classList.add('active');
+    // });
 
     // adding a new flight
-    form.addEventListener('submit', (e) => {
-        setTableToLoading() 
-        e.preventDefault();
-        
-        let request_type = "";
-        if (isEdit) {
-            request_type = "edit";
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    setTableToLoading();
+
+            const FID = document.getElementById('FLIGHT_NUM').value;
+
+            const DEP = document.getElementById('DEP').value;
+
+            const ARR = document.getElementById('DEST').value;
+
+            const DATE = document.getElementById('DATE').value;
+
+            const AC = document.getElementById('AC').value;
+
+            const STATUS = document.getElementById('STATUS').value;
+
+            const DGATE = document.getElementById('DEP_GATE').value;
+
+            const AGATE = document.getElementById('ARR_GATE').value;
+
+    let request_type = isEdit ? "edit" : "insert";
+    
+    let backendParams = `request_type=${request_type}&` +
+        `flight_number=${encodeURIComponent(FID)}&` +
+        `departure_time=${encodeURIComponent(DATE)}&` +
+        `dep_airport=${encodeURIComponent(DEP)}&` +
+        `arr_airport=${encodeURIComponent(ARR)}&` +
+        `status=${encodeURIComponent(STATUS)}&` +
+        `aircraft=${encodeURIComponent(AC)}&` +
+        `dgate=${encodeURIComponent(DGATE)}&` + 
+        `agate=${encodeURIComponent(AGATE)}`;   
+
+    if (isEdit) {
+        const OLD_FLIGHT_NUMBER = editRow.querySelectorAll('td')[0].textContent.trim();
+        const OLD_DEPARTURE_TIME = editRow.querySelectorAll('td')[3].textContent.trim();
+        backendParams += `&old_flight_number=${encodeURIComponent(OLD_FLIGHT_NUMBER)}&old_departure_time=${encodeURIComponent(OLD_DEPARTURE_TIME)}`;
+    }
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../admin/backend/flights.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+        if (this.status == 200) {
+            console.log("Success:", this.responseText);
+            loadrows(); 
+            form.reset();
+            overlay.classList.remove('active');
             isEdit = false;
-        } else {
-           request_type = "insert";
         }
-        const FID = document.getElementById('FLIGHT_NUM').value;
-        const DEP = document.getElementById('DEP').value;
-        const ARR = document.getElementById('DEST').value;
-        const DATE = document.getElementById('DATE').value;
-        const AC = document.getElementById('AC').value;
-        const STATUS = document.getElementById('STATUS').value;
-
-        OLD_FLIGHT_NUMBER = editRow.querySelectorAll('td')[0].textContent;
-        OLD_DEPARTURE_TIME = editRow.querySelectorAll('td')[3].textContent;
-
-        let backendParams = `request_type=${request_type}&`+
-        `flight_number=${FID}&`+
-        `departure_time=${DATE}&`+
-        `dep_airport=${DEP}&`+
-        `arr_airport=${ARR}&`+
-        `status=${STATUS}&`+
-        `aircraft=${AC}&` + 
-        `old_flight_number=${OLD_FLIGHT_NUMBER}&` +
-        `old_departure_time=${OLD_DEPARTURE_TIME}`;
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../admin/backend/flights.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-            console.log('http POST REQUEST');
-            if(this.status == 200) {
-                // inserting the row to the front end
-                console.log(`row ${FID} ${DATE} is inserted/edited`);
-                console.log(this.responseText);
-                loadrows();
-                 
-            }
-        }
-
-        xhr.send(backendParams);
-        form.reset();
-        overlay.classList.remove('active');
-        editRow = null;
-        loadrows();
-    })
+    };
+    xhr.send(backendParams);
+});
 
 
     // inspect a flight row (fa-eye) event listner
@@ -221,11 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // removing a flight row (fa-remove) event listner
     // ajax request_type=delete
     function remove(r) {
-        setTableToLoading() 
         const confirmed = confirm('Are You Sure About Doing This Action?');
         if (confirmed) {
             let FID = r.querySelectorAll('td')[0].textContent.trim(); 
             let TIME = r.querySelectorAll('td')[3].textContent.trim();
+            setTableToLoading() 
             let backendParams = `request_type=delete&`+
             `flight_number=${FID}&` + `departure_time=${TIME}`;
             let xhr = new XMLHttpRequest();
@@ -258,10 +262,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+//     addBtn.addEventListener('click', () => {
+//     isEdit = false; 
+//     editRow = null; 
+//     document.getElementById('form-title').textContent = 'Add New Flight';
+
+// });
+
+    addBtn.addEventListener('click', () => {
+        isEdit = false; 
+        editRow = null; 
+        title.textContent = 'Add New Flight';
+        submitBtn.textContent = 'Add Flight';
+        form.reset();
+        overlay.classList.add('active');
+    });
+
+
 
 
   
-
-
-    // end of file
 });

@@ -67,16 +67,19 @@ if (isset($_POST['request_type'])) {
         $DEP_AIRPORT = $_POST['dep_airport'];
         $ARR_AIRPORT = $_POST['arr_airport'];
         $AIRCRAFT    = $_POST['aircraft'];
+        $DGATE       = $_POST['dgate'];
+        $AGATE       = $_POST['agate'];
 
         $STATUS = ucwords(strtolower($_POST['status']));
 
-        $sql = "INSERT INTO FLIGHTS (FLIGHT_NUMBER, DEPARTURE_TIME, DEP_AIRPORT, ARR_AIRPORT, AIRCRAFT, `STATUS`) 
-                VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO FLIGHTS (FLIGHT_NUMBER, DEPARTURE_TIME, DEP_AIRPORT, ARR_AIRPORT,
+         AIRCRAFT, `STATUS`, DEP_GATE, ARR_GATE) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
-            $stmt->bind_param("ssssss", $FNUM, $TIME, $DEP_AIRPORT, $ARR_AIRPORT, $AIRCRAFT, $STATUS);
+            $stmt->bind_param("ssssssss", $FNUM, $TIME, $DEP_AIRPORT, $ARR_AIRPORT, $AIRCRAFT, $STATUS, $DGATE, $AGATE);
             if ($stmt->execute()) {
                 echo "Flight $FNUM added successfully!";
             } else {
@@ -93,6 +96,8 @@ if (isset($_POST['request_type'])) {
         $STATUS = mysqli_real_escape_string($conn, $_POST['status']);
         $STATUS = ucwords(strtolower($STATUS));
         $AIRCRAFT = mysqli_real_escape_string($conn, $_POST['aircraft']);
+        $DGATE = mysqli_real_escape_string($conn, $_POST['dgate']);
+        $AGATE = mysqli_real_escape_string($conn, $_POST['agate']);
 
         $OLD_FNUM = $_POST['old_flight_number']; 
         $OLD_TIME = $_POST['old_departure_time'];
@@ -104,18 +109,22 @@ if (isset($_POST['request_type'])) {
             DEP_AIRPORT = ?,
             ARR_AIRPORT = ?,
             STATUS = ?,
-            AIRCRAFT = ?
+            AIRCRAFT = ?,
+            DEP_GATE = ?,
+            ARR_GATE = ?
         WHERE FLIGHT_NUMBER = ? AND DEPARTURE_TIME = ?"
       );
 
       $stmt->bind_param(
-        "ssssssss",
+        "ssssssssss",
         $FNUM,
         $TIME,
         $DEP_AIRPORT,
         $ARR_AIRPORT,
         $STATUS,
         $AIRCRAFT,
+        $DGATE,
+        $AGATE,
         $OLD_FNUM,
         $OLD_TIME
       );
