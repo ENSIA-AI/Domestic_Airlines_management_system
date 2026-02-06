@@ -55,19 +55,16 @@ $ROLE = $_SESSION['ROLE'];
     </div>
 </main>
 
-<!-- ===================== FORM MODAL ===================== -->
 <div class="form-overlay" id="overlay">
-
     <form class="dams-add-form" id="aircraft-form">
-
         <h2 id="form-title">Add New Aircraft</h2>
 
         <input type="hidden" name="type" id="form-type" value="ADD">
         <input type="hidden" name="old_reg" id="old_reg">
 
         <label>Registration:</label>
-        <input type="text" name="reg" id="reg" required>
-
+        µ<input type="text" name="reg" id="reg" required pattern="[A-Z0-9]{1,2}-[A-Z0-9]{3,5}" title="Format must be XX-XXX (e.g., N-12345 or PH-ABC)">
+        
         <label>Constructor:</label>
         <input type="text" name="constructor" id="constructor" required>
 
@@ -75,9 +72,7 @@ $ROLE = $_SESSION['ROLE'];
         <input type="text" name="model" id="model" required>
 
         <label>Delivery Year:</label>
-        <input type="number" name="year" id="year"
-               min="1950" max="<?=date('Y')?>"
-               required>
+        <input type="number" name="year" id="year" min="1950" max="<?=date('Y')?>" required>
 
         <label>Status:</label>
         <select name="status" id="status" required>
@@ -91,12 +86,11 @@ $ROLE = $_SESSION['ROLE'];
             <button type="button" class="submit-btn" id="submit-btn">Submit</button>
             <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
         </div>
-
     </form>
 </div>
 
 
-<!-- ===================== VIEW MODAL ===================== -->
+
 <div class="view-modal" id="view-modal">
     <div class="view-content">
 
@@ -114,16 +108,13 @@ $ROLE = $_SESSION['ROLE'];
 
 
 <script>
-
 const ROLE = "<?= $ROLE ?>";
 
-// Search
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("keyup", () => {
         search("search-table");
     }, false);
 
-// Load Table
 function updateTable() {
     fetch("backend/aircrafts.php")
         .then(res => res.text())
@@ -135,8 +126,6 @@ function updateTable() {
 }
 updateTable();
 
-
-// Open Add Form
 document.getElementById("add-air-btn").onclick = () => {
     document.getElementById("aircraft-form").reset();
     document.getElementById("form-type").value = "ADD";
@@ -145,13 +134,23 @@ document.getElementById("add-air-btn").onclick = () => {
     document.getElementById("overlay").classList.add("active");
 };
 
-
-// Submit Form
 document.getElementById("submit-btn").onclick = () => {
 
     if (ROLE !== "admin") return alert("Unauthorized");
 
     const form = document.getElementById("aircraft-form");
+    const regInput = document.getElementById("reg");
+        const regPattern = /^[A-Z0-9]{1,2}-[A-Z0-9]{3,5}$/i;
+
+    if (!regPattern.test(regInput.value)) {
+        alert("Invalid Registration Format!\nPlease use the 'XX-XXX' pattern (e.g., PH-ABC or N-12345).");
+        regInput.style.borderColor = "red"; 
+        regInput.focus();
+        return;
+    } else {
+        regInput.style.borderColor = ""; 
+    }
+
     if (!form.checkValidity()) {
         form.reportValidity();
         return;
@@ -168,19 +167,17 @@ document.getElementById("submit-btn").onclick = () => {
         if (data.success) {
             document.getElementById("overlay").classList.remove("active");
             updateTable();
+        } else {
+            alert("Error: " + data.error);
         }
     })
     .catch(err => alert("Error: " + err));
 };
 
-
-// Cancel Form
 document.getElementById("cancel-btn").onclick = () => {
     document.getElementById("overlay").classList.remove("active");
 };
 
-
-// Setup Edit Buttons
 function setupEditButtons() {
     document.querySelectorAll(".edit-btn").forEach(btn => {
         btn.onclick = function() {
@@ -207,7 +204,6 @@ function setupEditButtons() {
 }
 
 
-// Setup View Buttons
 function setupViewButtons() {
     document.querySelectorAll(".view-btn").forEach(btn => {
         btn.onclick = function() {
@@ -228,7 +224,6 @@ function setupViewButtons() {
 }
 
 
-// Close View Modal
 document.getElementById("close-view-btn").onclick = () => {
     document.getElementById("view-modal").classList.remove("active");
 };
@@ -255,8 +250,6 @@ function deleteAircraft(reg) {
 
     .catch(err => alert("Error: " + err));
 }
-
 </script>
-
 </body>
 </html>

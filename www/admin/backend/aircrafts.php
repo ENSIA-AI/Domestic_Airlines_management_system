@@ -36,6 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
         if ($type === "ADD") {
+            
+            if (!preg_match('/^[A-Z0-9]{1,2}-[A-Z0-9]{3,5}$/i', $reg)) {
+                jsonResponse(["success" => false, "error" => "Registration format is invalid (Use XX-XXX)."]);
+            }
             $stmt = $conn->prepare("INSERT INTO AIRCRAFTS (AIRCRAFT_REGISTRATION, CONSTRUCTOR, MODEL, DELIVERY_YEAR, STATUS) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssis", $reg, $cons, $model, $year, $status);
             if(!$stmt->execute()){
