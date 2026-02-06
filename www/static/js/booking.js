@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('form-type').value = 'ADD';
         document.getElementById('booking_id').value = '';
         form.reset();
+        loadFlight('future');
         overlay.classList.add('active');
     });
 
@@ -133,12 +134,25 @@ function closeview() {
     document.getElementById('view-modal').classList.remove('active');
 }
 
+function loadFlight(mode) {
+    const flightSelect = document.getElementById('flight');
+    const sourceSelect = mode === 'future' ? document.getElementById('flight-options-future') : document.getElementById('flight-options-all');
+    flightSelect.innerHTML = '';
+
+    for (let i = 0; i < sourceSelect.options.length; i++) {
+        const option = sourceSelect.options[i].cloneNode(true);
+        flightSelect.add(option);
+    }
+}
+
 function editBooking(booking) {
     document.getElementById('form-title').textContent = 'Edit Booking';
     document.getElementById('submit-btn').textContent = 'Update Booking';
     document.getElementById('form-type').value = 'UPDATE';
     document.getElementById('booking_id').value = booking.BOOKING_ID;
     document.getElementById('passenger').value = booking.PASSENGER_NUM;
+
+    loadFlight('all');
 
     const flight = booking.FLIGHT_NUMBER + '|' + booking.DEPARTURE_TIME;
     document.getElementById('flight').value = flight;

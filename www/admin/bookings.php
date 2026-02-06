@@ -5,8 +5,11 @@ include "../internal/db_config.php";
 $sql_p = "SELECT PASSENGER_NUM, FIRST_NAME, LAST_NAME FROM PASSENGERS ORDER BY LAST_NAME, FIRST_NAME";
 $result_passengers = $conn->query($sql_p);
 
-$sql_ft = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME FROM FLIGHTS WHERE DEPARTURE_TIME > NOW() ORDER BY DEPARTURE_TIME ASC";
-$result_ft = $conn->query($sql_ft);
+$sql_ft_future = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME FROM FLIGHTS WHERE DEPARTURE_TIME > NOW() ORDER BY DEPARTURE_TIME ASC";
+$result_ft_future = $conn->query($sql_ft_future);
+
+$sql_ft_all = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME FROM FLIGHTS ORDER BY DEPARTURE_TIME DESC";
+$result_ft_all = $conn->query($sql_ft_all);
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +74,9 @@ $result_ft = $conn->query($sql_ft);
 
             <label for="passenger">Passenger: </label>
             <select name="PASSENGER_NUM" id="passenger" required>
-                <?php while ($p = $result_passengers->fetch_assoc()): ?>
+                <?php
+                while ($p = $result_passengers->fetch_assoc()):
+                ?>
                     <option value="<?= $p['PASSENGER_NUM'] ?>">
                         <?= "{$p['FIRST_NAME']} {$p['LAST_NAME']} (ID: {$p['PASSENGER_NUM']})" ?>
                     </option>
@@ -79,9 +84,23 @@ $result_ft = $conn->query($sql_ft);
             </select>
 
             <label for="flight">Flight and Departure Date: </label>
-            <select name="flight" id="flight" required>
+            <select name="flight" id="flight" required></select>
+
+            <select id="flight-options-future" style="display: none;">
                 <?php
-                while ($f = $result_ft->fetch_assoc()):
+                while ($f = $result_ft_future->fetch_assoc()):
+                    $dt = new DateTime($f['DEPARTURE_TIME']);
+                    $display_dt = $dt->format('d M Y H:i');
+                    $value = "{$f['FLIGHT_NUMBER']}|{$f['DEPARTURE_TIME']}";
+                    $display = "{$f['FLIGHT_NUMBER']} - {$display_dt}";
+                ?>
+                    <option value="<?= $value ?>"><?= $display ?></option>
+                <?php endwhile; ?>
+            </select>
+
+            <select id="flight-options-all" style="display: none;">
+                <?php
+                while ($f = $result_ft_all->fetch_assoc()):
                     $dt = new DateTime($f['DEPARTURE_TIME']);
                     $display_dt = $dt->format('d M Y H:i');
                     $value = "{$f['FLIGHT_NUMBER']}|{$f['DEPARTURE_TIME']}";
@@ -106,6 +125,7 @@ $result_ft = $conn->query($sql_ft);
                 <option value="CONFIRMED">Confirmed</option>
                 <option value="CANCELLED">Cancelled</option>
                 <option value="COMPLETED">Completed</option>
+                <option value="ABSENT">Absent</option>
             </select>
 
             <div class="form-actions">
