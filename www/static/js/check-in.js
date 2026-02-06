@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!infos.length) return;
         openCheckIn();
         loadingAnimation();
-        const bookingId = infos[0].textContent.trim();
+        const bookingId = infos[2].textContent.trim();
         currentBookingId = bookingId;
         const xhr = new XMLHttpRequest();
         xhr.open(
