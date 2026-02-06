@@ -39,6 +39,8 @@ include("internal/session.php");
           <table class="dams-table" id="search-table">
                 <thead class="dams-table-head">
                     <tr>
+                        <th>Passenger ID</th>
+                        <th>ID Type</th>
                         <th>Booking</th>
                         <th>Final Price</th>
                         <th>DeadLine</th>

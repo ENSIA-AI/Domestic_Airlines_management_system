@@ -5,7 +5,7 @@ include "../internal/db_config.php";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
    
   if (isset($_GET['action'])) {
-    if ($_GET['action'] === 'getBookingInfo') {
+    if ($_GET['action'] === 'getBookingInfo' && isset($_GET['bookingId'])) {
       $booking_id = (int) $_GET['bookingId'];
       $sql = "
       SELECT
@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $stmt->execute();
       $result = $stmt->get_result();
       $data = $result->fetch_assoc();
+
 
       $passenger_num = htmlspecialchars($data['PASSENGER_NUM']);
       $first_name    = htmlspecialchars($data['FIRST_NAME']);
@@ -78,13 +79,29 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } 
     
     elseif ($_GET['action'] === 'loadrows') {
-          $bookings_query = "SELECT * FROM BOOKINGS WHERE `STATUS` = 'CONFIRMED'";
-          $bookings_result = mysqli_query($conn , $bookings_query);
-          $bookings = mysqli_fetch_all($bookings_result, MYSQLI_ASSOC);
 
+      $sql = "
+      SELECT
+          b.BOOKING_ID,
+          b.CLASS,
+          b.DEPARTURE_TIME,
+          p.ID_NUM,
+          p.ID_TYPE
+      FROM BOOKINGS b
+      JOIN PASSENGERS p ON b.PASSENGER_NUM = p.PASSENGER_NUM
+      WHERE b.STATUS = 'CONFIRMED'
+      ";
+
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $bookings = $result->fetch_all(MYSQLI_ASSOC);
+      
           echo ' <table class="dams-table" id="search-table">
                         <thead class="dams-table-head">
                             <tr>
+                                <th>Passenger ID</th>
+                                <th>ID Type</th>
                                 <th>Booking</th>
                                 <th>Final Price</th>
                                 <th>DeadLine</th>
@@ -94,6 +111,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         <tbody id="tablebody">';
           foreach($bookings as $booking) {
             $booking_id = $booking['BOOKING_ID'];
+            $passenger_id = $booking['ID_NUM'];
+            $id_type = $booking['ID_TYPE'];
             $deadline = (new DateTime($booking['DEPARTURE_TIME']))
                       ->modify('-6 hours')
                       ->format('Y-m-d H:i:s');
@@ -129,6 +148,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
 
           echo "<tr>
+                  <td>$passenger_id</td>
+                  <td>$id_type</td>
                   <td>$booking_id</td>
                   <td>$final_price</td>
                   <td>$deadline</td>
