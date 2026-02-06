@@ -78,7 +78,7 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
         <form class="dams-add-form" id="AddForm">
             <h2 id="form-title">Add New Flight</h2>
             <label for="FLIGHT_NUM">Flight Number</label>
-            <input type="text" name="FLIGHT_NUM" id="FLIGHT_NUM" pattern="[A-Z]{2}[0-9]{3}">
+            <input type="text" name="FLIGHT_NUM" id="FLIGHT_NUM" pattern="[A-Z]{2}[0-9]{4}">
 
             <label for="DEP">Departure: </label>
             <select name="DEP" id="DEP" required>
