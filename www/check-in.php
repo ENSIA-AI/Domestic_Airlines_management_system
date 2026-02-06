@@ -23,12 +23,12 @@ include("internal/session.php");
     ?>
     <main class="content">
         <div class="dams-head">
-            <h1 class="title">Check-Ins</h1>
+            <h1 class="title">Check-In</h1>
 
         </div>
         
           <div class="search-container">
-                    <h2 class="search-strip-title">Check-Ins</h2>
+                    <h2 class="search-strip-title">Check-In</h2>
                     <div class="search-bar">
                         <input type="text" class="search" id="search-bar" placeholder="Enter ID">
                         <button class="search-btn"><i class="fa fa-search"></i></button>
@@ -60,6 +60,7 @@ include("internal/session.php");
             </div>
         </div>
     </main>
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 
 
     
@@ -247,7 +248,7 @@ include("internal/session.php");
 
                 <div class="button-group">
                     <button class="cancel-btn" id="prev-btn2">Previous</button>
-                    <button type="submit" class="submit-btn" id="confirm-btn">Confirm & Print</button>
+                    <button type="submit" class="submit-btn" id="confirm-btn">Confirm</button>
                 </div>
             </div>
         

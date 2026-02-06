@@ -56,7 +56,7 @@ include("internal/session.php");
             </div>
         </div>
     </main>
-
+    <button class="floating-button" id="menu-btn"><i class="fa fa-bars"></i> <i class="fa fa-close hidden"></i></button>
 
     <script src="/static/js/boarding.js"></script>
 
