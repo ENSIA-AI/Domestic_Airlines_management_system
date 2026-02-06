@@ -416,6 +416,10 @@ thead {
   background-color: #110b78;
 }
 
+.status.Absent {
+  background-color: orange;
+}
+
 .status.Pending,
 .status.Maintenance,
 .status.Waiting,
@@ -426,8 +430,7 @@ thead {
 .status.Cancelled,
 .status.Out,
 .status.Retired,
-.status.Canceled
-.status.Absent {
+.status.Canceled {
   background-color: #c72533;
 }
 
