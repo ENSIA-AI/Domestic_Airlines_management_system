@@ -113,15 +113,15 @@ $ROLE = $_SESSION['ROLE'];
 </div>
 
 
-<!-- ===================== JAVASCRIPT ===================== -->
 <script>
 
 const ROLE = "<?= $ROLE ?>";
 
 // Search
-document.getElementById("search-bar")
-    .addEventListener("keyup", () => search("search-table"));
-
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("keyup", () => {
+        search("search-table");
+    }, false);
 
 // Load Table
 function updateTable() {
