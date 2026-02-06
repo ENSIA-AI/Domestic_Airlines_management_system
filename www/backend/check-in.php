@@ -79,6 +79,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } 
     
     elseif ($_GET['action'] === 'loadrows') {
+        // this thing here checks if the guy didnt arrive when the deadline is passed,
+        // if so, then the booking status will become absent, consequently, the row will not
+        // be loaded in the check-in table (coz we only load 'CONFIRMED' bookings)
+        $update_sql = "
+        UPDATE BOOKINGS 
+        SET STATUS = 'ABSENT' 
+        WHERE STATUS = 'CONFIRMED' 
+        AND DEPARTURE_TIME <= DATE_ADD(NOW(), INTERVAL 6 HOUR)
+        ";
+        $conn->query($update_sql);
 
       $sql = "
       SELECT

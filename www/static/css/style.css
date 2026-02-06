@@ -416,6 +416,10 @@ thead {
   background-color: #110b78;
 }
 
+.status.Absent {
+  background-color: orange;
+}
+
 .status.Pending,
 .status.Maintenance,
 .status.Waiting,
