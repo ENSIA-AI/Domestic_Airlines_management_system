@@ -426,7 +426,8 @@ thead {
 .status.Cancelled,
 .status.Out,
 .status.Retired,
-.status.Canceled {
+.status.Canceled
+.status.Absent {
   background-color: #c72533;
 }
 
