@@ -1,12 +1,41 @@
 <?php
 session_start();
+require __DIR__ . "/vendor/autoload.php";
 include "internal/db_config.php";
+include "internal/email.php";
 
 if (!isset($_SESSION["reset_email"])) {
     header("Location: forgot-password.php");
     exit();
 }
 
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["resend"])) {
+    $email = $_SESSION["reset_email"];
+    $stmt = $conn->prepare("SELECT UID FROM USERS WHERE EMAIL=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($uid);
+        $stmt->fetch();
+        $stmt->close();
+
+        $code = random_int(100000, 999999);
+        $expires = date("Y-m-d H:i:s", time() + 600);
+
+        $stmt = $conn->prepare("UPDATE USERS SET RESET_TOKEN=?, TOKEN_EXPIRATION=? WHERE UID=?");
+        $stmt->bind_param("ssi", $code, $expires, $uid);
+        $stmt->execute();
+        $stmt->close();
+        sendResetCode($email, $code);
+
+        $_SESSION["success"] = "A new verification code has been sent to your email.";
+    }
+
+    header("Location: reset-password.php");
+    exit();
+}
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_SESSION["reset_email"];
     $code = trim($_POST["code"]);
@@ -42,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,11 +100,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="input-wrapper">
                         <input type="text" id="code" name="code" placeholder="Enter the 6-digit code" maxlength="6" required>
                     </div>
+                    <?php if (isset($_SESSION["error"])) { ?>
+                        <div class="error-msg"><?= htmlspecialchars($_SESSION["error"]);
+                                                unset($_SESSION["error"]); ?></div>
+                    <?php } ?>
+                    <?php if (isset($_SESSION["success"])) { ?>
+                        <div class="success-msg"><?= htmlspecialchars($_SESSION["success"]);
+                                                    unset($_SESSION["success"]); ?></div>
+                    <?php } ?>
                 </div>
                 <button type="submit" class="submit-btn">Verify Code</button>
             </form>
             <div class="info-box">
-                <p>Didn't receive the code? <a href="#" class="resend-link">Resend code</a></p>
+                <p>Didn't receive the code? <a href="reset-password.php?resend=1" class="resend-link">Resend code</a></p>
             </div>
             <div class="back-to-login">
                 <a href="login.php#login">← Back to Login</a>

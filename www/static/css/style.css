@@ -443,11 +443,23 @@ thead {
     padding: 12px 16px;
     margin: 15px 0;
     border-radius: 4px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     display: flex;
     align-items: center;
 }
+
+.success-msg {
+    color: #26be32;
+    padding: 12px 16px;
+    margin: 15px 0;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
 
 .options {
   display: flex;
