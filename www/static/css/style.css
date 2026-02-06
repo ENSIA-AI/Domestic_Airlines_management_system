@@ -723,3 +723,10 @@ input[type=number] {
     border-radius: 6px;
     border: 1px solid #ccc;
 }
+
+.two-inputs {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 30px;
+}

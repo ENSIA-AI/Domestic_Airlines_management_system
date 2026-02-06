@@ -53,8 +53,11 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
                             <th>Destination</th>
                             <th>Date</th>
                             <th>Aircraft</th>
-                            <th>Status</th>
+                            <th>Status</th>                       
+                            <th>DGate</th>
+                            <th>AGate</th>
                             <th>Options</th>
+
                         </tr>
                     </thead>
                     <tbody  id="tablebody">
@@ -74,7 +77,8 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
     <div class="form-overlay" id="overlay">
         <form class="dams-add-form" id="AddForm">
             <h2 id="form-title">Add New Flight</h2>
-
+            <label for="FLIGHT_NUM">Flight Number</label>
+            <input type="text" name="FLIGHT_NUM" id="FLIGHT_NUM" pattern="[A-Z]{2}[0-9]{3}">
 
             <label for="DEP">Departure: </label>
             <select name="DEP" id="DEP" required>
@@ -108,7 +112,14 @@ $aircrafts = mysqli_fetch_all($aircrafts_result, MYSQLI_ASSOC);
                 <option value="canceled" >Canceled</option>
                 <option value="arrived" >Arrived</option>
             </select>
+            <div>
 
+            </div class="two-inputs">
+                <label style="display: inline-block; margin-right :40%;">DEP Gate</label> <label style="display: inline-block;">ARR Gate</label>
+            <div class="two-inputs">
+                <input type="text" name="DEP_GATE" id="DEP_GATE" pattern="[A-Z][0-9]{2}"><input type="text" name="ARR_GATE" id="ARR_GATE" pattern="[A-Z][0-9]{2}">
+            </div>
+            
             <div class="form-actions">
                 <button type="submit" class="submit-btn" id="submit-btn">Add Flight</button>
                 <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
