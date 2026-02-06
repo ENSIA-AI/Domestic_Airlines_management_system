@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["email"]) && isset($_P
     if ($result && $result->num_rows === 1) {
         $user = $result->fetch_assoc();
         
-        if ($user["STATUS"] == 1 && password_verify($password, $user["PASSWORD"]) || $password == $user["PASSWORD"]) {
+        if ($user["STATUS"] == 1 && password_verify($password, $user["PASSWORD"]) {
             $_SESSION["loggedin"] = 'yes';
             $_SESSION["UID"] = $user["UID"];
             $_SESSION["ROLE"] = $user["ROLE"];
