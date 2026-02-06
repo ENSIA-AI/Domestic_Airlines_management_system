@@ -1,9 +1,21 @@
 <?php
-session_start();
-if(isset($_GET["logout"])){
-    unset($_SESSION['loggedin']);
+// If the user is logging out, handle it before starting the session logic
+if (isset($_GET["logout"])) {
+    session_start();
+    $_SESSION = array();
+    if (isset($_COOKIE[session_name()])) {
+        setcookie(session_name(), '', time() - 42000, '/');
+    }
+    session_destroy();
+    header("Location: /login.php");
+    exit();
 }
-if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']):
+
+// Start session
+session_start();
+
+// Security check
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 'yes') {
     header("Location: /login.php");
     die();
-endif;
+}

@@ -2,116 +2,89 @@
 include("../../internal/session.php");
 include("../../internal/db_config.php");
 
+// 1. VIEW logic (returns JSON)
 if(isset($_GET['view'])){
-    $uid = $_GET['view'];
-    $stmt = $conn->prepare("SELECT * FROM USERS WHERE UID=?");
-    $stmt->bind_param("s",$uid);
+    $reg = $_GET['view'];
+    $stmt = $conn->prepare("SELECT * FROM AIRCRAFTS WHERE AIRCRAFT_REGISTRATION = ?");
+    $stmt->bind_param("s", $reg);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-    header("Content-Type: application/json");
-    echo json_encode($user);
+    $data = $stmt->get_result()->fetch_assoc();
+    header('Content-Type: application/json');
+    echo json_encode($data);
     exit();
 }
 
-if($_SERVER['REQUEST_METHOD']==='GET'){
-    $result = $conn->query("SELECT * FROM USERS ORDER BY UID");
-    echo '<table class="dams-table" id="search-table">';
-    echo '<thead><tr><th>UID</th><th>Full Name</th><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Date</th><th>Options</th></tr></thead><tbody>';
-    while($user=$result->fetch_assoc()){
-        echo '<tr>';
-        echo '<td>'.$user['UID'].'</td>';
-        echo '<td>'.$user['FULL_NAME'].'</td>';
-        echo '<td>'.$user['USER_NAME'].'</td>';
-        echo '<td>'.$user['EMAIL'].'</td>';
-        echo '<td>'.ucfirst(strtolower($user['ROLE'])).'</td>';
-        echo '<td>'.($user['STATUS']==1?"Active":"Inactive").'</td>';
-// strtotime converts the DB string to a timestamp, date() formats it to YYYY-MM-DD
-        $cleanDate = date("Y-m-d", strtotime($user['DATE']));
-        echo '<td>'.$cleanDate.'</td>';
-        echo '<td><div class="options">';
-        echo '<button type="button" class="option view-btn" data-user-id="'.$user['UID'].'"><i class="fa fa-eye"></i></button>';
-        echo '<button class="option"><i class="fa fa-edit"></i></button>'; // ✅ Edit button placeholder
-        echo '<button class="option" onclick="deleteUser(\''.$user['UID'].'\')"><i class="fa fa-trash"></i></button>';
-        echo '</div></td></tr>';
+// 2. FETCH Table logic (GET)
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    $result = $conn->query("SELECT * FROM AIRCRAFTS ORDER BY AIRCRAFT_REGISTRATION");
+    
+    echo '<table class="dams-table" id="search-table">
+            <thead>
+                <tr>
+                    <th>Registration</th>
+                    <th>Constructor</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>';
+    if ($result) {
+        while($row = $result->fetch_assoc()){
+            echo "<tr>
+                    <td>{$row['AIRCRAFT_REGISTRATION']}</td>
+                    <td>{$row['CONSTRUCTOR']}</td>
+                    <td>{$row['MODEL']}</td>
+                    <td>{$row['DELIVERY_YEAR']}</td>
+                    <td>
+                        <div class='options'>
+                            <button class='option view-btn' data-reg='{$row['AIRCRAFT_REGISTRATION']}'><i class='fa fa-eye'></i></button>
+                            <button class='option'><i class='fa fa-edit'></i></button>
+                            <button class='option' onclick='deleteAircraft(\"{$row['AIRCRAFT_REGISTRATION']}\")'><i class='fa fa-trash'></i></button>
+                        </div>
+                    </td>
+                  </tr>";
+        }
     }
     echo '</tbody></table>';
+    exit();
 }
 
-if($_SERVER['REQUEST_METHOD']==='POST'){
-    $type = $_POST['type'];
-    $UID = $_POST['userId'] ?? null;
+// 3. POST Logic (ADD/EDIT/DEL)
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    header('Content-Type: application/json');
+    
+    $type = $_POST['type'] ?? '';
+    $reg  = $_POST['reg'] ?? '';
+    $cons = $_POST['constructor'] ?? '';
+    $mod  = $_POST['model'] ?? '';
+    $year = $_POST['year'] ?? '';
 
-    if($type==="ADD" || $type==="EDIT"){
-        $fullname = $_POST['fullname'];
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $role = $_POST['role'];
-        $status = $_POST['status'];
-        $date = $_POST['date-created'];
-        $password = $_POST['password'];
-        $hash = password_hash($password,PASSWORD_BCRYPT);
+    $stmt = null;
 
-        if($type==="ADD"){
-            $stmt = $conn->prepare("INSERT INTO USERS(FULL_NAME,USER_NAME,EMAIL,ROLE,STATUS,DATE,PASSWORD) VALUES(?,?,?,?,?,?,?)");
-            $stmt->bind_param("ssssiss",$fullname,$username,$email,$role,$status,$date,$hash);
-            $stmt->execute();
+    if($type === "ADD"){
+        $stmt = $conn->prepare("INSERT INTO AIRCRAFTS (AIRCRAFT_REGISTRATION, CONSTRUCTOR, MODEL, DELIVERY_YEAR) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("sssi", $reg, $cons, $mod, $year);
+        
+    } elseif ($type === "EDIT") {
+        $old_reg = $_POST['old_reg'] ?? '';
+        $stmt = $conn->prepare("UPDATE AIRCRAFTS SET CONSTRUCTOR=?, MODEL=?, DELIVERY_YEAR=? WHERE AIRCRAFT_REGISTRATION=?");
+        $stmt->bind_param("ssis", $cons, $mod, $year, $old_reg);
 
+    } elseif ($type === "DEL") {
+        $stmt = $conn->prepare("DELETE FROM AIRCRAFTS WHERE AIRCRAFT_REGISTRATION=?");
+        $stmt->bind_param("s", $reg);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-} else if($type === "EDIT" && $UID) {
-    // Collect all the fields from the form
-    $fullname = $_POST['fullname'];
-    $username = $_POST['username'];
-    $email    = $_POST['email'];
-    $role     = $_POST['role'];
-    $status   = $_POST['status'];
-    $date     = $_POST['date-created'];
-    $password = $_POST['password'];
-
-    if(!empty($password)) {
-        // If admin typed a NEW password, hash it and update EVERYTHING
-        $hash = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=?, DATE=?, PASSWORD=? WHERE UID=?");
-        $stmt->bind_param("ssssisss", $fullname, $username, $email, $role, $status, $date, $hash, $UID);
+    if($stmt && $stmt->execute()){
+        if($type === "DEL" && $conn->affected_rows === 0) {
+            echo json_encode(["success" => false, "message" => "Aircraft not found."]);
+        } else {
+            echo json_encode(["success" => true]);
+        }
     } else {
-        // If password field is EMPTY, update everything EXCEPT the password
-        $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=?, DATE=? WHERE UID=?");
-        $stmt->bind_param("ssssiss", $fullname, $username, $email, $role, $status, $date, $UID);
+        // This is where Foreign Key errors are caught
+        echo json_encode(["success" => false, "message" => "Database Error: " . $conn->error]);
     }
-    $stmt->execute();
+    exit();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    } elseif($type==="DEL"){
-        $userId = $_POST['userId'];
-        $stmt = $conn->prepare("DELETE FROM USERS WHERE UID=?");
-        $stmt->bind_param("s",$userId);
-        $stmt->execute();
-    }
-    echo json_encode(["success"=>true]);
-}
-?>

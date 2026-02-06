@@ -17,6 +17,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION["loggedin"] = 'yes';
             $_SESSION["UID"] = $user["UID"];
             $_SESSION["ROLE"] = $user["ROLE"];
+
+            $expire = 0; 
+            if (isset($_POST['remember_me']) && $_POST['remember_me'] == '1') {
+                $expire = time() + (30 * 24 * 60 * 60); // 30 days
+            }
+
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(), 
+                session_id(), 
+                $expire, 
+                $params["path"], 
+                $params["domain"], 
+                $params["secure"], 
+                $params["httponly"]
+            );
             header("Location: /");
             exit;
         } else {

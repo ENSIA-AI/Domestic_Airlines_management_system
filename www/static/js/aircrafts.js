@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
 
     const form = document.getElementById('AddForm');
     const tableBody = document.getElementById('tablebody');
@@ -206,4 +206,115 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // end of file
-});
+});*/
+
+/**
+ * Aircraft Management Interaction Logic
+ * Emulating the style of the Passenger management system
+ */
+
+const overlay = document.getElementById('overlay');
+const addForm = document.getElementById('AddForm');
+const cancelBtn = document.getElementById('cancel-btn');
+const formTitle = document.getElementById('title');
+const submitBtn = document.getElementById('submit-btn');
+
+// --- Modal Controls ---
+
+function openAddModal() {
+    addForm.reset();
+    document.getElementById('submit_type').value = "ADD";
+    formTitle.innerText = "Add New Aircraft";
+    submitBtn.innerText = "Add Aircraft";
+    overlay.style.display = 'flex';
+}
+
+function editAircraft(data) {
+    document.getElementById('submit_type').value = "UPDATE";
+    document.getElementById('aircraft_id').value = data.AIRCRAFT_ID;
+    
+    // Filling the form with existing data
+    document.getElementById('model').value = data.MODEL;
+    document.getElementById('registration').value = data.REGISTRATION_NUMBER;
+    document.getElementById('service_date').value = data.SERVICE_ENTRY_DATE;
+    document.getElementById('capacity').value = data.CAPACITY;
+    document.getElementById('status').value = data.STATUS;
+
+    formTitle.innerText = "Edit Aircraft Details";
+    submitBtn.innerText = "Update Aircraft";
+    overlay.style.display = 'flex';
+}
+
+function viewAircraft(data, displayDate) {
+    // This can be expanded to show a read-only modal or a popup alert
+    alert(`Aircraft Details:\nModel: ${data.MODEL}\nRegistration: ${data.REGISTRATION_NUMBER}\nService Date: ${displayDate}\nCapacity: ${data.CAPACITY}\nStatus: ${data.STATUS}`);
+}
+
+cancelBtn.onclick = () => {
+    overlay.style.display = 'none';
+};
+
+// Close modal if user clicks outside the form
+window.onclick = (event) => {
+    if (event.target == overlay) {
+        overlay.style.display = 'none';
+    }
+};
+
+// --- Backend Communication ---
+
+/**
+ * Sends form data to backend/aircrafts.php
+ */
+addForm.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(addForm);
+    
+    try {
+        const response = await fetch('backend/aircrafts.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.text();
+
+        if (result.startsWith("Error")) {
+            alert(result);
+        } else {
+            overlay.style.display = 'none';
+            loadTable(); // Function defined in the main aircrafts.php script
+        }
+    } catch (error) {
+        console.error("Submission failed:", error);
+        alert("An error occurred while saving the aircraft.");
+    }
+};
+
+/**
+ * Handles deletion with a confirmation check
+ */
+async function deleteAircraft(id) {
+    if (confirm("Are you sure you want to delete this aircraft? This action cannot be undone.")) {
+        const formData = new FormData();
+        formData.append('type', 'DEL');
+        formData.append('aircraft_id', id);
+
+        try {
+            const response = await fetch('backend/aircrafts.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.text();
+            
+            if (result.startsWith("Error")) {
+                alert(result);
+            } else {
+                loadTable();
+            }
+        } catch (error) {
+            console.error("Deletion failed:", error);
+        }
+    }
+}
