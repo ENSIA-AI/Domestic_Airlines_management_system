@@ -51,7 +51,7 @@ include "./internal/db_config.php";
                 <table>
                     <tr>
                         <th>Time</th>
-                        <th><?=($_GET["type"] == 'Departures' ? "Destination" : "Origin")?></th>
+                        <th><?= ($_GET["type"] == 'Departures' ? "Destination" : "Origin") ?></th>
                         <th>IATA</th>
                         <th>Number</th>
                         <th>Gate</th>
@@ -60,8 +60,14 @@ include "./internal/db_config.php";
                     <?php if ($_GET["type"] == 'Departures'): ?>
 
                         <?php
-                        $sql = "SELECT FLIGHT_NUMBER, DEPARTURE_TIME, AIRPORTS.WILAYA AS ARR_WILAYA, ARR_AIRPORT, DEP_GATE, STATUS FROM FLIGHTS LEFT JOIN AIRPORTS ON FLIGHTS.ARR_AIRPORT = AIRPORTS.IATA_CODE WHERE DEP_AIRPORT = '" . $_GET["airport"] . "' AND (DEPARTURE_TIME >= NOW()) ORDER BY DEPARTURE_TIME LIMIT 30";
-                        $result_flights = $conn->query($sql);
+                        $stmt = $conn->prepare("SELECT FLIGHT_NUMBER, DEPARTURE_TIME, AIRPORTS.WILAYA AS ARR_WILAYA, ARR_AIRPORT, DEP_GATE, STATUS 
+                       FROM FLIGHTS 
+                       LEFT JOIN AIRPORTS ON FLIGHTS.ARR_AIRPORT = AIRPORTS.IATA_CODE 
+                       WHERE DEP_AIRPORT = ? 
+                       AND DEPARTURE_TIME BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 24 HOUR)
+                       ORDER BY DEPARTURE_TIME LIMIT 30");
+                        $stmt->execute([$_GET["airport"]]);
+                        $result_flights = $stmt->get_result();
                         while ($row = $result_flights->fetch_assoc()):
                             ?>
                             <tr>
@@ -77,10 +83,23 @@ include "./internal/db_config.php";
                     <?php else: ?>
 
                         <?php
-                        $sql = "SELECT FLIGHT_NUMBER, ADDTIME(DEPARTURE_TIME, SEC_TO_TIME(DURATION*60)) AS ARRIVAL_TIME, AIRPORTS.WILAYA AS DEP_WILAYA, ARR_AIRPORT, DEP_GATE, STATUS FROM FLIGHTS LEFT JOIN AIRPORTS ON FLIGHTS.DEP_AIRPORT = AIRPORTS.IATA_CODE WHERE ARR_AIRPORT = '" . $_GET["airport"] . "' AND ADDTIME(DEPARTURE_TIME, SEC_TO_TIME(DURATION*60)) >= NOW() ORDER BY ARRIVAL_TIME LIMIT 30;";
-                        $result_flights = $conn->query($sql);
-                        while ($row = $result_flights->fetch_assoc()):
-                            ?>
+                        $sql = "SELECT FLIGHT_NUMBER, 
+                        ADDTIME(DEPARTURE_TIME, SEC_TO_TIME(DURATION*60)) AS ARRIVAL_TIME, 
+                        AIRPORTS.WILAYA AS DEP_WILAYA, 
+                        ARR_AIRPORT, 
+                        DEP_GATE, 
+                        STATUS 
+                        FROM FLIGHTS 
+                        LEFT JOIN AIRPORTS ON FLIGHTS.DEP_AIRPORT = AIRPORTS.IATA_CODE 
+                        WHERE ARR_AIRPORT = ? 
+                        AND ADDTIME(DEPARTURE_TIME, SEC_TO_TIME(DURATION*60)) BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 24 HOUR)
+                        ORDER BY ARRIVAL_TIME LIMIT 30";
+
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("s", $_GET["airport"]);
+                        $stmt->execute();
+                        $result_flights = $stmt->get_result();
+                        while ($row = $result_flights->fetch_assoc()): ?>
                             <tr>
                                 <td><?= (new DateTime($row["ARRIVAL_TIME"]))->format('H:i') ?></td>
                                 <td><?= $row["DEP_WILAYA"] ?></td>
