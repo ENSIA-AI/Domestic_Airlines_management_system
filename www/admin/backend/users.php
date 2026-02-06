@@ -26,12 +26,11 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
         echo '<td>'.$user['EMAIL'].'</td>';
         echo '<td>'.ucfirst(strtolower($user['ROLE'])).'</td>';
         echo '<td>'.($user['STATUS']==1?"Active":"Inactive").'</td>';
-// strtotime converts the DB string to a timestamp, date() formats it to YYYY-MM-DD
         $cleanDate = date("Y-m-d", strtotime($user['DATE']));
         echo '<td>'.$cleanDate.'</td>';
         echo '<td><div class="options">';
         echo '<button type="button" class="option view-btn" data-user-id="'.$user['UID'].'"><i class="fa fa-eye"></i></button>';
-        echo '<button class="option"><i class="fa fa-edit"></i></button>'; // ✅ Edit button placeholder
+        echo '<button class="option"><i class="fa fa-edit"></i></button>';
         echo '<button class="option" onclick="deleteUser(\''.$user['UID'].'\')"><i class="fa fa-trash"></i></button>';
         echo '</div></td></tr>';
     }
@@ -49,42 +48,30 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         $role = $_POST['role'];
         $status = $_POST['status'];
         $password = $_POST['password'];
-        $hash = password_hash($password,PASSWORD_BCRYPT);
-
         if($type==="ADD"){
-            $stmt = $conn->prepare("INSERT INTO USERS(FULL_NAME,USER_NAME,EMAIL,ROLE,STATUS,DATE,PASSWORD) VALUES(?,?,?,?,?,CURRENT_TIMESTAMP(),?)");
-            $stmt->bind_param("ssssis",$fullname,$username,$email,$role,$status,$hash);
-            $stmt->execute();
+             if(!empty($password)){
+                $hash = password_hash($password,PASSWORD_BCRYPT);
+                $stmt = $conn->prepare("INSERT INTO USERS(FULL_NAME,USER_NAME,EMAIL,ROLE,STATUS,DATE,PASSWORD) VALUES(?,?,?,?,?,CURRENT_TIMESTAMP(),?)");
+                $stmt->bind_param("ssssis",$fullname,$username,$email,$role,$status,$hash);
+                $stmt->execute();}
+        if(empty($password)){
+            echo json_encode(["success"=>false,"message"=>"Password is required"]);
+            exit();
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-} else if($type === "EDIT" && $UID) {
-    // Collect all the fields from the form
+    } 
+else if($type === "EDIT" && $UID) {
     $fullname = $_POST['fullname'];
     $username = $_POST['username'];
     $email    = $_POST['email'];
     $role     = $_POST['role'];
     $status   = $_POST['status'];
     $password = $_POST['password'];
-
     if(!empty($password)) {
-        // If admin typed a NEW password, hash it and update EVERYTHING
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=?, PASSWORD=? WHERE UID=?");
-        $stmt->bind_param("ssssisss", $fullname, $username, $email, $role, $status, $date, $hash, $UID);
+        $stmt->bind_param("sssssss", $fullname, $username, $email, $role, $status, $hash, $UID);
     } else {
-        // If password field is EMPTY, update everything EXCEPT the password
         $stmt = $conn->prepare("UPDATE USERS SET FULL_NAME=?, USER_NAME=?, EMAIL=?, ROLE=?, STATUS=? WHERE UID=?");
         $stmt->bind_param("ssssis", $fullname, $username, $email, $role, $status, $UID);
     }
